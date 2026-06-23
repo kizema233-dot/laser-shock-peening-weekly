@@ -1,6 +1,8 @@
 /* ============================================================
    激光冲击论文周报 - 交互逻辑 (SCP风格)
    功能：仪表盘可视化 / 方向筛选 / 来源筛选 / 搜索 / 排序
+         往期归档折叠 / 本周更新与归档分离
+   更新方法：编辑 papers.js 中的 PAPERS 数组后刷新页面即可
    ============================================================ */
 
 (function () {
@@ -363,6 +365,12 @@
     });
     html += '</div>';
     html += '<div class="side-block">';
+    html += '<div class="heading"><p>数据来源</p></div>';
+    html += '<div class="menu-item">Web of Science</div>';
+    html += '<div class="menu-item">Scopus</div>';
+    html += '<div class="menu-item">中国知网核心库</div>';
+    html += '</div>';
+    html += '<div class="side-block">';
     html += '<div class="heading"><p>关于</p></div>';
     html += '<div class="menu-item">关于本站</div>';
     html += '<div class="menu-item">更新方法</div>';
@@ -582,25 +590,30 @@
     return html;
   }
 
-  function renderSectionHeader(d, count) {
-    return '<div class="subcat-label">' +
-      '<span class="subcat-tag" style="border-left:4px solid ' + d.color + ';">' +
-      d.icon + ' ' + escapeHtml(d.name) + '</span>' +
-      '<span class="subcat-count">' + count + ' 篇</span></div>';
+  function renderSectionHeader(d, count, isArchive) {
+    return '<div class="section-header' + (isArchive ? ' archive-header' : '') + '">' +
+      '<div class="ico" style="border-color:' + d.color + '55;background:' + d.color + "22" + ';">' + d.icon + '</div>' +
+      '<h2>' + escapeHtml(d.name) + '</h2>' +
+      '<span class="meta">' + (isArchive ? '往期 ' : 'Top ') + count + ' 篇' + (isArchive ? '（归档）' : ' · 按创新性排序') + '</span>' +
+    '</div>';
   }
 
   function renderPapers() {
     var root = document.getElementById("paperContainer");
     if (!root) return;
     var list = getFilteredPapers();
+
+    // 分为近期更新和往期归档
     var recent = list.filter(isRecentPaper);
     var archived = list.filter(function (p) { return !isRecentPaper(p); });
+
     var html = "";
+
     if (state.activeDir === "all") {
+      // ---- 全部方向视图 ----
+      // 近期更新
       if (recent.length > 0) {
-        html += '<div class="epoch-header">' +
-          '<span class="epoch-badge new">🔥 近期更新</span>' +
-          '<span class="epoch-count">' + recent.length + ' 篇</span></div>';
+        html += '<div class="epoch-header"><span class="epoch-badge new">🔥 本周/近期更新</span><span class="epoch-count">' + recent.length + ' 篇</span></div>';
         DIRECTIONS.forEach(function (d) {
           var sub = recent.filter(function (p) { return p.field === d.id; });
           if (sub.length === 0) return;
@@ -608,31 +621,61 @@
           html += renderSubCategories(sub);
         });
       }
+
+      // 往期归档（折叠）
       if (archived.length > 0) {
-        html += '<div class="epoch-header">' +
-          '<span class="epoch-badge archive">📚 精选归档</span>' +
-          '<span class="epoch-count">' + archived.length + ' 篇</span></div>';
+        html += '<div class="archive-toggle-wrap">';
+        html += '<button class="archive-toggle" id="archiveToggle" onclick="toggleArchive()">';
+        html += '<span id="archiveToggleText">📂 展开往期归档 (' + archived.length + ' 篇) ▼</span>';
+        html += '</button>';
+        html += '</div>';
+        html += '<div id="archiveContent" style="display:none;">';
+        // 归档按方向折叠
         DIRECTIONS.forEach(function (d) {
           var sub = archived.filter(function (p) { return p.field === d.id; });
           if (sub.length === 0) return;
-          html += renderSectionHeader(d, sub.length);
-          html += renderSubCategories(sub);
+          var dirId = "arch-" + d.id;
+          html += '<div class="arch-dir-block">';
+          html += '<button class="arch-dir-toggle" onclick="toggleArchDir(\'' + dirId + '\')">';
+          html += '<span class="arch-dir-icon">' + d.icon + '</span>';
+          html += '<span class="arch-dir-name">' + escapeHtml(d.name) + '</span>';
+          html += '<span class="arch-dir-count">' + sub.length + ' 篇</span>';
+          html += '<span class="arch-dir-arrow" id="arrow-' + dirId + '">▶</span>';
+          html += '</button>';
+          html += '<div id="' + dirId + '" class="arch-dir-content" style="display:none;">';
+          html += '<div class="paper-grid archive-grid">' + sub.map(function (p, i) { return renderCard(p, i); }).join("") + '</div>';
+          html += '</div>';
+          html += '</div>';
         });
+        html += '</div>';
       }
     } else {
+      // ---- 单个方向视图 ----
       var d = dirById(state.activeDir);
-      if (d) {
-        html += '<div class="epoch-header">' +
-          '<span class="subcat-tag" style="border-left:4px solid ' + d.color +
-          ';font-size:14px;">' + d.icon + ' ' + escapeHtml(d.name) +
-          '</span><span class="epoch-count">' + list.length + ' 篇</span></div>';
+      // 近期更新
+      if (recent.length > 0) {
+        html += '<div class="epoch-header"><span class="epoch-badge new">🔥 本周/近期更新</span><span class="epoch-count">' + recent.length + ' 篇</span></div>';
+        if (d) html += renderSectionHeader(d, recent.length);
+        html += renderSubCategories(recent);
       }
-      html += renderSubCategories(list);
+      // 往期归档
+      if (archived.length > 0) {
+        html += '<div class="archive-toggle-wrap">';
+        html += '<button class="archive-toggle" id="archiveToggle" onclick="toggleArchive()">';
+        html += '<span id="archiveToggleText">📂 展开往期归档 (' + archived.length + ' 篇) ▼</span>';
+        html += '</button>';
+        html += '</div>';
+        html += '<div id="archiveContent" style="display:none;">';
+        html += '<div class="paper-grid archive-grid">' + archived.map(function (p, i) { return renderCard(p, i); }).join("") + '</div>';
+        html += '</div>';
+      }
     }
+
     if (list.length === 0) {
       html = '<div style="text-align:center;padding:40px;color:#999;">' +
         '没有找到符合条件的论文</div>';
     }
+
     root.innerHTML = html;
   }
 
@@ -691,5 +734,33 @@ function toggleAbstract(id) {
     toggle.textContent = "展开全部 ▼";
     toggle.setAttribute("data-state", "short");
     if (enEl) enEl.style.display = "none";
+  }
+}
+
+// ===== 全局：展开/收起往期归档 =====
+function toggleArchive() {
+  var content = document.getElementById("archiveContent");
+  var text = document.getElementById("archiveToggleText");
+  if (!content || !text) return;
+  if (content.style.display === "none") {
+    content.style.display = "block";
+    text.textContent = text.textContent.replace("展开", "收起").replace("▼", "▲");
+  } else {
+    content.style.display = "none";
+    text.textContent = text.textContent.replace("收起", "展开").replace("▲", "▼");
+  }
+}
+
+// ===== 全局：展开/收起归档中单个方向 =====
+function toggleArchDir(id) {
+  var content = document.getElementById(id);
+  var arrow = document.getElementById("arrow-" + id);
+  if (!content) return;
+  if (content.style.display === "none") {
+    content.style.display = "block";
+    if (arrow) arrow.textContent = "▼";
+  } else {
+    content.style.display = "none";
+    if (arrow) arrow.textContent = "▶";
   }
 }
