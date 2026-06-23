@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="激光冲击领域论文周报 - 按创新点与方向排序，覆盖SCI、核心期刊、预印本">
+  <title>激光冲击论文周报 · Laser Shock Peening Weekly</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== 顶部Header ===== -->
+<div id="header">
+  <span class="badge">⚡ 每周自动更新 · WEEKLY UPDATE · <span id="weekInfo">--</span></span>
+  <h1><a href="#">激光冲击论文周报</a></h1>
+  <div class="subtitle">Laser Shock Peening Weekly — 汇总激光冲击强化领域最新研究</div>
+  <div class="update-info">
+    覆盖 <b>SCI / EI / 核心 / 预印本</b> 多源文献 ·
+    按 <b>创新点</b> 与 <b>研究方向</b> 自动排序 ·
+    数据来源：arXiv + Crossref ·
+    最后更新：2026-06-22
+  </div>
+</div>
+
+<!-- ===== 顶部导航栏 ===== -->
+<div id="top-bar">
+  <ul>
+    <li><a href="#">首页</a></li>
+    <li>
+      <span>研究方向 ▾</span>
+      <ul>
+        <li><a href="#" onclick="document.getElementById('directionNav').scrollIntoView();return false;">全部方向</a></li>
+        <li><a href="#" data-dir="process">⚙ 激光冲击强化工艺</a></li>
+        <li><a href="#" data-dir="stress">📐 残余应力与变形</a></li>
+        <li><a href="#" data-dir="micro">🔬 微观组织演变</a></li>
+        <li><a href="#" data-dir="fem">💻 有限元与多尺度模拟</a></li>
+        <li><a href="#" data-dir="fatigue">⏱ 疲劳与磨损性能</a></li>
+        <li><a href="#" data-dir="hybrid">🔀 复合/特种激光冲击</a></li>
+        <li><a href="#" data-dir="nano">⚡ 纳米/超快激光冲击</a></li>
+        <li><a href="#" data-dir="surface">🛠 表面改性工程</a></li>
+      </ul>
+    </li>
+    <li>
+      <span>数据来源 ▾</span>
+      <ul>
+        <li><a href="#">arXiv 预印本</a></li>
+        <li><a href="#">Crossref (SCI)</a></li>
+        <li><a href="#">核心期刊</a></li>
+        <li><a href="#">会议论文</a></li>
+      </ul>
+    </li>
+    <li>
+      <span>关于 ▾</span>
+      <ul>
+        <li><a href="#">关于本站</a></li>
+        <li><a href="#">评分方法</a></li>
+        <li><a href="#">更新日志</a></li>
+        <li><a href="#">使用指南</a></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<!-- ===== 主内容区 ===== -->
+<div id="content-wrap">
+
+  <!-- ===== 侧边栏 ===== -->
+  <div id="side-bar">
+    <div id="sideBarNav">
+      <!-- JS 注入 -->
+    </div>
+  </div>
+
+  <!-- ===== 主内容 ===== -->
+  <div id="main-content">
+
+    <!-- 统计栏 -->
+    <div class="stats-bar" id="statsBar">
+      <!-- JS 注入 -->
+    </div>
+
+    <!-- 控制栏 -->
+    <div class="toolbar">
+      <div class="search-box">
+        <span class="icon">🔍</span>
+        <input type="text" id="searchInput"
+          placeholder="搜索标题 / 作者 / 期刊 / 关键词...">
+      </div>
+      <select class="sort-select" id="sortSelect" title="排序方式">
+        <option value="innovation">⭐ 按创新性排序</option>
+        <option value="date">📅 按时间排序</option>
+        <option value="source">🏷 按来源排序</option>
+      </select>
+      <div class="source-filter" id="sourceFilter">
+        <!-- JS 注入 -->
+      </div>
+    </div>
+
+    <!-- 方向导航 -->
+    <nav class="direction-nav" id="directionNav">
+      <!-- JS 注入 -->
+    </nav>
+
+    <!-- 论文列表 -->
+    <main id="mainContent">
+      <div id="paperContainer">
+        <!-- JS 注入 -->
+      </div>
+    </main>
+
+  </div>
+</div>
+
+<!-- ===== 页脚 ===== -->
+<div id="footer">
+  <p>⚡ 激光冲击论文周报 · Laser Shock Peening Weekly</p>
+  <p>数据来源：arXiv + Crossref · 检索日期：2026-06-22</p>
+  <p style="margin-top:6px;">更新方法：运行 <code>python search_papers.py</code> 重新搜索，
+     运行 <code>python weekly_update.py</code> 获取每周新论文（排除前30篇）</p>
+  <p style="margin-top:8px;opacity:0.6;">© 2026 Laser Shock Peening Weekly · 仅供学术交流</p>
+</div>
+
+<script src="papers.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
