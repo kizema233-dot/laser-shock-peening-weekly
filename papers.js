@@ -1,6 +1,6 @@
 /**
  * 激光冲击领域论文数据库
- * 数据来源：Web of Science / Scopus / 中国知网核心库
+ * 数据来源：Web of Science / Scopus / 中国知网核心库 / arXiv / Crossref
  * 检索日期：2026-06-23
  * 覆盖 SCI / 核心 / 预印本 多源文献
  * 每个方向精选 Top 10
