@@ -365,6 +365,122 @@ a:hover { text-decoration: underline; }
 .epoch-badge.archive { background: var(--border); color: var(--text); }
 .epoch-count { font-size: 12px; color: var(--text-muted); }
 
+/* ---------- 方向分区标题 ---------- */
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 28px 0 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-light);
+}
+.section-header .ico {
+    font-size: 24px;
+    width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+}
+.section-header h2 {
+    font-family: var(--font);
+    font-size: 20px;
+    font-weight: normal;
+    color: var(--text);
+}
+.section-header .meta {
+    color: var(--text-muted);
+    font-size: 12px;
+    margin-left: auto;
+}
+
+/* ---------- 归档折叠按钮 ---------- */
+.archive-toggle-wrap {
+    margin: 20px 0 10px;
+    text-align: center;
+}
+.archive-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 20px;
+    border-radius: 2px;
+    border: 1px solid var(--border);
+    background: var(--bg-alt);
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all .2s;
+}
+.archive-toggle:hover {
+    background: var(--accent-bg);
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* ---------- 归档区域样式 ---------- */
+.archive-grid .paper-card {
+    opacity: 0.82;
+    transition: opacity .2s;
+}
+.archive-grid .paper-card:hover {
+    opacity: 1;
+}
+.archive-header {
+    opacity: 0.85;
+}
+
+/* ---------- 归档中按方向折叠 ---------- */
+.arch-dir-block {
+    margin-bottom: 4px;
+    border-radius: 2px;
+    overflow: hidden;
+    border: 1px solid var(--border-light);
+    background: var(--bg-alt);
+}
+.arch-dir-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 14px;
+    border: none;
+    background: var(--bg-alt);
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background .2s;
+    text-align: left;
+}
+.arch-dir-toggle:hover {
+    background: var(--bg-panel);
+    color: var(--text);
+}
+.arch-dir-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+}
+.arch-dir-name {
+    flex: 1;
+}
+.arch-dir-count {
+    font-size: 11px;
+    color: var(--text-light);
+    background: var(--bg);
+    padding: 2px 8px;
+    border-radius: 2px;
+    border: 1px solid var(--border-light);
+}
+.arch-dir-arrow {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+.arch-dir-content {
+    padding: 10px 14px;
+    border-top: 1px solid var(--border-light);
+}
+
 /* ---------- 子分类标签 ---------- */
 .subcat-label {
     display: flex;
