@@ -56,74 +56,117 @@ const DIRECTIONS = [
   }
 ];
 
+const PROCESS_TYPES = [
+  {
+    "id": "conventional",
+    "name": "常规LSP"
+  },
+  {
+    "id": "warm",
+    "name": "温激光冲击"
+  },
+  {
+    "id": "cryogenic",
+    "name": "深冷激光冲击"
+  },
+  {
+    "id": "hybrid_am",
+    "name": "复合/增材制造"
+  },
+  {
+    "id": "coating",
+    "name": "涂层/表面改性"
+  },
+  {
+    "id": "simulation",
+    "name": "数值模拟"
+  },
+  {
+    "id": "nano_lsp",
+    "name": "纳米/超快LSP"
+  },
+  {
+    "id": "general",
+    "name": "通用/其他"
+  }
+];
+
 const DIRECTION_SUMMARIES = {
   "process": {
-    "trend": "激光冲击强化工艺方向收录 11 篇论文",
-    "summary": "该方向涵盖激光冲击强化领域的相关研究，共收录 11 篇论文，平均创新评分 3.8/10。",
+    "trend": "工艺参数优化与约束层创新",
+    "summary": "激光冲击强化工艺研究聚焦于：(1) 约束层和吸收层对冲击波特性的影响机制；(2) 多次冲击对纳米级微观组织的累积效应；(3) 悬浮水滴约束的高温激光冲击新工艺；(4) 脉冲时间结构对残余应力的调控。趋势是向高温、多次、精密控制方向发展。",
     "hotspots": [
-      "激光冲击"
+      "约束层优化",
+      "多次冲击累积效应",
+      "悬浮水滴约束",
+      "脉冲结构调控"
     ]
   },
   "stress": {
-    "trend": "残余应力与变形方向收录 16 篇论文",
-    "summary": "该方向涵盖激光冲击强化领域的相关研究，共收录 16 篇论文，平均创新评分 4.4/10。",
+    "trend": "残余应力预测与变形控制",
+    "summary": "残余应力与变形方向是最活跃的研究领域，涵盖：(1) 激光冲击诱导塑性变形的数值预测；(2) Ti-6Al-4V等合金的变形过程与残余应力分布；(3) 激光冲击胀形的解析模型；(4) 弯曲角散射的预处理控制。趋势是从经验公式向多物理场耦合精确预测发展。",
     "hotspots": [
-      "激光冲击",
-      "铝合金",
-      "钛合金",
-      "相变",
-      "不锈钢"
+      "残余应力预测",
+      "Ti-6Al-4V变形",
+      "胀形成形",
+      "弯曲角控制"
     ]
   },
   "micro": {
-    "trend": "微观组织演变方向收录 3 篇论文",
-    "summary": "该方向涵盖激光冲击强化领域的相关研究，共收录 3 篇论文，平均创新评分 3.3/10。",
+    "trend": "相变与纳米结构调控",
+    "summary": "微观组织演变研究集中在：(1) 激光冲击诱导马氏体纳米晶化与碳化物变形；(2) SS 304钢的相变与纳米孪晶形成；(3) 深冷激光冲击下微观组织演化。趋势是组织调控从微米尺度向纳米尺度深化。",
     "hotspots": [
-      "微观组织",
-      "相变"
+      "马氏体纳米晶化",
+      "纳米孪晶",
+      "深冷激光冲击",
+      "碳化物变形"
     ]
   },
   "fem": {
-    "trend": "有限元与多尺度模拟方向收录 11 篇论文",
-    "summary": "该方向涵盖激光冲击强化领域的相关研究，共收录 11 篇论文，平均创新评分 5.5/10。",
+    "trend": "多尺度模拟与分子动力学",
+    "summary": "有限元与多尺度模拟是核心工具：(1) 三维FEM结合位错密度本构模型模拟纯铝LSP；(2) 分子动力学模拟TiAl界面激光冲击行为；(3) H13钢塑性变形响应的仿真与实验对照；(4) FGH95合金表面残余应力数值模拟。趋势是向原子尺度-宏观跨尺度耦合发展。",
     "hotspots": [
-      "有限元模拟",
-      "激光冲击",
-      "铝合金",
-      "增材制造",
-      "钛合金"
+      "三维FEM建模",
+      "分子动力学",
+      "位错密度本构",
+      "跨尺度模拟"
     ]
   },
   "fatigue": {
-    "trend": "疲劳与磨损性能方向收录 1 篇论文",
-    "summary": "该方向涵盖激光冲击强化领域的相关研究，共收录 1 篇论文，平均创新评分 7.0/10。",
+    "trend": "滚动接触疲劳与磨损抑制",
+    "summary": "疲劳与磨损性能方向关注：(1) 25CrNi2Mo钢的塑性变形与滚动接触疲劳抗力提升；(2) 激光冲击对耐磨性的改善机制。趋势是将残余应力场与微观组织演化统一纳入寿命预测模型。",
     "hotspots": [
-      "疲劳性能"
+      "滚动接触疲劳",
+      "磨损性能提升",
+      "应力-组织耦合"
     ]
   },
   "hybrid": {
-    "trend": "复合/特种激光冲击方向收录 0 篇论文",
-    "summary": "该方向涵盖激光冲击强化领域的相关研究，共收录 0 篇论文，平均创新评分 0.0/10。",
-    "hotspots": []
+    "trend": "增材制造与原位复合冲击",
+    "summary": "复合/特种激光冲击方向新兴活跃：(1) 激光冲击-振动辅助混合选择性激光烧结；(2) 原位激光冲击辅助激光熔覆微观组织调控；(3) CFRP复合材料界面结合强度的动态建模与检测。趋势是多能场耦合与工艺复合化。",
+    "hotspots": [
+      "激光冲击-振动辅助",
+      "原位熔覆冲击",
+      "CFRP界面检测"
+    ]
   },
   "nano": {
-    "trend": "纳米/超快激光冲击方向收录 6 篇论文",
-    "summary": "该方向涵盖激光冲击强化领域的相关研究，共收录 6 篇论文，平均创新评分 7.2/10。",
+    "trend": "2D材料与纳米线冲击变形",
+    "summary": "纳米/超快激光冲击方向前沿活跃：(1) 超快激光冲击在手性链2D材料中实现模具拓扑控制的各向异性变形；(2) 银纳米线结的激光冲击变形对比研究；(3) 声学特征识别激光诱导击穿。趋势是从宏观金属向纳米尺度功能材料延伸。",
     "hotspots": [
-      "分子动力学",
-      "激光冲击",
-      "有限元模拟",
-      "深冷激光冲击",
-      "相变"
+      "2D材料冲击变形",
+      "银纳米线结",
+      "超快激光冲击",
+      "声学特征检测"
     ]
   },
   "surface": {
-    "trend": "表面改性工程方向收录 2 篇论文",
-    "summary": "该方向涵盖激光冲击强化领域的相关研究，共收录 2 篇论文，平均创新评分 3.5/10。",
+    "trend": "腐蚀抗力与生物医用表面改性",
+    "summary": "表面改性工程方向聚焦：(1) 激光冲击波增强Ti6Al4V合金热腐蚀抗力；(2) 生物医用钛合金的激光冲击处理；(3) 摩擦行为与润湿性改善。趋势是面向极端环境和生物医用的高端表面功能化。",
     "hotspots": [
-      "钛合金",
-      "激光冲击",
-      "腐蚀性能"
+      "热腐蚀抗力",
+      "生物医用钛合金",
+      "润湿性调控"
     ]
   }
 };
@@ -140,6 +183,7 @@ const PAPERS = [
     "month": 10,
     "innovationScore": 9,
     "field": "fem",
+    "processType": "simulation",
     "innovationTags": [
       "有限元模拟",
       "残余应力",
@@ -147,8 +191,8 @@ const PAPERS = [
     ],
     "abstract": "Laser shock peening (LSP) is an innovative and promising surface strengthening technique of metallic materials. The LSP-induced plastic deformation, the compressive residual stresses and the microstructure evolution are essentially attributed to the laser plasma-induced shock wave. A three-dimensional finite element model in conjunction with the dislocation density-based constitutive model was developed to simulate the LSP of pure Al correlating with the LSP-induced shock wave, and the predicted",
     "doi": "10.3390/ma15207051",
-    "innovationCn": "",
-    "innovationFormula": "",
+    "innovationCn": "A three-dimensional finite element model in conjunction with the dislocation density-based constitutive model was developed to simulate the LSP of pure Al correlating with the LSP-induced shock wave, and the predicted in-depth residual stresses are i...",
+    "innovationFormula": "有限元模拟 + 激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 14,
     "link": "https://doi.org/10.3390/ma15207051"
@@ -164,13 +208,14 @@ const PAPERS = [
     "month": 12,
     "innovationScore": 8,
     "field": "nano",
+    "processType": "nano_lsp",
     "innovationTags": [
       "激光冲击"
     ],
     "abstract": "Abstract Tellurene, a chiral chain semiconductor with a narrow bandgap and exceptional strain sensitivity, emerges as a pivotal material for tailoring electronic and optoelectronic properties via strain engineering. This study elucidates the fundamental mechanisms of ultrafast laser shock imprinting (LSI) in two-dimensional tellurium (Te), establishing a direct relationship between strain field orientation, mold topology, and anisotropic structural evolution. This is the first demonstration of u",
     "doi": "10.1007/s40820-025-01925-8",
-    "innovationCn": "",
-    "innovationFormula": "",
+    "innovationCn": "This is the first demonstration of ultrafast LSI on chiral chain Te unveiling orientation-sensitive dislocation networks. In contrast, transverse strain drives shear-mediated multimodal deformations—tensile stretching, compression, and bending—result...",
+    "innovationFormula": "超快激光 + 纳米材料 = 变形行为预测",
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.1007/s40820-025-01925-8"
@@ -186,6 +231,7 @@ const PAPERS = [
     "month": 3,
     "innovationScore": 8,
     "field": "nano",
+    "processType": "nano_lsp",
     "innovationTags": [
       "纳米结构",
       "不锈钢"
@@ -193,7 +239,7 @@ const PAPERS = [
     "abstract": "（摘要待补充）",
     "doi": "10.1016/j.ijplas.2021.103191",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 173,
     "link": "https://doi.org/10.1016/j.ijplas.2021.103191"
@@ -209,6 +255,7 @@ const PAPERS = [
     "month": 7,
     "innovationScore": 8,
     "field": "stress",
+    "processType": "general",
     "innovationTags": [
       "残余应力",
       "钛合金"
@@ -216,7 +263,7 @@ const PAPERS = [
     "abstract": "（摘要待补充）",
     "doi": "10.1016/j.optlastec.2024.110643",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 21,
     "link": "https://doi.org/10.1016/j.optlastec.2024.110643"
@@ -232,6 +279,7 @@ const PAPERS = [
     "month": 7,
     "innovationScore": 7,
     "field": "nano",
+    "processType": "cryogenic",
     "innovationTags": [
       "纳米结构",
       "相变",
@@ -241,7 +289,7 @@ const PAPERS = [
     "abstract": "（摘要待补充）",
     "doi": "10.1016/j.jmrt.2022.06.005",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "激光冲击 + 深冷处理 = 微观组织优化",
     "subCategory": "",
     "citationCount": 38,
     "link": "https://doi.org/10.1016/j.jmrt.2022.06.005"
@@ -257,13 +305,14 @@ const PAPERS = [
     "month": 4,
     "innovationScore": 7,
     "field": "fem",
+    "processType": "general",
     "innovationTags": [
       "激光冲击"
     ],
     "abstract": "（摘要待补充）",
     "doi": "10.1016/j.optlastec.2024.112184",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 7,
     "link": "https://doi.org/10.1016/j.optlastec.2024.112184"
@@ -279,13 +328,14 @@ const PAPERS = [
     "month": 1,
     "innovationScore": 7,
     "field": "fatigue",
+    "processType": "general",
     "innovationTags": [
       "疲劳性能"
     ],
     "abstract": "（摘要待补充）",
     "doi": "10.1016/j.optlastec.2025.114234",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "激光冲击 = 疲劳寿命提升",
     "subCategory": "",
     "citationCount": 2,
     "link": "https://doi.org/10.1016/j.optlastec.2025.114234"
@@ -301,6 +351,7 @@ const PAPERS = [
     "month": 12,
     "innovationScore": 7,
     "field": "nano",
+    "processType": "simulation",
     "innovationTags": [
       "分子动力学",
       "有限元模拟"
@@ -308,7 +359,7 @@ const PAPERS = [
     "abstract": "（摘要待补充）",
     "doi": "10.1016/j.vacuum.2025.114737",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "分子动力学 + 有限元模拟 + 激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 1,
     "link": "https://doi.org/10.1016/j.vacuum.2025.114737"
@@ -324,13 +375,14 @@ const PAPERS = [
     "month": 10,
     "innovationScore": 7,
     "field": "nano",
+    "processType": "simulation",
     "innovationTags": [
       "分子动力学"
     ],
     "abstract": "（摘要待补充）",
     "doi": "10.1007/s00339-024-07780-5",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "分子动力学 + 激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 3,
     "link": "https://doi.org/10.1007/s00339-024-07780-5"
@@ -346,6 +398,7 @@ const PAPERS = [
     "month": 1,
     "innovationScore": 6,
     "field": "fem",
+    "processType": "simulation",
     "innovationTags": [
       "有限元模拟",
       "残余应力"
@@ -353,7 +406,7 @@ const PAPERS = [
     "abstract": "（摘要待补充）",
     "doi": "10.1007/978-981-97-0665-5_57",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "有限元模拟 + 激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.1007/978-981-97-0665-5_57"
@@ -369,13 +422,14 @@ const PAPERS = [
     "month": 8,
     "innovationScore": 6,
     "field": "process",
+    "processType": "general",
     "innovationTags": [
       "激光冲击"
     ],
     "abstract": "（摘要待补充）",
     "doi": "10.2961/jlmn.2025.02.2007",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.2961/jlmn.2025.02.2007"
@@ -391,13 +445,14 @@ const PAPERS = [
     "month": 12,
     "innovationScore": 6,
     "field": "stress",
+    "processType": "general",
     "innovationTags": [
       "激光冲击"
     ],
     "abstract": "（摘要待补充）",
     "doi": "10.1134/s1052618825701432",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.1134/s1052618825701432"
@@ -413,13 +468,14 @@ const PAPERS = [
     "month": 11,
     "innovationScore": 6,
     "field": "stress",
+    "processType": "general",
     "innovationTags": [
       "激光冲击"
     ],
     "abstract": "（摘要待补充）",
     "doi": "10.1016/j.optlastec.2025.113172",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 2,
     "link": "https://doi.org/10.1016/j.optlastec.2025.113172"
@@ -435,13 +491,14 @@ const PAPERS = [
     "month": 1,
     "innovationScore": 6,
     "field": "stress",
+    "processType": "coating",
     "innovationTags": [
       "铝合金"
     ],
     "abstract": "（摘要待补充）",
     "doi": "10.1016/j.matchar.2021.111620",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 40,
     "link": "https://doi.org/10.1016/j.matchar.2021.111620"
@@ -457,13 +514,14 @@ const PAPERS = [
     "month": 11,
     "innovationScore": 6,
     "field": "fem",
+    "processType": "simulation",
     "innovationTags": [
       "有限元模拟"
     ],
     "abstract": "（摘要待补充）",
     "doi": "10.1016/j.optlastec.2019.105608",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "有限元模拟 + 激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 31,
     "link": "https://doi.org/10.1016/j.optlastec.2019.105608"
@@ -479,13 +537,14 @@ const PAPERS = [
     "month": 7,
     "innovationScore": 6,
     "field": "nano",
+    "processType": "nano_lsp",
     "innovationTags": [
       "激光冲击"
     ],
     "abstract": "（摘要待补充）",
     "doi": "10.1016/j.optlastec.2026.115005",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "纳米材料 = 变形行为预测",
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.1016/j.optlastec.2026.115005"
@@ -501,13 +560,14 @@ const PAPERS = [
     "month": 2,
     "innovationScore": 5,
     "field": "stress",
+    "processType": "general",
     "innovationTags": [
       "激光冲击"
     ],
     "abstract": "A striking phenomenon is found that local plastic deformations, with an opposite direction to the external force, applied on metallic target surface under a given laser shock condition. Laser shock treatment is carried out on a number of metallic materials, and the surface topographies after laser shock treatment are observed via White Light Interferometer (WLI) measurement. The results show that many surface relief structures with irregular shapes and random distributions appear on target surfa",
     "doi": "10.1002/adem.201600672",
-    "innovationCn": "",
-    "innovationFormula": "",
+    "innovationCn": "The results show that many surface relief structures with irregular shapes and random distributions appear on target surfaces under the action of invisible shock waves.",
+    "innovationFormula": "激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 10,
     "link": "https://doi.org/10.1002/adem.201600672"
@@ -523,13 +583,14 @@ const PAPERS = [
     "month": 11,
     "innovationScore": 5,
     "field": "stress",
+    "processType": "general",
     "innovationTags": [
       "残余应力"
     ],
     "abstract": "（摘要待补充）",
     "doi": "10.1109/aisomt64170.2024.10992045",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.1109/aisomt64170.2024.10992045"
@@ -545,13 +606,14 @@ const PAPERS = [
     "month": 2,
     "innovationScore": 5,
     "field": "fem",
+    "processType": "simulation",
     "innovationTags": [
       "有限元模拟"
     ],
     "abstract": "（摘要待补充）",
     "doi": "10.1016/j.matlet.2025.139638",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "有限元模拟 = 变形行为预测",
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.1016/j.matlet.2025.139638"
@@ -567,13 +629,14 @@ const PAPERS = [
     "month": 1,
     "innovationScore": 5,
     "field": "fem",
+    "processType": "conventional",
     "innovationTags": [
       "约束层"
     ],
     "abstract": "Abstract Laser shock forming (LSF) is a novel plastic forming process which utilizes a laser-induced shock wave to deform sheet metals to 3D configurations. Quantitative evaluation of the deformation in LSF is of great importance to understand the forming mechanism and achieve the high precision. In this paper, considering parameters of material, geometry and processing, an analytical model was proposed to predict the deformation of plate in laser shock bulging. Models showed that the deformatio",
     "doi": "10.21203/rs.3.rs-3944115/v1",
-    "innovationCn": "",
-    "innovationFormula": "",
+    "innovationCn": "Abstract Laser shock forming (LSF) is a novel plastic forming process which utilizes a laser-induced shock wave to deform sheet metals to 3D configurations. In this paper, considering parameters of material, geometry and processing, an analytical mod...",
+    "innovationFormula": "激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.21203/rs.3.rs-3944115/v1"
@@ -589,6 +652,7 @@ const PAPERS = [
     "month": 1,
     "innovationScore": 5,
     "field": "surface",
+    "processType": "general",
     "innovationTags": [
       "腐蚀性能",
       "钛合金"
@@ -596,7 +660,7 @@ const PAPERS = [
     "abstract": "（摘要待补充）",
     "doi": "10.1007/978-981-97-8351-9_8",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "激光冲击 = 耐腐蚀性提升",
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.1007/978-981-97-8351-9_8"
@@ -612,6 +676,7 @@ const PAPERS = [
     "month": 6,
     "innovationScore": 5,
     "field": "stress",
+    "processType": "general",
     "innovationTags": [
       "相变",
       "不锈钢"
@@ -619,7 +684,7 @@ const PAPERS = [
     "abstract": "（摘要待补充）",
     "doi": "10.1016/j.ijmecsci.2016.03.022",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 34,
     "link": "https://doi.org/10.1016/j.ijmecsci.2016.03.022"
@@ -635,6 +700,7 @@ const PAPERS = [
     "month": 10,
     "innovationScore": 5,
     "field": "fem",
+    "processType": "simulation",
     "innovationTags": [
       "残余应力",
       "铝合金"
@@ -642,7 +708,7 @@ const PAPERS = [
     "abstract": "（摘要待补充）",
     "doi": "10.1016/j.ijleo.2021.167446",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "有限元模拟 + 激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 34,
     "link": "https://doi.org/10.1016/j.ijleo.2021.167446"
@@ -658,6 +724,7 @@ const PAPERS = [
     "month": 1,
     "innovationScore": 5,
     "field": "fem",
+    "processType": "hybrid_am",
     "innovationTags": [
       "有限元模拟",
       "增材制造",
@@ -665,8 +732,8 @@ const PAPERS = [
     ],
     "abstract": "The collapse of the keyhole and subsequent gas entrapment remain critical bottlenecks in achieving defect-free and reliable laser powder bed fusion (LPBF). This paper studies a novel defect-suppression strategy utilizing a synchronous coaxial pulsed laser to stabilize the keyhole and evaluates the robustness of the strategy. Micro-CT porosity analysis reveals that the pulsed shock reduces porosity in 3D printed stainless steel samples by 85.03%. Simulation results demonstrate that the high-frequ",
     "doi": "10.2139/ssrn.6293594",
-    "innovationCn": "",
-    "innovationFormula": "",
+    "innovationCn": "This paper studies a novel defect-suppression strategy utilizing a synchronous coaxial pulsed laser to stabilize the keyhole and evaluates the robustness of the strategy. Micro-CT porosity analysis reveals that the pulsed shock reduces porosity in 3D...",
+    "innovationFormula": "有限元模拟 + 增材制造 = 性能提升",
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.2139/ssrn.6293594"
@@ -682,13 +749,14 @@ const PAPERS = [
     "month": 1,
     "innovationScore": 5,
     "field": "fem",
+    "processType": "general",
     "innovationTags": [
       "激光冲击"
     ],
     "abstract": "Laser shock peening is a surface enhancement technique for metallic materials. However, it can induce large deformation or even spallation in thin-walled structures under high-energy impacts. This study develops a large deformation phase field model to investigate this phenomenon. The model incorporates the Mie--Gruneisen equation of state and a hypoelasto-plastic constitutive relation, implemented via a fully explicit integration scheme with adaptive time stepping. The model is verified by ener",
     "doi": "10.2139/ssrn.6429812",
-    "innovationCn": "",
-    "innovationFormula": "",
+    "innovationCn": "Laser shock peening is a surface enhancement technique for metallic materials. This study develops a large deformation phase field model to investigate this phenomenon.",
+    "innovationFormula": "激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.2139/ssrn.6429812"
@@ -704,6 +772,7 @@ const PAPERS = [
     "month": 10,
     "innovationScore": 4,
     "field": "stress",
+    "processType": "general",
     "innovationTags": [
       "腐蚀性能",
       "铝合金"
@@ -711,7 +780,7 @@ const PAPERS = [
     "abstract": "（摘要待补充）",
     "doi": "10.1016/j.ijleo.2020.165045",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "激光冲击 = 耐腐蚀性提升",
     "subCategory": "",
     "citationCount": 25,
     "link": "https://doi.org/10.1016/j.ijleo.2020.165045"
@@ -727,13 +796,14 @@ const PAPERS = [
     "month": 3,
     "innovationScore": 4,
     "field": "stress",
+    "processType": "general",
     "innovationTags": [
       "残余应力"
     ],
     "abstract": "（摘要待补充）",
     "doi": "10.1088/1757-899x/493/1/012001",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 4,
     "link": "https://doi.org/10.1088/1757-899x/493/1/012001"
@@ -749,13 +819,14 @@ const PAPERS = [
     "month": 10,
     "innovationScore": 4,
     "field": "micro",
+    "processType": "general",
     "innovationTags": [
       "微观组织"
     ],
     "abstract": "（摘要待补充）",
     "doi": "10.1016/j.epsl.2022.117727",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "激光冲击 = 微观组织优化",
     "subCategory": "",
     "citationCount": 3,
     "link": "https://doi.org/10.1016/j.epsl.2022.117727"
@@ -771,13 +842,14 @@ const PAPERS = [
     "month": 1,
     "innovationScore": 4,
     "field": "process",
+    "processType": "general",
     "innovationTags": [
       "激光冲击"
     ],
     "abstract": "（摘要待补充）",
     "doi": "10.1007/978-981-99-1117-2_1",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 2,
     "link": "https://doi.org/10.1007/978-981-99-1117-2_1"
@@ -793,13 +865,14 @@ const PAPERS = [
     "month": 1,
     "innovationScore": 4,
     "field": "fem",
+    "processType": "simulation",
     "innovationTags": [
       "激光冲击"
     ],
     "abstract": "（摘要待补充）",
     "doi": "10.1007/978-981-99-1117-2_4",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "有限元模拟 + 激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 1,
     "link": "https://doi.org/10.1007/978-981-99-1117-2_4"
@@ -815,13 +888,14 @@ const PAPERS = [
     "month": 1,
     "innovationScore": 4,
     "field": "process",
+    "processType": "general",
     "innovationTags": [
       "激光冲击"
     ],
     "abstract": "（摘要待补充）",
     "doi": "10.21495/51-2-253",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.21495/51-2-253"
@@ -837,13 +911,14 @@ const PAPERS = [
     "month": 9,
     "innovationScore": 4,
     "field": "stress",
+    "processType": "general",
     "innovationTags": [
       "不锈钢"
     ],
     "abstract": "（摘要待补充）",
     "doi": "10.1016/j.optlastec.2022.108201",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 6,
     "link": "https://doi.org/10.1016/j.optlastec.2022.108201"
@@ -859,13 +934,14 @@ const PAPERS = [
     "month": 1,
     "innovationScore": 4,
     "field": "stress",
+    "processType": "general",
     "innovationTags": [
       "激光冲击"
     ],
     "abstract": "（摘要待补充）",
     "doi": "10.1016/j.optlastec.2019.105785",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 27,
     "link": "https://doi.org/10.1016/j.optlastec.2019.105785"
@@ -881,13 +957,14 @@ const PAPERS = [
     "month": 12,
     "innovationScore": 4,
     "field": "micro",
+    "processType": "general",
     "innovationTags": [
       "微观组织"
     ],
     "abstract": "（摘要待补充）",
     "doi": "10.1080/14786435.2023.2246019",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "激光冲击 = 微观组织优化",
     "subCategory": "",
     "citationCount": 3,
     "link": "https://doi.org/10.1080/14786435.2023.2246019"
@@ -903,13 +980,14 @@ const PAPERS = [
     "month": 1,
     "innovationScore": 4,
     "field": "process",
+    "processType": "general",
     "innovationTags": [
       "激光冲击"
     ],
     "abstract": "（摘要待补充）",
     "doi": "10.1007/978-981-99-1117-2_7",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.1007/978-981-99-1117-2_7"
@@ -925,13 +1003,14 @@ const PAPERS = [
     "month": 1,
     "innovationScore": 4,
     "field": "process",
+    "processType": "general",
     "innovationTags": [
       "激光冲击"
     ],
     "abstract": "（摘要待补充）",
     "doi": "10.1007/978-981-99-1117-2_3",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.1007/978-981-99-1117-2_3"
@@ -947,13 +1026,14 @@ const PAPERS = [
     "month": 1,
     "innovationScore": 4,
     "field": "process",
+    "processType": "general",
     "innovationTags": [
       "激光冲击"
     ],
     "abstract": "（摘要待补充）",
     "doi": "10.1007/978-981-99-1117-2_8",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.1007/978-981-99-1117-2_8"
@@ -969,13 +1049,14 @@ const PAPERS = [
     "month": 1,
     "innovationScore": 4,
     "field": "process",
+    "processType": "general",
     "innovationTags": [
       "激光冲击"
     ],
     "abstract": "（摘要待补充）",
     "doi": "10.1007/978-981-99-1117-2_6",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.1007/978-981-99-1117-2_6"
@@ -991,13 +1072,14 @@ const PAPERS = [
     "month": 1,
     "innovationScore": 4,
     "field": "process",
+    "processType": "general",
     "innovationTags": [
       "激光冲击"
     ],
     "abstract": "（摘要待补充）",
     "doi": "10.1007/978-981-99-1117-2_5",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.1007/978-981-99-1117-2_5"
@@ -1013,6 +1095,7 @@ const PAPERS = [
     "month": 3,
     "innovationScore": 4,
     "field": "fem",
+    "processType": "simulation",
     "innovationTags": [
       "有限元模拟",
       "钛合金"
@@ -1020,7 +1103,7 @@ const PAPERS = [
     "abstract": "（摘要待补充）",
     "doi": "10.1016/j.ijleo.2020.164280",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "有限元模拟 + 激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 12,
     "link": "https://doi.org/10.1016/j.ijleo.2020.164280"
@@ -1036,13 +1119,14 @@ const PAPERS = [
     "month": 12,
     "innovationScore": 3,
     "field": "stress",
+    "processType": "general",
     "innovationTags": [
       "激光冲击"
     ],
     "abstract": "（摘要待补充）",
     "doi": "10.1016/j.optlastec.2016.07.009",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 14,
     "link": "https://doi.org/10.1016/j.optlastec.2016.07.009"
@@ -1058,13 +1142,14 @@ const PAPERS = [
     "month": 12,
     "innovationScore": 3,
     "field": "process",
+    "processType": "general",
     "innovationTags": [
       "激光冲击"
     ],
     "abstract": "（摘要待补充）",
     "doi": "10.1134/s0021364020230095",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 12,
     "link": "https://doi.org/10.1134/s0021364020230095"
@@ -1080,13 +1165,14 @@ const PAPERS = [
     "month": 7,
     "innovationScore": 3,
     "field": "stress",
+    "processType": "general",
     "innovationTags": [
       "激光冲击"
     ],
     "abstract": "（摘要待补充）",
     "doi": "10.1016/j.optlastec.2020.106205",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 14,
     "link": "https://doi.org/10.1016/j.optlastec.2020.106205"
@@ -1102,13 +1188,14 @@ const PAPERS = [
     "month": 6,
     "innovationScore": 3,
     "field": "stress",
+    "processType": "general",
     "innovationTags": [
       "铝合金"
     ],
     "abstract": "（摘要待补充）",
     "doi": "10.1016/j.optlastec.2020.106074",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 4,
     "link": "https://doi.org/10.1016/j.optlastec.2020.106074"
@@ -1124,13 +1211,14 @@ const PAPERS = [
     "month": 1,
     "innovationScore": 3,
     "field": "process",
+    "processType": "general",
     "innovationTags": [
       "激光冲击"
     ],
     "abstract": "（摘要待补充）",
     "doi": "10.1007/978-981-99-1117-2_2",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.1007/978-981-99-1117-2_2"
@@ -1146,13 +1234,14 @@ const PAPERS = [
     "month": 1,
     "innovationScore": 2,
     "field": "process",
+    "processType": "general",
     "innovationTags": [
       "激光冲击"
     ],
     "abstract": "（摘要待补充）",
     "doi": "10.1063/1.4940537",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 15,
     "link": "https://doi.org/10.1063/1.4940537"
@@ -1168,13 +1257,14 @@ const PAPERS = [
     "month": 3,
     "innovationScore": 2,
     "field": "stress",
+    "processType": "general",
     "innovationTags": [
       "铝合金"
     ],
     "abstract": "Simulated and experimental laser treatment of aluminum foils produces practical, comprehensive material characterization.",
     "doi": "10.1063/10.0009746",
-    "innovationCn": "",
-    "innovationFormula": "",
+    "innovationCn": "Simulated and experimental laser treatment of aluminum foils produces practical, comprehensive material characterization.",
+    "innovationFormula": "激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.1063/10.0009746"
@@ -1190,13 +1280,14 @@ const PAPERS = [
     "month": 1,
     "innovationScore": 2,
     "field": "surface",
+    "processType": "general",
     "innovationTags": [
       "激光冲击"
     ],
     "abstract": "（摘要待补充）",
     "doi": "10.1063/1.5031630",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 2,
     "link": "https://doi.org/10.1063/1.5031630"
@@ -1212,13 +1303,14 @@ const PAPERS = [
     "month": 1,
     "innovationScore": 2,
     "field": "stress",
+    "processType": "coating",
     "innovationTags": [
       "激光冲击"
     ],
     "abstract": "（摘要待补充）",
     "doi": "10.2139/ssrn.4424906",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.2139/ssrn.4424906"
@@ -1234,13 +1326,14 @@ const PAPERS = [
     "month": 1,
     "innovationScore": 2,
     "field": "micro",
+    "processType": "coating",
     "innovationTags": [
       "相变"
     ],
     "abstract": "（摘要待补充）",
     "doi": "10.2139/ssrn.5163378",
     "innovationCn": "",
-    "innovationFormula": "",
+    "innovationFormula": "激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.2139/ssrn.5163378"

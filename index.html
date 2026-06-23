@@ -80,6 +80,42 @@
       <!-- JS 注入 -->
     </div>
 
+    <!-- ===== 数据可视化仪表盘 ===== -->
+    <section class="dashboard">
+      <div class="dash-title">
+        <h2>📊 数据可视化</h2>
+        <span class="dash-sub" id="dashSub"></span>
+      </div>
+      <div class="dash-grid">
+        <div class="dash-card">
+          <h3>📁 各方向论文数</h3>
+          <div id="chartDirection"></div>
+        </div>
+        <div class="dash-card">
+          <h3>🏷️ 来源类型分布</h3>
+          <div id="chartSource"></div>
+        </div>
+        <div class="dash-card">
+          <h3>📅 年份趋势</h3>
+          <div id="chartYear"></div>
+        </div>
+        <div class="dash-card">
+          <h3>⭐ 平均创新分</h3>
+          <div id="chartInnovation"></div>
+        </div>
+      </div>
+      <!-- 交叉热力图 -->
+      <div class="dash-card dash-wide">
+        <h3>🔀 研究方向 × 工艺类型 交叉分布</h3>
+        <div id="chartMatrix"></div>
+      </div>
+      <!-- 各方向研究趋势与总结 -->
+      <div class="dash-card dash-wide">
+        <h3>📋 各方向研究趋势与总结</h3>
+        <div id="trendSummaries"></div>
+      </div>
+    </section>
+
     <!-- 控制栏 -->
     <div class="toolbar">
       <div class="search-box">
