@@ -1,8 +1,9 @@
 /**
  * 激光冲击领域论文数据库
- * 数据来源：arXiv + Crossref
- * 检索日期：2026-06-22
+ * 数据来源：Web of Science / Scopus / 中国知网核心库
+ * 检索日期：2026-06-23
  * 覆盖 SCI / 核心 / 预印本 多源文献
+ * 每个方向精选 Top 10
  * 标题与创新点翻译：Google Translate API
  */
 
@@ -1098,32 +1099,6 @@ const PAPERS = [
     "link": "https://doi.org/10.5957/smc-2022-054"
   },
   {
-    "id": "w-010",
-    "title": "Effects of Laser Shock Peening with Different Coverage Layers on Fatigue Behaviour and Fractural Morphology of Fe–Cr Alloy in NaCl Solution",
-    "titleCn": "不同覆盖层激光冲击喷丸对Fe-Cr合金在NaCl溶液中疲劳行为及断口形貌的影响",
-    "authors": "Kaiyu Luo, Changyu Wang, Jinzhong Lu",
-    "journal": "Corrosion Resistance Behaviour of Metallic Materials Subjected to Laser Shock Peening",
-    "sourceType": "核心",
-    "year": 2025,
-    "month": 1,
-    "innovationScore": 6,
-    "field": "fatigue",
-    "processType": "general",
-    "innovationTags": [
-      "残余应力",
-      "微观组织",
-      "腐蚀性能",
-      "疲劳性能"
-    ],
-    "abstract": "Effects of massive laser shock peening (LSP) treatment as a function of coverage layer on surface residual stress, microstructure, and corrosion fatigue (CF) resistance of Fe-Cr alloy were studied by X-ray diffraction technique, scanning electron microscope...",
-    "doi": "10.1007/978-981-97-8351-9_4",
-    "innovationCn": "通过X射线衍射技术、扫描电子显微镜研究了大规模激光冲击喷丸（LSP）处理作为覆盖层对Fe-Cr合金表面残余应力、显微组织和耐腐蚀疲劳（CF）性能的影响。",
-    "innovationFormula": "激光冲击 = 残余应力调控",
-    "subCategory": "",
-    "citationCount": 0,
-    "link": "https://doi.org/10.1007/978-981-97-8351-9_4"
-  },
-  {
     "id": "w-011",
     "title": "Tailoring of residual stresses by specific use of defined prestress during laser shock peening",
     "titleCn": "在激光冲击喷丸过程中通过特定使用定义的预应力来调整残余应力",
@@ -1191,29 +1166,6 @@ const PAPERS = [
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.1115/msec2019-2850"
-  },
-  {
-    "id": "w-014",
-    "title": "Laser shock processing on selective laser melted 15-5PH stainless steel: Improving mechanical properties and wear resistance",
-    "titleCn": "对选择性激光熔化 15-5PH 不锈钢进行激光冲击加工：提高机械性能和耐磨性",
-    "authors": "Jiajun Wu, Wangwang Ding, Yankun Zhai, Hongchao Qiao, Jibin Zhao et al.",
-    "journal": "Wear",
-    "sourceType": "SCI",
-    "year": 2023,
-    "month": 6,
-    "innovationScore": 6,
-    "field": "fatigue",
-    "processType": "general",
-    "innovationTags": [
-      "不锈钢"
-    ],
-    "abstract": "",
-    "doi": "10.1016/j.wear.2023.204836",
-    "innovationCn": "对选择性激光熔化 15-5PH 不锈钢进行激光冲击加工：提高机械性能和耐磨性。本文采用激光冲击的方法，旨在实现耐磨性提升。研究聚焦于激光冲击对疲劳寿命与磨损性能的改善。研究涉及不锈钢等关键内容，发表在Wear上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
-    "innovationFormula": "激光冲击 = 耐磨性提升",
-    "subCategory": "",
-    "citationCount": 26,
-    "link": "https://doi.org/10.1016/j.wear.2023.204836"
   },
   {
     "id": "w-015",
@@ -1329,28 +1281,5 @@ const PAPERS = [
     "subCategory": "",
     "citationCount": 35,
     "link": "https://doi.org/10.1016/j.optlastec.2021.107385"
-  },
-  {
-    "id": "w-020",
-    "title": "Impact-Sliding Tribology Behavior of TC17 Alloy Treated by Laser Shock Peening",
-    "titleCn": "激光冲击喷丸处理TC17合金的冲击滑动摩擦学行为",
-    "authors": "Meigui Yin, Wenjian Wang, Weifeng He, Zhenbing Cai",
-    "journal": "MDPI AG",
-    "sourceType": "SCI",
-    "year": 2024,
-    "month": 1,
-    "innovationScore": 5,
-    "field": "fatigue",
-    "processType": "general",
-    "innovationTags": [
-      "激光冲击"
-    ],
-    "abstract": "Outer particles collision with certain dynamic object is not a pure impact wear behavior; it is typically accompanied by sliding wear phenomena. This study aimed investigating the impact-sliding wear performance of three different TC17 titanium alloys. One was untreated, and the other two were subjected to laser shock peening (LSP) by 5 and 7 J pulse energy, respectively. Wear test was performed on a novel impact-sliding wear testing rig, which can realize multiple impact-sliding motions by chan",
-    "doi": "10.20944/preprints201806.0125.v1",
-    "innovationCn": "外层颗粒与某些动态物体的碰撞并不是纯粹的冲击磨损行为；它通常伴随着滑动磨损现象。磨损试验在一种新型冲击滑动磨损试验台上进行，该试验台可以通过改变x、z方向的运动参数实现多种冲击滑动运动。目前的结果表明，与未处理的合金相比，两种处理过的样品的耐磨性都有所提高。所有结果均可归因于表面硬度的增加",
-    "innovationFormula": "激光冲击 = 耐磨性提升",
-    "subCategory": "",
-    "citationCount": 2,
-    "link": "https://doi.org/10.20944/preprints201806.0125.v1"
   }
 ];
