@@ -487,7 +487,7 @@
   function renderAbstractBox(p) {
     var cn = p.innovationCn || p.abstract || "";
     var en = p.abstract || "";
-    var hasEn = en && en !== "（摘要待补充）" && en.length > 20;
+    var hasEn = en && en.length > 20;
     var isLong = cn.length > 80;
     var id = (p.id || "p").replace(/[^a-zA-Z0-9]/g, "");
     var html = '<div class="abstract-box" id="abs-' + id + '">';
@@ -535,6 +535,7 @@
       '</div>' +
       '<h3><a href="' + escapeHtml(doiUrl) + '" target="_blank" rel="noopener">' +
         escapeHtml(p.title) + '</a></h3>' +
+      (p.titleCn ? '<div class="title-cn">' + escapeHtml(p.titleCn) + '</div>' : '') +
       '<div class="authors">👤 ' + escapeHtml(p.authors) + '</div>' +
       '<div class="journal-line">📖 ' + escapeHtml(p.journal) +
         ' <span class="year">' + p.year + '年' + MONTHS[p.month] + '</span></div>' +

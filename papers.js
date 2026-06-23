@@ -175,7 +175,7 @@ const PAPERS = [
   {
     "id": "p-001",
     "title": "Numerical Study on Laser Shock Peening of Pure Al Correlating with Laser Shock Wave",
-    "titleCn": "",
+    "titleCn": "数值研究 on 激光冲击强化 of 纯铝 Correlating with 激光冲击 波",
     "authors": "Mingxiao Wang, Cheng Wang, Xinrong Tao, Yuhao Zhou",
     "journal": "Materials",
     "sourceType": "SCI",
@@ -191,7 +191,7 @@ const PAPERS = [
     ],
     "abstract": "Laser shock peening (LSP) is an innovative and promising surface strengthening technique of metallic materials. The LSP-induced plastic deformation, the compressive residual stresses and the microstructure evolution are essentially attributed to the laser plasma-induced shock wave. A three-dimensional finite element model in conjunction with the dislocation density-based constitutive model was developed to simulate the LSP of pure Al correlating with the LSP-induced shock wave, and the predicted",
     "doi": "10.3390/ma15207051",
-    "innovationCn": "A three-dimensional finite element model in conjunction with the dislocation density-based constitutive model was developed to simulate the LSP of pure Al correlating with the LSP-induced shock wave, and the predicted in-depth residual stresses are i...",
+    "innovationCn": "A three-dimensional 有限元 model in conjunction with the 位错密度-based constitutive model was developed to simulate the LSP of pure Al correlating with the LSP-induced 冲击波, and the predicted in-depth 残余应力es are in reasonable agreement with the experiment results...",
     "innovationFormula": "有限元模拟 + 激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 14,
@@ -200,7 +200,7 @@ const PAPERS = [
   {
     "id": "p-002",
     "title": "Ultrafast Laser Shock Straining in Chiral Chain 2D Materials: Mold Topology-Controlled Anisotropic Deformation",
-    "titleCn": "",
+    "titleCn": "超快 激光冲击 应变ing in 手性 链 2D 材料s: 模具 拓扑-Controlled 各向异性 变形",
     "authors": "Xingtao Liu, Danilo de Camargo Branco, Licong An, Mingyi Wang, Haoqing Jiang et al.",
     "journal": "Nano-Micro Letters",
     "sourceType": "SCI",
@@ -214,7 +214,7 @@ const PAPERS = [
     ],
     "abstract": "Abstract Tellurene, a chiral chain semiconductor with a narrow bandgap and exceptional strain sensitivity, emerges as a pivotal material for tailoring electronic and optoelectronic properties via strain engineering. This study elucidates the fundamental mechanisms of ultrafast laser shock imprinting (LSI) in two-dimensional tellurium (Te), establishing a direct relationship between strain field orientation, mold topology, and anisotropic structural evolution. This is the first demonstration of u",
     "doi": "10.1007/s40820-025-01925-8",
-    "innovationCn": "This is the first demonstration of ultrafast LSI on chiral chain Te unveiling orientation-sensitive dislocation networks. In contrast, transverse strain drives shear-mediated multimodal deformations—tensile stretching, compression, and bending—result...",
+    "innovationCn": "This study elucidates the fundamental mechanisms of 超快 laser shock imprinting (LSI) in two-dimensional tellurium (Te), establishing a direct relationship between strain field orientation, mold topology, and anisotropic structural evolution. This is the first demonstration of 超快 LSI on ...",
     "innovationFormula": "超快激光 + 纳米材料 = 变形行为预测",
     "subCategory": "",
     "citationCount": 0,
@@ -223,7 +223,7 @@ const PAPERS = [
   {
     "id": "p-003",
     "title": "Carbide-facilitated nanocrystallization of martensitic laths and carbide deformation in AISI 420 stainless steel during laser shock peening",
-    "titleCn": "",
+    "titleCn": "碳化物-facilitated 纳米晶化 of 马氏体 板条s and 碳化物 变形 in AISI 420 不锈钢 during 激光冲击强化",
     "authors": "Changyu Wang, Kaiyu Luo, Jian Wang, Jinzhong Lu",
     "journal": "International Journal of Plasticity",
     "sourceType": "SCI",
@@ -236,9 +236,9 @@ const PAPERS = [
       "纳米结构",
       "不锈钢"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1016/j.ijplas.2021.103191",
-    "innovationCn": "",
+    "innovationCn": "碳化物-facilitated 纳米晶化 of 马氏体 板条s and 碳化物 变形 in AISI 420 不锈钢 during 激光冲击强化。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 173,
@@ -247,7 +247,7 @@ const PAPERS = [
   {
     "id": "p-004",
     "title": "Investigation on the deformation progress and residual stress of Ti-6Al-4V alloy during laser shock peening",
-    "titleCn": "",
+    "titleCn": "研究 on the 变形 进展 and 残余应力 of Ti-6Al-4V钛合金 合金 during 激光冲击强化",
     "authors": "Zhenhua Zhang, Xuesong Fu, Ziwen Cao, Wenlong Zhou",
     "journal": "Optics &amp; Laser Technology",
     "sourceType": "SCI",
@@ -260,9 +260,9 @@ const PAPERS = [
       "残余应力",
       "钛合金"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1016/j.optlastec.2024.110643",
-    "innovationCn": "",
+    "innovationCn": "研究 on the 变形 进展 and 残余应力 of Ti-6Al-4V钛合金 合金 during 激光冲击强化。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 21,
@@ -271,7 +271,7 @@ const PAPERS = [
   {
     "id": "p-005",
     "title": "Deformation-induced phase transition and nanotwins in SS 304 steel during cryogenic laser shock peening without coating",
-    "titleCn": "",
+    "titleCn": "变形-诱导 相变 and 纳米孪晶 in 304不锈钢 钢 during 深冷 激光冲击强化 without 涂层",
     "authors": "M.V. Nataraj, S. Swaroop",
     "journal": "Journal of Materials Research and Technology",
     "sourceType": "SCI",
@@ -286,9 +286,9 @@ const PAPERS = [
       "不锈钢",
       "深冷激光冲击"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1016/j.jmrt.2022.06.005",
-    "innovationCn": "",
+    "innovationCn": "变形-诱导 相变 and 纳米孪晶 in 304不锈钢 钢 during 深冷 激光冲击强化 without 涂层。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "激光冲击 + 深冷处理 = 微观组织优化",
     "subCategory": "",
     "citationCount": 38,
@@ -297,7 +297,7 @@ const PAPERS = [
   {
     "id": "p-006",
     "title": "Dynamic modeling of the interfacial bonding strength of CFRP composites detected by laser shockwave",
-    "titleCn": "",
+    "titleCn": "动态 建模 of the 界面 结合 强度 of 碳纤维增强复合材料 复合s detected by 激光冲击波",
     "authors": "Hebin Wu, Mengyu Cao, Fuxaing Liu, Zhang Chong, Yongkang Zhang",
     "journal": "Optics &amp; Laser Technology",
     "sourceType": "SCI",
@@ -309,9 +309,9 @@ const PAPERS = [
     "innovationTags": [
       "激光冲击"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1016/j.optlastec.2024.112184",
-    "innovationCn": "",
+    "innovationCn": "动态 建模 of the 界面 结合 强度 of 碳纤维增强复合材料 复合s detected by 激光冲击波。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 7,
@@ -320,7 +320,7 @@ const PAPERS = [
   {
     "id": "p-007",
     "title": "Influence of plastic deformation and rolling contact fatigue resistance on 25CrNi2MoV steel under laser shock peening",
-    "titleCn": "",
+    "titleCn": "Influence of 塑性 变形 and 轧制 接触 疲劳 抗力 on 25CrNi2Mo钢V 钢 under 激光冲击强化",
     "authors": "Yi Hou, Xiaoqiang Dou, Weihua Song, Pengfei Sun, Xiaoqiang Li et al.",
     "journal": "Optics &amp; Laser Technology",
     "sourceType": "SCI",
@@ -332,9 +332,9 @@ const PAPERS = [
     "innovationTags": [
       "疲劳性能"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1016/j.optlastec.2025.114234",
-    "innovationCn": "",
+    "innovationCn": "Influence of 塑性 变形 and 轧制 接触 疲劳 抗力 on 25CrNi2Mo钢V 钢 under 激光冲击强化。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "激光冲击 = 疲劳寿命提升",
     "subCategory": "",
     "citationCount": 2,
@@ -343,7 +343,7 @@ const PAPERS = [
   {
     "id": "p-008",
     "title": "Molecular dynamics simulation study on microscopic plastic deformation behavior of FCC AlCuMg alloy under laser shock peening",
-    "titleCn": "",
+    "titleCn": "Molecular 动态s 模拟 研究 on microscopic 塑性 变形 行为 of FCC AlCuMg 合金 under 激光冲击强化",
     "authors": "H.T. Yang, W.N. Lu, J. Li",
     "journal": "Vacuum",
     "sourceType": "SCI",
@@ -356,9 +356,9 @@ const PAPERS = [
       "分子动力学",
       "有限元模拟"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1016/j.vacuum.2025.114737",
-    "innovationCn": "",
+    "innovationCn": "Molecular 动态s 模拟 研究 on microscopic 塑性 变形 行为 of FCC AlCuMg 合金 under 激光冲击强化。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "分子动力学 + 有限元模拟 + 激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 1,
@@ -367,7 +367,7 @@ const PAPERS = [
   {
     "id": "p-009",
     "title": "Molecular dynamics for laser shock peening in the γ/α2 interface of lamellar TiAl alloy: the effect of shock velocity in plastic deformation",
-    "titleCn": "",
+    "titleCn": "Molecular 动态s for 激光冲击强化 in the γ/α2 界面 of lamellar TiAl 合金: the 影响 of shock velocity in 塑性 变形",
     "authors": "Wenzheng Lin, Hanjie Hu, Baocheng Zhou, Han Zhang, Shangyun Luo",
     "journal": "Applied Physics A",
     "sourceType": "SCI",
@@ -379,9 +379,9 @@ const PAPERS = [
     "innovationTags": [
       "分子动力学"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1007/s00339-024-07780-5",
-    "innovationCn": "",
+    "innovationCn": "Molecular 动态s for 激光冲击强化 in the γ/α2 界面 of lamellar TiAl 合金: the 影响 of shock velocity in 塑性 变形。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "分子动力学 + 激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 3,
@@ -390,7 +390,7 @@ const PAPERS = [
   {
     "id": "p-010",
     "title": "Numerical Simulation of Surface Residual Stress and Deformation of FGH95 Alloy Under Multiple Laser Shock Peening with Square Spots",
-    "titleCn": "",
+    "titleCn": "数值模拟 of 表面 残余应力 and 变形 of FGH95合金 合金 Under Multiple 激光冲击强化 with Square Spots",
     "authors": "Bing Liu, YaFeng Liu, Ran Zhu",
     "journal": "Lecture Notes in Electrical Engineering",
     "sourceType": "核心",
@@ -403,9 +403,9 @@ const PAPERS = [
       "有限元模拟",
       "残余应力"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1007/978-981-97-0665-5_57",
-    "innovationCn": "",
+    "innovationCn": "数值模拟 of 表面 残余应力 and 变形 of FGH95合金 合金 Under Multiple 激光冲击强化 with Square Spots。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "有限元模拟 + 激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 0,
@@ -414,7 +414,7 @@ const PAPERS = [
   {
     "id": "p-011",
     "title": "Acoustic Signature Measurement to Identify Laser-Induced Breakdown in Water during Laser Shock Peening",
-    "titleCn": "",
+    "titleCn": "声学 Signature 测量 to Identify 激光诱导 击穿 in Water during 激光冲击强化",
     "authors": "",
     "journal": "Journal of Laser Micro/Nanoengineering",
     "sourceType": "SCI",
@@ -426,9 +426,9 @@ const PAPERS = [
     "innovationTags": [
       "激光冲击"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.2961/jlmn.2025.02.2007",
-    "innovationCn": "",
+    "innovationCn": "声学 Signature 测量 to Identify 激光诱导 击穿 in Water during 激光冲击强化。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 0,
@@ -437,7 +437,7 @@ const PAPERS = [
   {
     "id": "p-012",
     "title": "Analytical Determination of Microdimple Depth and Surface Deformation under Laser Shock Processing of Visco-Elasto-Plastic Materials",
-    "titleCn": "",
+    "titleCn": "解析 Determination of 微凹坑 深度 and 表面 变形 under 激光冲击处理 of Visco-Elasto-塑性 材料s",
     "authors": "G. Zh. Sakhvadze",
     "journal": "Journal of Machinery Manufacture and Reliability",
     "sourceType": "SCI",
@@ -449,9 +449,9 @@ const PAPERS = [
     "innovationTags": [
       "激光冲击"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1134/s1052618825701432",
-    "innovationCn": "",
+    "innovationCn": "解析 Determination of 微凹坑 深度 and 表面 变形 under 激光冲击处理 of Visco-Elasto-塑性 材料s。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 0,
@@ -460,7 +460,7 @@ const PAPERS = [
   {
     "id": "p-013",
     "title": "Deformation behaviour, microstructural evolution and mechanical property of the shaped parts fabricated by laser shock forming with different laser energy",
-    "titleCn": "",
+    "titleCn": "变形 behaviour, microstructural 演化 and mechanical 性能 of the shaped parts fabricated by 激光冲击 forming with different laser 能量",
     "authors": "Yan Zhang, Xingquan Zhang, Kankan Ji, Junsheng Qin, Lisheng Zuo et al.",
     "journal": "Optics &amp; Laser Technology",
     "sourceType": "SCI",
@@ -472,9 +472,9 @@ const PAPERS = [
     "innovationTags": [
       "激光冲击"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1016/j.optlastec.2025.113172",
-    "innovationCn": "",
+    "innovationCn": "变形 behaviour, microstructural 演化 and mechanical 性能 of the shaped parts fabricated by 激光冲击 forming with different laser 能量。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 2,
@@ -483,7 +483,7 @@ const PAPERS = [
   {
     "id": "p-014",
     "title": "Mechanical properties and deformation dependent microstructural aspects of laser shock peened 7075-T6 aluminum alloy without coating",
-    "titleCn": "",
+    "titleCn": "Mechanical 性能 and 变形 dependent microstructural aspects of 激光冲击 peened 7075-T6 铝 合金 without 涂层",
     "authors": "Binod Dhakal, S. Swaroop",
     "journal": "Materials Characterization",
     "sourceType": "SCI",
@@ -495,9 +495,9 @@ const PAPERS = [
     "innovationTags": [
       "铝合金"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1016/j.matchar.2021.111620",
-    "innovationCn": "",
+    "innovationCn": "Mechanical 性能 and 变形 dependent microstructural aspects of 激光冲击 peened 7075-T6 铝 合金 without 涂层。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 40,
@@ -506,7 +506,7 @@ const PAPERS = [
   {
     "id": "p-015",
     "title": "Finite element analysis of laser shock peening induced near-surface deformation in engineering metals",
-    "titleCn": "",
+    "titleCn": "Finite element 分析 of 激光冲击强化 诱导 near-表面 变形 in engineering metals",
     "authors": "Wangfan Zhou, Xudong Ren, Yu Yang, Zhaopeng Tong, Enoch Asuako Larson",
     "journal": "Optics &amp; Laser Technology",
     "sourceType": "SCI",
@@ -518,9 +518,9 @@ const PAPERS = [
     "innovationTags": [
       "有限元模拟"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1016/j.optlastec.2019.105608",
-    "innovationCn": "",
+    "innovationCn": "Finite element 分析 of 激光冲击强化 诱导 near-表面 变形 in engineering metals。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "有限元模拟 + 激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 31,
@@ -529,7 +529,7 @@ const PAPERS = [
   {
     "id": "p-016",
     "title": "A comparative study on laser shock deformation of silver nanowire junctions with different sizes for transparent conductors",
-    "titleCn": "",
+    "titleCn": "A 对比 研究 on 激光冲击 变形 of 银 纳米线 结s with different sizes for transparent conductors",
     "authors": "Yizhong Hu, Yifan Yang, Yuhao Cheng, Zequn Zhang, Zihao Xu et al.",
     "journal": "Optics &amp; Laser Technology",
     "sourceType": "SCI",
@@ -541,9 +541,9 @@ const PAPERS = [
     "innovationTags": [
       "激光冲击"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1016/j.optlastec.2026.115005",
-    "innovationCn": "",
+    "innovationCn": "A 对比 研究 on 激光冲击 变形 of 银 纳米线 结s with different sizes for transparent conductors。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "纳米材料 = 变形行为预测",
     "subCategory": "",
     "citationCount": 0,
@@ -552,7 +552,7 @@ const PAPERS = [
   {
     "id": "p-017",
     "title": "The Local Microscale Reverse Deformation of Metallic Material under Laser Shock",
-    "titleCn": "",
+    "titleCn": "The Local 微尺度 Reverse 变形 of 金属 材料 under 激光冲击",
     "authors": "Guoxin Lu, Jide Liu, Hongchao Qiao, Chuanyong Cui, Yizhou Zhou et al.",
     "journal": "Advanced Engineering Materials",
     "sourceType": "SCI",
@@ -566,7 +566,7 @@ const PAPERS = [
     ],
     "abstract": "A striking phenomenon is found that local plastic deformations, with an opposite direction to the external force, applied on metallic target surface under a given laser shock condition. Laser shock treatment is carried out on a number of metallic materials, and the surface topographies after laser shock treatment are observed via White Light Interferometer (WLI) measurement. The results show that many surface relief structures with irregular shapes and random distributions appear on target surfa",
     "doi": "10.1002/adem.201600672",
-    "innovationCn": "The results show that many surface relief structures with irregular shapes and random distributions appear on target surfaces under the action of invisible shock waves.",
+    "innovationCn": "The results show that many surface relief structures with irregular shapes and random distributions appear on target surfaces under the action of invisible 冲击波s.",
     "innovationFormula": "激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 10,
@@ -575,7 +575,7 @@ const PAPERS = [
   {
     "id": "p-018",
     "title": "Theoretical Analysis of the Effect of Pulse Time Structure on Residual Stress and Plastic Deformation During Laser Shock Processing",
-    "titleCn": "",
+    "titleCn": "理论 分析 of the ......的影响 脉冲 Time Structure on 残余应力 and 塑性 变形 During 激光冲击处理",
     "authors": "Kang Shenghao, Yuan Hang, Zhu Chengyu, Dan Ziqiang, Li Yuxin",
     "journal": "2024 IEEE Academic International Symposium on Optoelectronics and Microelectronics Technology (AISOMT)",
     "sourceType": "核心",
@@ -587,9 +587,9 @@ const PAPERS = [
     "innovationTags": [
       "残余应力"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1109/aisomt64170.2024.10992045",
-    "innovationCn": "",
+    "innovationCn": "理论 分析 of the ......的影响 脉冲 Time Structure on 残余应力 and 塑性 变形 During 激光冲击处理。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 0,
@@ -598,7 +598,7 @@ const PAPERS = [
   {
     "id": "p-019",
     "title": "Simulation and experimental study on plastic deformation response of H13 steel under laser shock loading",
-    "titleCn": "",
+    "titleCn": "模拟 and 实验研究 on 塑性 变形 response of H13钢 钢 under 激光冲击 loading",
     "authors": "B.B. Zhang, Y. Chen, J. Li, Z. Zhang, M.J. Pu et al.",
     "journal": "Materials Letters",
     "sourceType": "SCI",
@@ -610,9 +610,9 @@ const PAPERS = [
     "innovationTags": [
       "有限元模拟"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1016/j.matlet.2025.139638",
-    "innovationCn": "",
+    "innovationCn": "模拟 and 实验研究 on 塑性 变形 response of H13钢 钢 under 激光冲击 loading。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "有限元模拟 = 变形行为预测",
     "subCategory": "",
     "citationCount": 0,
@@ -621,7 +621,7 @@ const PAPERS = [
   {
     "id": "p-020",
     "title": "Analytical Models for the Prediction of Deformation in Laser Shock Bulging",
-    "titleCn": "",
+    "titleCn": "解析 模型s for the 预测 of 变形 in 激光冲击 胀形",
     "authors": "Guofang Zhang, Chao Zheng, Guoxin Lu, Zhong Ji",
     "journal": "Springer Science and Business Media LLC",
     "sourceType": "SCI",
@@ -635,7 +635,7 @@ const PAPERS = [
     ],
     "abstract": "Abstract Laser shock forming (LSF) is a novel plastic forming process which utilizes a laser-induced shock wave to deform sheet metals to 3D configurations. Quantitative evaluation of the deformation in LSF is of great importance to understand the forming mechanism and achieve the high precision. In this paper, considering parameters of material, geometry and processing, an analytical model was proposed to predict the deformation of plate in laser shock bulging. Models showed that the deformatio",
     "doi": "10.21203/rs.3.rs-3944115/v1",
-    "innovationCn": "Abstract Laser shock forming (LSF) is a novel plastic forming process which utilizes a laser-induced shock wave to deform sheet metals to 3D configurations. In this paper, considering parameters of material, geometry and processing, an analytical mod...",
+    "innovationCn": "Abstract Laser shock forming (LSF) is a novel plastic forming process which utilizes a laser-induced 冲击波 to deform sheet metals to 3D configurations. Quantitative evaluation of the deformation in LSF is of great importance to understand the forming mechanism and achieve the high precision. In...",
     "innovationFormula": "激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 0,
@@ -644,7 +644,7 @@ const PAPERS = [
   {
     "id": "p-021",
     "title": "Laser Shock Wave-Induced Enhanced Thermal Corrosion Resistance of Ti6Al4V Alloy Fabricated by Laser Powder Bed Fusion",
-    "titleCn": "",
+    "titleCn": "激光冲击 波-诱导 Enhanced 热 腐蚀 抗力 of Ti6Al4V 合金 Fabricated by Laser Powder Bed Fusion",
     "authors": "Kaiyu Luo, Changyu Wang, Jinzhong Lu",
     "journal": "Corrosion Resistance Behaviour of Metallic Materials Subjected to Laser Shock Peening",
     "sourceType": "核心",
@@ -657,9 +657,9 @@ const PAPERS = [
       "腐蚀性能",
       "钛合金"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1007/978-981-97-8351-9_8",
-    "innovationCn": "",
+    "innovationCn": "激光冲击 波-诱导 Enhanced 热 腐蚀 抗力 of Ti6Al4V 合金 Fabricated by Laser Powder Bed Fusion。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "激光冲击 = 耐腐蚀性提升",
     "subCategory": "",
     "citationCount": 0,
@@ -668,7 +668,7 @@ const PAPERS = [
   {
     "id": "p-022",
     "title": "Prediction of the residual state in 304 austenitic steel after laser shock peening – Effects of plastic deformation and martensitic phase transformation",
-    "titleCn": "",
+    "titleCn": "预测 of the 残余 state in 304 奥氏体 钢 after 激光冲击强化 – 影响s of 塑性 变形 and 马氏体 phase transformation",
     "authors": "Miroslav Halilovič, Sally Issa, Mathias Wallin, Håkan Hallberg, Matti Ristinmaa",
     "journal": "International Journal of Mechanical Sciences",
     "sourceType": "SCI",
@@ -681,9 +681,9 @@ const PAPERS = [
       "相变",
       "不锈钢"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1016/j.ijmecsci.2016.03.022",
-    "innovationCn": "",
+    "innovationCn": "预测 of the 残余 state in 304 奥氏体 钢 after 激光冲击强化 – 影响s of 塑性 变形 and 马氏体 phase transformation。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 34,
@@ -692,7 +692,7 @@ const PAPERS = [
   {
     "id": "p-023",
     "title": "Numerical investigation of the effect of laser shock peening parameters on the residual stress and deformation response of 7075 aluminum alloy",
-    "titleCn": "",
+    "titleCn": "数值 研究 of the 影响 of 激光冲击强化 参数s on the 残余应力 and 变形 response of 7075 铝 合金",
     "authors": "Y.F. Xiang, R.L. Mei, S.P. Wang, F. Azad, L.Z. Zhao et al.",
     "journal": "Optik",
     "sourceType": "SCI",
@@ -705,9 +705,9 @@ const PAPERS = [
       "残余应力",
       "铝合金"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1016/j.ijleo.2021.167446",
-    "innovationCn": "",
+    "innovationCn": "数值 研究 of the 影响 of 激光冲击强化 参数s on the 残余应力 and 变形 response of 7075 铝 合金。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "有限元模拟 + 激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 34,
@@ -716,7 +716,7 @@ const PAPERS = [
   {
     "id": "p-024",
     "title": "Robust melt pool laser-shock-vibration assisted hybrid selective laser sintering and the mechanism",
-    "titleCn": "",
+    "titleCn": "鲁棒 熔池 laser-shock-振动 辅助 复合 选择性激光 烧结 and the 机制",
     "authors": "Dingyi Guo, Yaowu Hu",
     "journal": "Elsevier BV",
     "sourceType": "SCI",
@@ -732,7 +732,7 @@ const PAPERS = [
     ],
     "abstract": "The collapse of the keyhole and subsequent gas entrapment remain critical bottlenecks in achieving defect-free and reliable laser powder bed fusion (LPBF). This paper studies a novel defect-suppression strategy utilizing a synchronous coaxial pulsed laser to stabilize the keyhole and evaluates the robustness of the strategy. Micro-CT porosity analysis reveals that the pulsed shock reduces porosity in 3D printed stainless steel samples by 85.03%. Simulation results demonstrate that the high-frequ",
     "doi": "10.2139/ssrn.6293594",
-    "innovationCn": "This paper studies a novel defect-suppression strategy utilizing a synchronous coaxial pulsed laser to stabilize the keyhole and evaluates the robustness of the strategy. Micro-CT porosity analysis reveals that the pulsed shock reduces porosity in 3D...",
+    "innovationCn": "This paper studies a novel defect-suppression strategy utilizing a synchronous coaxial pulsed laser to stabilize the keyhole and evaluates the robustness of the strategy. Micro-CT porosity analysis reveals that the pulsed shock reduces porosity in 3D printed 不锈钢 samples by 85.03%. Simula...",
     "innovationFormula": "有限元模拟 + 增材制造 = 性能提升",
     "subCategory": "",
     "citationCount": 0,
@@ -741,7 +741,7 @@ const PAPERS = [
   {
     "id": "p-025",
     "title": "Large deformation phase field modeling of spallation in metallic materials induced by laser shock peening",
-    "titleCn": "",
+    "titleCn": "Large 变形 相场 建模 of 层裂 in 金属 材料s 诱导 by 激光冲击强化",
     "authors": "Bing Lyu, Yongxing Shen, Oleg  B. Naimark",
     "journal": "Elsevier BV",
     "sourceType": "SCI",
@@ -755,7 +755,7 @@ const PAPERS = [
     ],
     "abstract": "Laser shock peening is a surface enhancement technique for metallic materials. However, it can induce large deformation or even spallation in thin-walled structures under high-energy impacts. This study develops a large deformation phase field model to investigate this phenomenon. The model incorporates the Mie--Gruneisen equation of state and a hypoelasto-plastic constitutive relation, implemented via a fully explicit integration scheme with adaptive time stepping. The model is verified by ener",
     "doi": "10.2139/ssrn.6429812",
-    "innovationCn": "Laser shock peening is a surface enhancement technique for metallic materials. This study develops a large deformation phase field model to investigate this phenomenon.",
+    "innovationCn": "Laser shock peening is a surface enhancement technique for metallic materials. This study develops a large deformation phase field model to investigate this phenomenon. The model is verified by energy analysis and validated with experimental results, then applied to investigate the fracture behavior...",
     "innovationFormula": "激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 0,
@@ -764,7 +764,7 @@ const PAPERS = [
   {
     "id": "p-026",
     "title": "Effect of Low energy laser shock peening on plastic deformation, wettability and corrosion resistance of aluminum alloy 7075 T651",
-    "titleCn": "",
+    "titleCn": "......的影响 Low 能量 激光冲击强化 on 塑性 变形, 润湿性 and 腐蚀 抗力 of 铝 合金 7075 T651",
     "authors": "Abeens M., Muruganandhan R., Thirumavalavan K.",
     "journal": "Optik",
     "sourceType": "SCI",
@@ -777,9 +777,9 @@ const PAPERS = [
       "腐蚀性能",
       "铝合金"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1016/j.ijleo.2020.165045",
-    "innovationCn": "",
+    "innovationCn": "......的影响 Low 能量 激光冲击强化 on 塑性 变形, 润湿性 and 腐蚀 抗力 of 铝 合金 7075 T651。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "激光冲击 = 耐腐蚀性提升",
     "subCategory": "",
     "citationCount": 25,
@@ -788,7 +788,7 @@ const PAPERS = [
   {
     "id": "p-027",
     "title": "Deformation and Residual Stress Characteristics of TC17 Alloy Subjected to Laser Shock Peening with Single and Double Sides",
-    "titleCn": "",
+    "titleCn": "变形 and 残余应力 特性 of TC17合金 合金 Subjected to 激光冲击强化 with Single and Double Sides",
     "authors": "Minghuang Zhao, Chenghong Duan, Jiayi Li, Xiangpeng Luo",
     "journal": "IOP Conference Series: Materials Science and Engineering",
     "sourceType": "SCI",
@@ -800,9 +800,9 @@ const PAPERS = [
     "innovationTags": [
       "残余应力"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1088/1757-899x/493/1/012001",
-    "innovationCn": "",
+    "innovationCn": "变形 and 残余应力 特性 of TC17合金 合金 Subjected to 激光冲击强化 with Single and Double Sides。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 4,
@@ -811,7 +811,7 @@ const PAPERS = [
   {
     "id": "p-028",
     "title": "RETRACTED: Bridging the shocked monazite gap – Deformation microstructures in natural and laser shock-loaded samples",
-    "titleCn": "",
+    "titleCn": "RETRACTED: Bridging the shocked monazite gap – 变形 微观组织s in natural and 激光冲击-loaded samples",
     "authors": "A.-M. Seydoux-Guillaume, T. de Resseguier, G. Montagnac, S. Reynaud, H. Leroux et al.",
     "journal": "Earth and Planetary Science Letters",
     "sourceType": "SCI",
@@ -823,9 +823,9 @@ const PAPERS = [
     "innovationTags": [
       "微观组织"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1016/j.epsl.2022.117727",
-    "innovationCn": "",
+    "innovationCn": "RETRACTED: Bridging the shocked monazite gap – 变形 微观组织s in natural and 激光冲击-loaded samples。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "激光冲击 = 微观组织优化",
     "subCategory": "",
     "citationCount": 3,
@@ -834,7 +834,7 @@ const PAPERS = [
   {
     "id": "p-029",
     "title": "Characteristics and Development Status of Laser Shock Peening",
-    "titleCn": "",
+    "titleCn": "特性 and 发展 Status of 激光冲击强化",
     "authors": "Shikun Zou, Junfeng Wu, Ziwei Cao, Zhigang Che",
     "journal": "Laser Shock Peening",
     "sourceType": "核心",
@@ -846,9 +846,9 @@ const PAPERS = [
     "innovationTags": [
       "激光冲击"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1007/978-981-99-1117-2_1",
-    "innovationCn": "",
+    "innovationCn": "特性 and 发展 Status of 激光冲击强化。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 2,
@@ -857,7 +857,7 @@ const PAPERS = [
   {
     "id": "p-030",
     "title": "Numerical Analysis of Mechanical Effects of Laser Shock Peening",
-    "titleCn": "",
+    "titleCn": "数值 分析 of Mechanical 影响s of 激光冲击强化",
     "authors": "Shikun Zou, Junfeng Wu, Ziwei Cao, Zhigang Che",
     "journal": "Laser Shock Peening",
     "sourceType": "核心",
@@ -869,9 +869,9 @@ const PAPERS = [
     "innovationTags": [
       "激光冲击"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1007/978-981-99-1117-2_4",
-    "innovationCn": "",
+    "innovationCn": "数值 分析 of Mechanical 影响s of 激光冲击强化。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "有限元模拟 + 激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 1,
@@ -880,7 +880,7 @@ const PAPERS = [
   {
     "id": "w-001",
     "title": "Laser shock peening: Laser explosion and shear wave propagation",
-    "titleCn": "",
+    "titleCn": "Laser shock peening: Laser explosion and shear 波 propagation",
     "authors": "F. Maršík",
     "journal": "Engineering Mechanics",
     "sourceType": "核心",
@@ -892,9 +892,9 @@ const PAPERS = [
     "innovationTags": [
       "激光冲击"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.21495/51-2-253",
-    "innovationCn": "",
+    "innovationCn": "Laser shock peening: Laser explosion and shear 波 propagation。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 0,
@@ -903,7 +903,7 @@ const PAPERS = [
   {
     "id": "w-002",
     "title": "Plastic deformation behavior of 316 stainless steel subjected to multiple laser shock imprinting impacts",
-    "titleCn": "",
+    "titleCn": "塑性 变形 行为 of 316 不锈钢 subjected to multiple 激光冲击 imprinting impacts",
     "authors": "Wei Cheng, Fengze Dai, Shu Huang, Xizhang Chen",
     "journal": "Optics &amp; Laser Technology",
     "sourceType": "SCI",
@@ -915,9 +915,9 @@ const PAPERS = [
     "innovationTags": [
       "不锈钢"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1016/j.optlastec.2022.108201",
-    "innovationCn": "",
+    "innovationCn": "塑性 变形 行为 of 316 不锈钢 subjected to multiple 激光冲击 imprinting impacts。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 6,
@@ -926,7 +926,7 @@ const PAPERS = [
   {
     "id": "w-003",
     "title": "Laser shock induced incremental forming of pure copper foil and its deformation behavior",
-    "titleCn": "",
+    "titleCn": "Laser shock 诱导 incremental forming of pure copper foil and its 变形 行为",
     "authors": "Chao Zheng, Changdong Pan, Zhirui Tian, Xinhai Zhao, Guoqun Zhao et al.",
     "journal": "Optics &amp; Laser Technology",
     "sourceType": "SCI",
@@ -938,9 +938,9 @@ const PAPERS = [
     "innovationTags": [
       "激光冲击"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1016/j.optlastec.2019.105785",
-    "innovationCn": "",
+    "innovationCn": "Laser shock 诱导 incremental forming of pure copper foil and its 变形 行为。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 27,
@@ -949,7 +949,7 @@ const PAPERS = [
   {
     "id": "w-004",
     "title": "Microstructure-crystallographic texture and substructure evolution in unpeened and laser shock peened HSLA steel upon ratcheting deformation",
-    "titleCn": "",
+    "titleCn": "微观组织-晶体lographic 织构 and substructure 演化 in unpeened and 激光冲击 peened HSLA 钢 upon ratcheting 变形",
     "authors": "Pushpendra Kumar Dwivedi, R. Vinjamuri, Krishna Dutta",
     "journal": "Philosophical Magazine",
     "sourceType": "SCI",
@@ -961,9 +961,9 @@ const PAPERS = [
     "innovationTags": [
       "微观组织"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1080/14786435.2023.2246019",
-    "innovationCn": "",
+    "innovationCn": "微观组织-晶体lographic 织构 and substructure 演化 in unpeened and 激光冲击 peened HSLA 钢 upon ratcheting 变形。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "激光冲击 = 微观组织优化",
     "subCategory": "",
     "citationCount": 3,
@@ -972,7 +972,7 @@ const PAPERS = [
   {
     "id": "w-005",
     "title": "Quality Control Technology of Structures with Laser Shock Peening",
-    "titleCn": "",
+    "titleCn": "Quality Control Technology of Structures with 激光冲击强化",
     "authors": "Shikun Zou, Junfeng Wu, Ziwei Cao, Zhigang Che",
     "journal": "Laser Shock Peening",
     "sourceType": "核心",
@@ -984,9 +984,9 @@ const PAPERS = [
     "innovationTags": [
       "激光冲击"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1007/978-981-99-1117-2_7",
-    "innovationCn": "",
+    "innovationCn": "Quality Control Technology of Structures with 激光冲击强化。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 0,
@@ -995,7 +995,7 @@ const PAPERS = [
   {
     "id": "w-006",
     "title": "Stability Factors and Safety Protection of Laser Shock Peening",
-    "titleCn": "",
+    "titleCn": "Stability Factors and Safety Protection of 激光冲击强化",
     "authors": "Shikun Zou, Junfeng Wu, Ziwei Cao, Zhigang Che",
     "journal": "Laser Shock Peening",
     "sourceType": "核心",
@@ -1007,9 +1007,9 @@ const PAPERS = [
     "innovationTags": [
       "激光冲击"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1007/978-981-99-1117-2_3",
-    "innovationCn": "",
+    "innovationCn": "Stability Factors and Safety Protection of 激光冲击强化。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 0,
@@ -1018,7 +1018,7 @@ const PAPERS = [
   {
     "id": "w-007",
     "title": "Strengthening Processes and Effect Evaluation of Welded Structures with Laser Shock Peening",
-    "titleCn": "",
+    "titleCn": "强度ening 工艺es and 影响 Evaluation of Welded Structures with 激光冲击强化",
     "authors": "Shikun Zou, Junfeng Wu, Ziwei Cao, Zhigang Che",
     "journal": "Laser Shock Peening",
     "sourceType": "核心",
@@ -1030,9 +1030,9 @@ const PAPERS = [
     "innovationTags": [
       "激光冲击"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1007/978-981-99-1117-2_8",
-    "innovationCn": "",
+    "innovationCn": "强度ening 工艺es and 影响 Evaluation of Welded Structures with 激光冲击强化。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 0,
@@ -1041,7 +1041,7 @@ const PAPERS = [
   {
     "id": "w-008",
     "title": "Strengthening Processes and Effect Evaluations of Airplane Structures with Laser Shock Peening",
-    "titleCn": "",
+    "titleCn": "强度ening 工艺es and 影响 Evaluations of Airplane Structures with 激光冲击强化",
     "authors": "Shikun Zou, Junfeng Wu, Ziwei Cao, Zhigang Che",
     "journal": "Laser Shock Peening",
     "sourceType": "核心",
@@ -1053,9 +1053,9 @@ const PAPERS = [
     "innovationTags": [
       "激光冲击"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1007/978-981-99-1117-2_6",
-    "innovationCn": "",
+    "innovationCn": "强度ening 工艺es and 影响 Evaluations of Airplane Structures with 激光冲击强化。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 0,
@@ -1064,7 +1064,7 @@ const PAPERS = [
   {
     "id": "w-009",
     "title": "Evaluations of the Strengthening Effect of the Metals with Laser Shock Peening",
-    "titleCn": "",
+    "titleCn": "Evaluations of the 强度ening ......的影响 the Metals with 激光冲击强化",
     "authors": "Shikun Zou, Junfeng Wu, Ziwei Cao, Zhigang Che",
     "journal": "Laser Shock Peening",
     "sourceType": "核心",
@@ -1076,9 +1076,9 @@ const PAPERS = [
     "innovationTags": [
       "激光冲击"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1007/978-981-99-1117-2_5",
-    "innovationCn": "",
+    "innovationCn": "Evaluations of the 强度ening ......的影响 the Metals with 激光冲击强化。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 0,
@@ -1087,7 +1087,7 @@ const PAPERS = [
   {
     "id": "w-010",
     "title": "FE simulation for stress distribution and surface deformation in Ti-6Al-4V induced by interaction of multi scale laser shock peening parameters",
-    "titleCn": "",
+    "titleCn": "FE 模拟 for 应力 distribution and 表面 变形 in Ti-6Al-4V钛合金 诱导 by interaction of multi scale 激光冲击强化 参数s",
     "authors": "Ranjith Kumar G, Rajyalakshmi G",
     "journal": "Optik",
     "sourceType": "SCI",
@@ -1100,9 +1100,9 @@ const PAPERS = [
       "有限元模拟",
       "钛合金"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1016/j.ijleo.2020.164280",
-    "innovationCn": "",
+    "innovationCn": "FE 模拟 for 应力 distribution and 表面 变形 in Ti-6Al-4V钛合金 诱导 by interaction of multi scale 激光冲击强化 参数s。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "有限元模拟 + 激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 12,
@@ -1111,7 +1111,7 @@ const PAPERS = [
   {
     "id": "w-011",
     "title": "The size effect on deformation behavior in microscale laser shock flexible drawing",
-    "titleCn": "",
+    "titleCn": "The size 影响 on 变形 行为 in 微尺度 激光冲击 flexible drawing",
     "authors": "Huixia Liu, Xianqing Sun, Zongbao Shen, Cong Li, Chaofei Sha et al.",
     "journal": "Optics &amp; Laser Technology",
     "sourceType": "SCI",
@@ -1123,9 +1123,9 @@ const PAPERS = [
     "innovationTags": [
       "激光冲击"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1016/j.optlastec.2016.07.009",
-    "innovationCn": "",
+    "innovationCn": "The size 影响 on 变形 行为 in 微尺度 激光冲击 flexible drawing。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 14,
@@ -1134,7 +1134,7 @@ const PAPERS = [
   {
     "id": "w-012",
     "title": "Study of the Parameters of Laser-Induced Shock Waves for Laser Shock Peening of Silicon",
-    "titleCn": "",
+    "titleCn": "研究 of the 参数s of 激光诱导 冲击波s for 激光冲击强化 of Silicon",
     "authors": "E. I. Mareev, B. V. Rumiantsev, F. V. Potemkin",
     "journal": "JETP Letters",
     "sourceType": "SCI",
@@ -1146,9 +1146,9 @@ const PAPERS = [
     "innovationTags": [
       "激光冲击"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1134/s0021364020230095",
-    "innovationCn": "",
+    "innovationCn": "研究 of the 参数s of 激光诱导 冲击波s for 激光冲击强化 of Silicon。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 12,
@@ -1157,7 +1157,7 @@ const PAPERS = [
   {
     "id": "w-013",
     "title": "Effect of pulsed laser parameters on deformation inhomogeneity in laser shock incremental forming of pure copper foil",
-    "titleCn": "",
+    "titleCn": "......的影响 脉冲d laser 参数s on 变形 inhomogeneity in 激光冲击 incremental forming of pure copper foil",
     "authors": "Chao Zheng, Zhirui Tian, Xinhai Zhao, Yongchao Tan, Guofang Zhang et al.",
     "journal": "Optics &amp; Laser Technology",
     "sourceType": "SCI",
@@ -1169,9 +1169,9 @@ const PAPERS = [
     "innovationTags": [
       "激光冲击"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1016/j.optlastec.2020.106205",
-    "innovationCn": "",
+    "innovationCn": "......的影响 脉冲d laser 参数s on 变形 inhomogeneity in 激光冲击 incremental forming of pure copper foil。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 14,
@@ -1180,7 +1180,7 @@ const PAPERS = [
   {
     "id": "w-014",
     "title": "Surface dynamic deformation of LY2 aluminum alloy subjected to a laser shock wave planishing technique with different kinds of contacting foils",
-    "titleCn": "",
+    "titleCn": "表面 动态 变形 of LY2 铝 合金 subjected to a 激光冲击 波 planishing 技术 with different kinds of 接触ing foils",
     "authors": "Fengze Dai, Zhipeng Pei, Xudong Ren, Shu Huang, Jianzhong Zhou et al.",
     "journal": "Optics &amp; Laser Technology",
     "sourceType": "SCI",
@@ -1192,9 +1192,9 @@ const PAPERS = [
     "innovationTags": [
       "铝合金"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1016/j.optlastec.2020.106074",
-    "innovationCn": "",
+    "innovationCn": "表面 动态 变形 of LY2 铝 合金 subjected to a 激光冲击 波 planishing 技术 with different kinds of 接触ing foils。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 4,
@@ -1203,7 +1203,7 @@ const PAPERS = [
   {
     "id": "w-015",
     "title": "Laser Shock Hardening Industrial Application System",
-    "titleCn": "",
+    "titleCn": "激光冲击 Hardening Industrial 应用 System",
     "authors": "Shikun Zou, Junfeng Wu, Ziwei Cao, Zhigang Che",
     "journal": "Laser Shock Peening",
     "sourceType": "核心",
@@ -1215,9 +1215,9 @@ const PAPERS = [
     "innovationTags": [
       "激光冲击"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1007/978-981-99-1117-2_2",
-    "innovationCn": "",
+    "innovationCn": "激光冲击 Hardening Industrial 应用 System。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 0,
@@ -1226,7 +1226,7 @@ const PAPERS = [
   {
     "id": "w-016",
     "title": "Use of the Hugoniot elastic limit in laser shockwave experiments to relate velocity measurements",
-    "titleCn": "",
+    "titleCn": "Use of the Hugoniot 弹性 limit in 激光冲击波 experiments to relate velocity 测量s",
     "authors": "James A. Smith, Jeffrey M. Lacy, Daniel Lévesque, Jean-Pierre Monchalin, Martin Lord",
     "journal": "AIP Conference Proceedings",
     "sourceType": "核心",
@@ -1238,9 +1238,9 @@ const PAPERS = [
     "innovationTags": [
       "激光冲击"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1063/1.4940537",
-    "innovationCn": "",
+    "innovationCn": "Use of the Hugoniot 弹性 limit in 激光冲击波 experiments to relate velocity 测量s。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 15,
@@ -1249,7 +1249,7 @@ const PAPERS = [
   {
     "id": "w-017",
     "title": "Laser shock experiments prove insightful in high strain rate deformation",
-    "titleCn": "",
+    "titleCn": "Laser shock experiments prove insightful in high 应变 rate 变形",
     "authors": "Leigh Ann Green",
     "journal": "Scilight",
     "sourceType": "SCI",
@@ -1272,7 +1272,7 @@ const PAPERS = [
   {
     "id": "w-018",
     "title": "Further investigation of surface velocity measurements for material characterization in laser shockwave experiments",
-    "titleCn": "",
+    "titleCn": "Further 研究 of 表面 velocity 测量s for 材料 表征 in 激光冲击波 experiments",
     "authors": "James A. Smith, Jeffrey M. Lacy, Clark L. Scott, Bradley C. Benefiel, Daniel Lévesque et al.",
     "journal": "AIP Conference Proceedings",
     "sourceType": "核心",
@@ -1284,9 +1284,9 @@ const PAPERS = [
     "innovationTags": [
       "激光冲击"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.1063/1.5031630",
-    "innovationCn": "",
+    "innovationCn": "Further 研究 of 表面 velocity 测量s for 材料 表征 in 激光冲击波 experiments。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 2,
@@ -1295,7 +1295,7 @@ const PAPERS = [
   {
     "id": "w-019",
     "title": "Study of the Plastic Deformation Mechanisms of 42crmo4 Steels Under Laser Shock Peening Without Coatings and Subsequent Cyclic Stresses",
-    "titleCn": "",
+    "titleCn": "研究 of the 塑性 变形 机制s of 42crmo4 钢s Under 激光冲击强化 Without 涂层s and Subsequent Cyclic 应力es",
     "authors": "Huitao Chen, Min Dou, Lei Li, Wei Huang, Wei Li et al.",
     "journal": "Elsevier BV",
     "sourceType": "SCI",
@@ -1307,9 +1307,9 @@ const PAPERS = [
     "innovationTags": [
       "激光冲击"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.2139/ssrn.4424906",
-    "innovationCn": "",
+    "innovationCn": "研究 of the 塑性 变形 机制s of 42crmo4 钢s Under 激光冲击强化 Without 涂层s and Subsequent Cyclic 应力es。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 0,
@@ -1318,7 +1318,7 @@ const PAPERS = [
   {
     "id": "w-020",
     "title": "Surface Morphology, Plastic Deformation and Phase Transformation in Single Crystal Superalloys Under Laser Shock Peening Without Coating",
-    "titleCn": "",
+    "titleCn": "表面 Morphology, 塑性 变形 and Phase Transformation in Single 晶体 Super合金s Under 激光冲击强化 Without 涂层",
     "authors": "shuang hu, mo lang, guangni zhou, huailin zhang, Xiaoqing Liang et al.",
     "journal": "Elsevier BV",
     "sourceType": "SCI",
@@ -1330,9 +1330,9 @@ const PAPERS = [
     "innovationTags": [
       "相变"
     ],
-    "abstract": "（摘要待补充）",
+    "abstract": "",
     "doi": "10.2139/ssrn.5163378",
-    "innovationCn": "",
+    "innovationCn": "表面 Morphology, 塑性 变形 and Phase Transformation in Single 晶体 Super合金s Under 激光冲击强化 Without 涂层。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。",
     "innovationFormula": "激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 0,
