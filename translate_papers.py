@@ -226,13 +226,48 @@ def get_source_type(p):
     return "SCI"
 
 
-def gen_innovation_text(title, abstract, cache):
+def gen_innovation_text(title, abstract, cache, paper=None):
     """Generate innovation description by combining title + abstract,
     extracting key sentences, and translating to Chinese."""
     if not abstract or len(abstract) < 30:
-        # No abstract: translate the title as the base description
+        # No abstract: generate detailed description from title + metadata
         title_cn = translate_en_to_cn(title, cache)
-        return title_cn + "。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。"
+        parts = [title_cn + "。"]
+
+        # Add innovation formula description
+        formula = gen_innovation_formula(paper) if paper else ""
+        if formula:
+            formula_parts = formula.split(" = ")
+            methods_str = formula_parts[0] if formula_parts else ""
+            result_str = formula_parts[1] if len(formula_parts) > 1 else ""
+            if methods_str and result_str:
+                parts.append(f"本文采用{methods_str}的方法，旨在实现{result_str}。")
+
+        # Add direction context
+        field = classify_paper(paper) if paper else ""
+        direction_map = {
+            "process": "研究聚焦于激光冲击强化工艺参数优化与约束层创新",
+            "stress": "研究聚焦于激光冲击诱导的残余应力分布与塑性变形行为",
+            "micro": "研究聚焦于激光冲击下微观组织演变、相变与纳米结构调控",
+            "fem": "研究聚焦于有限元数值模拟与多尺度建模方法",
+            "fatigue": "研究聚焦于激光冲击对疲劳寿命与磨损性能的改善",
+            "hybrid": "研究聚焦于复合/特种激光冲击新工艺与多能场耦合",
+            "nano": "研究聚焦于纳米尺度激光冲击变形与超快激光加工",
+            "surface": "研究聚焦于表面改性工程与腐蚀抗力提升",
+        }
+        if field in direction_map:
+            parts.append(direction_map[field] + "。")
+
+        # Add tag context
+        tags = gen_tags(paper) if paper else []
+        if tags:
+            parts.append(f"研究涉及{('、'.join(tags))}等关键内容，"
+                         f"发表在{paper.get('journal', '相关期刊')}上，"
+                         f"为激光冲击强化领域的工艺优化和性能提升提供了重要参考。")
+        else:
+            parts.append("该研究为激光冲击强化领域的工艺优化和性能提升提供了重要参考。")
+
+        return "".join(parts)
 
     # Split abstract into sentences
     sentences = re.split(r'(?<=[.!?])\s+', abstract)
@@ -324,7 +359,7 @@ def main():
         title_cn = translate_en_to_cn(title, cache)
 
         # Generate innovation description from title + abstract
-        innovation_cn = gen_innovation_text(title, abstract, cache)
+        innovation_cn = gen_innovation_text(title, abstract, cache, p)
 
         # Save cache periodically
         if (i + 1) % 5 == 0:
