@@ -226,30 +226,70 @@ def get_source_type(p):
     return "SCI"
 
 
-def gen_innovation_text(abstract, title_cn, cache):
-    """Generate innovation description: translate key sentences from abstract"""
+def gen_innovation_text(title, abstract, cache):
+    """Generate innovation description by combining title + abstract,
+    extracting key sentences, and translating to Chinese."""
     if not abstract or len(abstract) < 30:
-        return title_cn + "。该论文研究了激光冲击强化相关工艺与性能。"
-    # Extract key sentences
+        # No abstract: translate the title as the base description
+        title_cn = translate_en_to_cn(title, cache)
+        return title_cn + "。该论文研究了激光冲击强化相关工艺与性能，为该领域提供了新的见解。"
+
+    # Split abstract into sentences
     sentences = re.split(r'(?<=[.!?])\s+', abstract)
-    key_sentences = []
+
+    # Score each sentence by innovation keywords
+    scored = []
+    innovation_kw = [
+        "novel", "new", "first", "propose", "develop", "demonstrate",
+        "reveal", "improve", "enhance", "result", "show", "find",
+        "achieve", "obtain", "indicate", "suggest", "confirm",
+        "establish", "investigate", "analyze", "compare", "evaluate",
+        "present", "report", "identify", "determine", "quantify",
+        "reveal", "highlight", "prove", "verify", "validate"
+    ]
     for s in sentences:
-        s_lower = s.lower()
-        if any(kw in s_lower for kw in ["novel", "new", "first", "propose",
-            "develop", "demonstrate", "reveal", "improve", "enhance",
-            "result", "show", "find", "achieve", "obtain", "indicate",
-            "suggest", "confirm", "establish"]):
-            key_sentences.append(s.strip())
-    if not key_sentences and sentences:
-        key_sentences = [sentences[0].strip()]
-        if len(sentences) > 2:
-            key_sentences.append(sentences[-1].strip())
-    en_text = " ".join(key_sentences[:3])
+        s_clean = s.strip()
+        if len(s_clean) < 15:
+            continue
+        s_lower = s_clean.lower()
+        score = sum(1 for kw in innovation_kw if kw in s_lower)
+        # Also score by technical content keywords
+        tech_kw = [
+            "residual stress", "microstructure", "deformation", "plastic",
+            "strain", "fatigue", "wear", "corrosion", "phase", "nanotwin",
+            "dislocation", "grain", "hardness", "strength", "model",
+            "simulation", "finite element", "molecular dynamics",
+            "shock wave", "plasma", "laser", "peening", "impact",
+            "compressive", "tensile", "yield", "crystal", "texture"
+        ]
+        score += sum(2 for kw in tech_kw if kw in s_lower)
+        scored.append((score, s_clean))
+
+    # Sort by score descending, take top 3-4 sentences
+    scored.sort(key=lambda x: -x[0])
+
+    # Always include the first sentence (background) + top scored sentences
+    selected = []
+    if sentences and len(sentences[0].strip()) > 15:
+        selected.append(sentences[0].strip())
+    for score, s in scored[:4]:
+        if s not in selected:
+            selected.append(s)
+        if len(selected) >= 4:
+            break
+
+    # Combine selected sentences (in original order from abstract)
+    # Re-sort to maintain original order
+    selected_set = set(selected)
+    ordered = [s.strip() for s in sentences if s.strip() in selected_set]
+
+    en_text = " ".join(ordered)
     if not en_text:
-        en_text = abstract[:200]
-    if len(en_text) > 500:
-        en_text = en_text[:500]
-    # Translate to Chinese
+        en_text = abstract[:300]
+    if len(en_text) > 800:
+        en_text = en_text[:800]
+
+    # Translate the combined text to Chinese
     cn_text = translate_en_to_cn(en_text, cache)
     return cn_text
 
@@ -283,8 +323,8 @@ def main():
         # Translate title
         title_cn = translate_en_to_cn(title, cache)
 
-        # Translate innovation description
-        innovation_cn = gen_innovation_text(abstract, title_cn, cache)
+        # Generate innovation description from title + abstract
+        innovation_cn = gen_innovation_text(title, abstract, cache)
 
         # Save cache periodically
         if (i + 1) % 5 == 0:
