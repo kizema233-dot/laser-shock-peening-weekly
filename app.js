@@ -369,6 +369,8 @@
     html += '<div class="menu-item">Web of Science</div>';
     html += '<div class="menu-item">Scopus</div>';
     html += '<div class="menu-item">中国知网核心库</div>';
+    html += '<div class="menu-item">arXiv 预印本</div>';
+    html += '<div class="menu-item">Crossref (SCI)</div>';
     html += '</div>';
     html += '<div class="side-block">';
     html += '<div class="heading"><p>关于</p></div>';
