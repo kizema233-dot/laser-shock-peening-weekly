@@ -1,178 +1,3 @@
-/**
- * 激光冲击领域论文数据库
- * 数据来源：Web of Science / Scopus / 中国知网核心库 / arXiv / Crossref
- * 检索日期：2026-07-01
- * 覆盖 SCI / 核心 / 预印本 多源文献
- * 每个方向精选 Top 20
- * 标题与创新点翻译：Google Translate API
- */
-
-const DIRECTIONS = [
-  {
-    "id": "process",
-    "name": "激光冲击强化工艺",
-    "icon": "⚙",
-    "color": "#8B0000"
-  },
-  {
-    "id": "stress",
-    "name": "残余应力与变形",
-    "icon": "📐",
-    "color": "#4B0082"
-  },
-  {
-    "id": "micro",
-    "name": "微观组织演变",
-    "icon": "🔬",
-    "color": "#006400"
-  },
-  {
-    "id": "fem",
-    "name": "有限元与多尺度模拟",
-    "icon": "💻",
-    "color": "#000080"
-  },
-  {
-    "id": "fatigue",
-    "name": "疲劳与磨损性能",
-    "icon": "⏱",
-    "color": "#8B4513"
-  },
-  {
-    "id": "hybrid",
-    "name": "复合/特种激光冲击",
-    "icon": "🔀",
-    "color": "#483D8B"
-  },
-  {
-    "id": "nano",
-    "name": "纳米/超快激光冲击",
-    "icon": "⚡",
-    "color": "#B8860B"
-  },
-  {
-    "id": "surface",
-    "name": "表面改性工程",
-    "icon": "🛠",
-    "color": "#2F4F4F"
-  }
-];
-
-const PROCESS_TYPES = [
-  {
-    "id": "conventional",
-    "name": "常规LSP"
-  },
-  {
-    "id": "warm",
-    "name": "温激光冲击"
-  },
-  {
-    "id": "cryogenic",
-    "name": "深冷激光冲击"
-  },
-  {
-    "id": "hybrid_am",
-    "name": "复合/增材制造"
-  },
-  {
-    "id": "coating",
-    "name": "涂层/表面改性"
-  },
-  {
-    "id": "simulation",
-    "name": "数值模拟"
-  },
-  {
-    "id": "nano_lsp",
-    "name": "纳米/超快LSP"
-  },
-  {
-    "id": "general",
-    "name": "通用/其他"
-  }
-];
-
-const DIRECTION_SUMMARIES = {
-  "process": {
-    "trend": "工艺参数优化与约束层创新",
-    "summary": "激光冲击强化工艺研究聚焦于：(1) 约束层和吸收层对冲击波特性的影响机制；(2) 多次冲击对纳米级微观组织的累积效应；(3) 悬浮水滴约束的高温激光冲击新工艺；(4) 脉冲时间结构对残余应力的调控。趋势是向高温、多次、精密控制方向发展。",
-    "hotspots": [
-      "约束层优化",
-      "多次冲击累积效应",
-      "悬浮水滴约束",
-      "脉冲结构调控"
-    ]
-  },
-  "stress": {
-    "trend": "残余应力预测与变形控制",
-    "summary": "残余应力与变形方向是最活跃的研究领域，涵盖：(1) 激光冲击诱导塑性变形的数值预测；(2) Ti-6Al-4V等合金的变形过程与残余应力分布；(3) 激光冲击胀形的解析模型；(4) 弯曲角散射的预处理控制。趋势是从经验公式向多物理场耦合精确预测发展。",
-    "hotspots": [
-      "残余应力预测",
-      "Ti-6Al-4V变形",
-      "胀形成形",
-      "弯曲角控制"
-    ]
-  },
-  "micro": {
-    "trend": "相变与纳米结构调控",
-    "summary": "微观组织演变研究集中在：(1) 激光冲击诱导马氏体纳米晶化与碳化物变形；(2) SS 304钢的相变与纳米孪晶形成；(3) 深冷激光冲击下微观组织演化。趋势是组织调控从微米尺度向纳米尺度深化。",
-    "hotspots": [
-      "马氏体纳米晶化",
-      "纳米孪晶",
-      "深冷激光冲击",
-      "碳化物变形"
-    ]
-  },
-  "fem": {
-    "trend": "多尺度模拟与分子动力学",
-    "summary": "有限元与多尺度模拟是核心工具：(1) 三维FEM结合位错密度本构模型模拟纯铝LSP；(2) 分子动力学模拟TiAl界面激光冲击行为；(3) H13钢塑性变形响应的仿真与实验对照；(4) FGH95合金表面残余应力数值模拟。趋势是向原子尺度-宏观跨尺度耦合发展。",
-    "hotspots": [
-      "三维FEM建模",
-      "分子动力学",
-      "位错密度本构",
-      "跨尺度模拟"
-    ]
-  },
-  "fatigue": {
-    "trend": "滚动接触疲劳与磨损抑制",
-    "summary": "疲劳与磨损性能方向关注：(1) 25CrNi2Mo钢的塑性变形与滚动接触疲劳抗力提升；(2) 激光冲击对耐磨性的改善机制。趋势是将残余应力场与微观组织演化统一纳入寿命预测模型。",
-    "hotspots": [
-      "滚动接触疲劳",
-      "磨损性能提升",
-      "应力-组织耦合"
-    ]
-  },
-  "hybrid": {
-    "trend": "增材制造与原位复合冲击",
-    "summary": "复合/特种激光冲击方向新兴活跃：(1) 激光冲击-振动辅助混合选择性激光烧结；(2) 原位激光冲击辅助激光熔覆微观组织调控；(3) CFRP复合材料界面结合强度的动态建模与检测。趋势是多能场耦合与工艺复合化。",
-    "hotspots": [
-      "激光冲击-振动辅助",
-      "原位熔覆冲击",
-      "CFRP界面检测"
-    ]
-  },
-  "nano": {
-    "trend": "2D材料与纳米线冲击变形",
-    "summary": "纳米/超快激光冲击方向前沿活跃：(1) 超快激光冲击在手性链2D材料中实现模具拓扑控制的各向异性变形；(2) 银纳米线结的激光冲击变形对比研究；(3) 声学特征识别激光诱导击穿。趋势是从宏观金属向纳米尺度功能材料延伸。",
-    "hotspots": [
-      "2D材料冲击变形",
-      "银纳米线结",
-      "超快激光冲击",
-      "声学特征检测"
-    ]
-  },
-  "surface": {
-    "trend": "腐蚀抗力与生物医用表面改性",
-    "summary": "表面改性工程方向聚焦：(1) 激光冲击波增强Ti6Al4V合金热腐蚀抗力；(2) 生物医用钛合金的激光冲击处理；(3) 摩擦行为与润湿性改善。趋势是面向极端环境和生物医用的高端表面功能化。",
-    "hotspots": [
-      "热腐蚀抗力",
-      "生物医用钛合金",
-      "润湿性调控"
-    ]
-  }
-};
-
 const PAPERS = [
   {
     "id": "p-006",
@@ -200,7 +25,7 @@ const PAPERS = [
   {
     "id": "n-199",
     "title": "Improving the high temperature oxidation resistance of Ni-based superalloy GH202 induced by laser shock processing",
-    "titleCn": "",
+    "titleCn": "激光冲击加工提高镍基高温合金GH202的高温抗氧化性能",
     "authors": "Cao, Zhang, Hua, Chen",
     "journal": "Journal of Materials Processing Technology",
     "sourceType": "SCI",
@@ -209,11 +34,14 @@ const PAPERS = [
     "innovationScore": 8,
     "field": "process",
     "processType": "warm",
-    "innovationTags": [],
+    "innovationTags": [
+      "高温合金",
+      "抗氧化性能"
+    ],
     "abstract": "",
     "doi": "10.1016/j.jmatprotec.2016.11.040",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "激光冲击加工提高镍基高温合金GH202的高温抗氧化性能。本文采用激光冲击的方法，旨在实现抗氧化性提升。研究聚焦于激光冲击强化工艺参数优化与约束层创新。研究涉及高温合金、抗氧化性能等关键内容，发表在Journal of Materials Processing Technology上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 = 抗氧化性提升",
     "subCategory": "",
     "citationCount": 43,
     "link": "https://doi.org/10.1016/j.jmatprotec.2016.11.040"
@@ -221,7 +49,7 @@ const PAPERS = [
   {
     "id": "n-174",
     "title": "Improving the strength and ductility of laser directed energy deposited CrMnFeCoNi high-entropy alloy by laser shock peening",
-    "titleCn": "",
+    "titleCn": "激光冲击强化激光定向能沉积CrMnFeCoNi高熵合金的强度和延展性",
     "authors": "Tong, Liu, Jiao, Zhou",
     "journal": "Additive Manufacturing",
     "sourceType": "SCI",
@@ -230,11 +58,16 @@ const PAPERS = [
     "innovationScore": 8,
     "field": "process",
     "processType": "general",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "残余应力",
+      "微观组织",
+      "高熵合金",
+      "激光冲击"
+    ],
+    "abstract": "Abstract In this study, laser shock peening (LSP) was employed to change the stress state and microstructure of the surface layer of CrMnFeCoNi HEA fabricated by laser directed energy deposition (LDED) and improve its mechanical properties. The surface morphology, residual stress, and tensile properties of the CrMnFeCoNi HEA with and without LSP were investigated. Furthermore, we characterized the microstructure evolution of the specimen treated by LSP along the depth direction before and after ",
     "doi": "10.1016/j.addma.2020.101417",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "摘要 本研究采用激光冲击强化（LSP）技术来改变激光定向能量沉积（LDED）制备的CrMnFeCoNi HEA表面层的应力状态和微观结构，提高其力学性能。研究了有和没有 LSP 的 CrMnFeCoNi HEA 的表面形貌、残余应力和拉伸性能。此外，我们还表征了 LSP 处理前后样品沿深度方向的微观结构演变。",
+    "innovationFormula": "激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 21,
     "link": "https://doi.org/10.1016/j.addma.2020.101417"
@@ -265,7 +98,7 @@ const PAPERS = [
   {
     "id": "n-024",
     "title": "Thickness effect in laser shock processing for test specimens with a small hole under smaller laser power density",
-    "titleCn": "",
+    "titleCn": "较小激光功率密度下小孔试件激光冲击加工的厚度效应",
     "authors": "Yinfang Jiang, Xin Li, Wenfan Jiang, Quanhong Wan, Xuedong Gan et al.",
     "journal": "Optics &amp; Laser Technology",
     "sourceType": "SCI",
@@ -274,11 +107,16 @@ const PAPERS = [
     "innovationScore": 7,
     "field": "process",
     "processType": "general",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "有限元模拟",
+      "残余应力",
+      "疲劳性能",
+      "裂纹"
+    ],
+    "abstract": "Abstract In order to consider the influence of the thickness difference of the small hole sample or member on the effect of laser shock processing and the optimization of the process parameters, the differences in residual stress distribution, fatigue source location, fracture characteristics and crack growth rate and their correlations were investigated by simulation and experimental methods after laser shock processing of small hole specimens with different thicknesses under certain power dens",
     "doi": "10.1016/j.optlastec.2019.01.037",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "摘要 为考虑小孔试件或构件的厚度差异对激光冲击加工效果的影响及工艺参数的优化，采用仿真和实验方法研究了不同厚度小孔试件在一定功率密度下激光冲击加工后残余应力分布、疲劳源位置、断裂特征和裂纹扩展速率的差异及其相关性。",
+    "innovationFormula": "有限元模拟 + 激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 16,
     "link": "https://doi.org/10.1016/j.optlastec.2019.01.037"
@@ -286,7 +124,7 @@ const PAPERS = [
   {
     "id": "n-038",
     "title": "Laser Shock Processing: Process Physics, Parameters, and Applications",
-    "titleCn": "",
+    "titleCn": "激光冲击加工：过程物理、参数和应用",
     "authors": "Mahesh J. Yadav, A.N. Jinoop, Chaitanya Danduk, S. Kanmani Subbu",
     "journal": "Materials Today: Proceedings",
     "sourceType": "SCI",
@@ -295,10 +133,12 @@ const PAPERS = [
     "innovationScore": 7,
     "field": "process",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1016/j.matpr.2017.07.128",
-    "innovationCn": "",
+    "innovationCn": "激光冲击加工：过程物理、参数和应用。本文采用激光冲击的方法，旨在实现性能提升。研究聚焦于激光冲击强化工艺参数优化与约束层创新。研究涉及激光冲击等关键内容，发表在Materials Today: Proceedings上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
     "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 16,
@@ -307,7 +147,7 @@ const PAPERS = [
   {
     "id": "n-048",
     "title": "Study of the Parameters of Laser-Induced Shock Waves for Laser Shock Peening of Silicon",
-    "titleCn": "",
+    "titleCn": "硅激光冲击强化激光激波参数研究",
     "authors": "E. I. Mareev, B. V. Rumiantsev, F. V. Potemkin",
     "journal": "JETP Letters",
     "sourceType": "SCI",
@@ -316,11 +156,16 @@ const PAPERS = [
     "innovationScore": 7,
     "field": "process",
     "processType": "general",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "超快激光",
+      "冲击波",
+      "形状记忆合金",
+      "激光冲击"
+    ],
+    "abstract": "The ranges of energies of femtosecond laser pulses and distances from the focusing point of intense (up to 1013 W/cm2) femtosecond laser radiation to a silicon sample in which phase transitions can be initiated have been determined using the time-resolved shadow photography technique. It has been found that the tight focusing (NA = 0.5) of femtosecond near infrared laser radiation provides a pressure of 15 GPa, which corresponds to a pressure of (40 ± 6) GPa in the case of laser shock peening of",
     "doi": "10.1134/s0021364020230095",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "飞秒激光脉冲的能量范围以及从强烈（高达 1013 W/cm2）飞秒激光辐射的聚焦点到可以引发相变的硅样品的距离已使用时间分辨阴影摄影技术确定。研究发现，飞秒近红外激光辐射的紧密聚焦（NA=0.5）可提供15 GPa的压力，相当于激光冲击喷丸情况下的（40±6）GPa的压力。",
+    "innovationFormula": "激光冲击 + 超快激光 = 相变调控",
     "subCategory": "",
     "citationCount": 12,
     "link": "https://doi.org/10.1134/s0021364020230095"
@@ -412,7 +257,7 @@ const PAPERS = [
     "abstract": "In this work, laser shock peening (or simply laser peening) is investigated for the first time as a post welding treatment for dissimilar foils joined via the fully-mechanical, high-velocity laser impact welding technique. Single and double laser peening shots were applied to laser-impact-welded foils using three different metallic material combinations. Subsequent lap shear testing showed that single-shot laser peening increased the average weld strength by 12% to 25%, depending on the flyer an",
     "doi": "10.1016/j.matdes.2021.109701",
     "innovationCn": "在这项工作中，首次研究了激光冲击喷丸（或简称激光喷丸）作为通过全机械高速激光冲击焊接技术连接的异种箔的焊后处理。使用三种不同的金属材料组合对激光冲击焊接箔进行单次和双次激光喷丸处理。随后的搭接剪切测试表明，单次激光喷丸将平均焊接强度提高了 12% 至 25%，具体取决于传单和",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationFormula": "激光冲击 = 强度提升",
     "subCategory": "",
     "citationCount": 31,
     "link": "https://doi.org/10.1016/j.matdes.2021.109701"
@@ -420,7 +265,7 @@ const PAPERS = [
   {
     "id": "n-040",
     "title": "Two-sided laser shock processing",
-    "titleCn": "",
+    "titleCn": "双面激光冲击加工",
     "authors": "G. Zh. Sakhvadze, M. S. Pugachev, O. G. Kikvidze",
     "journal": "Russian Engineering Research",
     "sourceType": "SCI",
@@ -429,11 +274,15 @@ const PAPERS = [
     "innovationScore": 6,
     "field": "process",
     "processType": "general",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "残余应力",
+      "钒合金",
+      "硬度"
+    ],
+    "abstract": "The principles of two-sided laser shock processing (LSP) are considered. The differences between two-sided and one-sided laser shock processing are noted. For the example of a thin VT-6 titanium-alloy plate, finite-element modeling is used to investigate the residual stress field when using two-sided LSP. The distribution of surface microhardness is analyzed.",
     "doi": "10.3103/s1068798x17010191",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "考虑了双面激光冲击加工 (LSP) 的原理。注意到双面和单面激光冲击加工之间的差异。以 VT-6 钛合金薄板为例，采用有限元建模研究了使用两侧 LSP 时的残余应力场。分析了表面显微硬度的分布。",
+    "innovationFormula": "激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 6,
     "link": "https://doi.org/10.3103/s1068798x17010191"
@@ -464,7 +313,7 @@ const PAPERS = [
   {
     "id": "n-187",
     "title": "Study on the spallation behavior of FeCoCrNiCu high-entropy alloy under laser shock peening at cryogenic temperature",
-    "titleCn": "",
+    "titleCn": "FeCoCrNiCu高熵合金低温激光冲击喷丸剥落行为研究",
     "authors": "Lu, Li, Liu, Ye",
     "journal": "Materials Letters",
     "sourceType": "SCI",
@@ -473,11 +322,16 @@ const PAPERS = [
     "innovationScore": 6,
     "field": "process",
     "processType": "cryogenic",
-    "innovationTags": [],
+    "innovationTags": [
+      "深冷激光冲击",
+      "层裂",
+      "高熵合金",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1016/j.matlet.2025.138335",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "FeCoCrNiCu高熵合金低温激光冲击喷丸剥落行为研究。本文采用激光冲击 + 深冷处理的方法，旨在实现层裂损伤预测。研究聚焦于激光冲击强化工艺参数优化与约束层创新。研究涉及深冷激光冲击、层裂、高熵合金、激光冲击等关键内容，发表在Materials Letters上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 + 深冷处理 = 层裂损伤预测",
     "subCategory": "",
     "citationCount": 2,
     "link": "https://doi.org/10.1016/j.matlet.2025.138335"
@@ -531,7 +385,7 @@ const PAPERS = [
   {
     "id": "n-111",
     "title": "Laser shock peening effects on laser-repaired TC4 alloy",
-    "titleCn": "",
+    "titleCn": "激光冲击强化对激光修复 TC4 合金的影响",
     "authors": "Sun, Yu, Liu",
     "journal": "Unknown",
     "sourceType": "核心",
@@ -540,10 +394,12 @@ const PAPERS = [
     "innovationScore": 6,
     "field": "process",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.2139/ssrn.5622982",
-    "innovationCn": "",
+    "innovationCn": "激光冲击强化对激光修复 TC4 合金的影响。本文采用激光冲击的方法，旨在实现性能提升。研究聚焦于激光冲击强化工艺参数优化与约束层创新。研究涉及激光冲击等关键内容，发表在Unknown上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
     "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 0,
@@ -552,7 +408,7 @@ const PAPERS = [
   {
     "id": "n-218",
     "title": "Effect of laser shock peening on the stresses and tensile properties of 7075 aluminum alloy welded joint used for folded chairs",
-    "titleCn": "",
+    "titleCn": "激光冲击强化对折叠椅用7075铝合金焊接接头应力及拉伸性能的影响",
     "authors": "J.T, Shen, Wang, Y.K",
     "journal": "Unknown",
     "sourceType": "核心",
@@ -561,10 +417,13 @@ const PAPERS = [
     "innovationScore": 6,
     "field": "process",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "铝合金",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.2139/ssrn.5917296",
-    "innovationCn": "",
+    "innovationCn": "激光冲击强化对折叠椅用7075铝合金焊接接头应力及拉伸性能的影响。本文采用激光冲击的方法，旨在实现性能提升。研究聚焦于激光冲击强化工艺参数优化与约束层创新。研究涉及铝合金、激光冲击等关键内容，发表在Unknown上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
     "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 0,
@@ -588,7 +447,7 @@ const PAPERS = [
     "abstract": "",
     "doi": "10.1016/j.optlastec.2021.107385",
     "innovationCn": "人工神经网络方法预测TC4钛合金激光冲击加工力学性能。本文采用激光冲击的方法，旨在实现性能提升。研究聚焦于激光冲击强化工艺参数优化与约束层创新。研究涉及激光冲击等关键内容，发表在Optics &amp; Laser Technology上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationFormula": "激光冲击 + 机器学习 = 性能提升",
     "subCategory": "",
     "citationCount": 35,
     "link": "https://doi.org/10.1016/j.optlastec.2021.107385"
@@ -596,7 +455,7 @@ const PAPERS = [
   {
     "id": "n-028",
     "title": "Laser Shock Processing and Related Phenomena",
-    "titleCn": "",
+    "titleCn": "激光冲击加工及相关现象",
     "authors": "José Luis Ocaña, Janez Grum",
     "journal": "Metals",
     "sourceType": "SCI",
@@ -605,10 +464,12 @@ const PAPERS = [
     "innovationScore": 5,
     "field": "process",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "激光冲击"
+    ],
     "abstract": "Laser Shock Processing (LSP) is continuously developing as an effective technology for improving the surface and mechanical properties of metallic alloys and is emerging in direct competition with other established technologies, such as shot peening, both in preventive manufacturing treatments and maintenance/repair operations [...]",
     "doi": "10.3390/met10060797",
-    "innovationCn": "",
+    "innovationCn": "激光冲击加工 (LSP) 正在不断发展成为一种改善金属合金表面和机械性能的有效技术，并且在预防性制造处理和维护/修理操作方面与喷丸等其他现有技术直接竞争。",
     "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 3,
@@ -617,7 +478,7 @@ const PAPERS = [
   {
     "id": "n-162",
     "title": "Laser shock peening without coating induced residual stress distribution, wettability characteristics and enhanced pitting corrosion resistance of austenitic stainless steel",
-    "titleCn": "",
+    "titleCn": "无涂层激光冲击喷丸诱导奥氏体不锈钢残余应力分布、润湿特性及增强抗点蚀能力",
     "authors": "Prabhakaran, Kulkarni, Vasanth, Kalainathan",
     "journal": "Applied Surface Science",
     "sourceType": "SCI",
@@ -626,11 +487,18 @@ const PAPERS = [
     "innovationScore": 9,
     "field": "stress",
     "processType": "coating",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "残余应力",
+      "腐蚀性能",
+      "不锈钢",
+      "润湿性",
+      "形状记忆合金",
+      "激光冲击"
+    ],
+    "abstract": "Abstract Low energy laser shock peening without coating (LSPwC) was conducted on AISI 304 austenitic stainless steel specimens with varying pulse densities or overlapping. Highest magnitude of compressive residual stress (CRS) was achieved for an optimized pulse density of 2500 pulses/cm 2 (75% overlapping). The 2-D and 3-D topographical analysis were indicative of the fact that controlled roughening of the surface was achieved after the LSPwC process. After the LSPwC process, the hydrophilic un",
     "doi": "10.1016/j.apsusc.2017.09.138",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "摘要：对 AISI 304 奥氏体不锈钢样品进行不同脉冲密度或重叠的低能激光冲击无涂层 (LSPwC)。通过 2500 脉冲/cm 2 的优化脉冲密度（75% 重叠）实现了最高程度的压缩残余应力 (CRS)。 2-D 和 3-D 形貌分析表明，LSPwC 工艺后实现了表面的受控粗糙化。经过LSPwC工艺后，亲水性UN",
+    "innovationFormula": "激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 143,
     "link": "https://doi.org/10.1016/j.apsusc.2017.09.138"
@@ -638,7 +506,7 @@ const PAPERS = [
   {
     "id": "n-069",
     "title": "Tailoring residual stress profile of Selective Laser Melted parts by Laser Shock Peening",
-    "titleCn": "",
+    "titleCn": "通过激光冲击强化选择性激光熔化零件的残余应力分布",
     "authors": "Kalentics, Boillat, Peyre, Ćirić-Kostić",
     "journal": "Additive Manufacturing",
     "sourceType": "SCI",
@@ -647,11 +515,15 @@ const PAPERS = [
     "innovationScore": 9,
     "field": "stress",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "残余应力",
+      "选择性激光",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1016/j.addma.2017.05.008",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "通过激光冲击强化选择性激光熔化零件的残余应力分布。本文采用激光冲击的方法，旨在实现残余应力调控。研究聚焦于激光冲击诱导的残余应力分布与塑性变形行为。研究涉及残余应力、选择性激光、激光冲击等关键内容，发表在Additive Manufacturing上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 58,
     "link": "https://doi.org/10.1016/j.addma.2017.05.008"
@@ -659,7 +531,7 @@ const PAPERS = [
   {
     "id": "n-027",
     "title": "Laser shock induced incremental forming of pure copper foil and its deformation behavior",
-    "titleCn": "",
+    "titleCn": "纯铜箔激光冲击渐进成形及其变形行为",
     "authors": "Chao Zheng, Changdong Pan, Zhirui Tian, Xinhai Zhao, Guoqun Zhao et al.",
     "journal": "Optics &amp; Laser Technology",
     "sourceType": "SCI",
@@ -668,11 +540,13 @@ const PAPERS = [
     "innovationScore": 8,
     "field": "stress",
     "processType": "general",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "有限元模拟"
+    ],
+    "abstract": "Abstract A novel method to fabricate micro-channel named laser shock incremental forming (LSIF) was proposed in the present study. A finite element model was established to capture the plastic deformation of metal foil during LSIF process. Formability of single straight-line channel on T2 pure copper foil by LSIF was explored through both numerical and experimental approaches. The deformation behavior of metal foil in LSIF was discussed in detail. The effect of laser power density on the bending",
     "doi": "10.1016/j.optlastec.2019.105785",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "摘要：本研究提出了一种制造微通道的新方法，即激光冲击增量成形（LSIF）。建立了有限元模型来捕获 LSIF 过程中金属箔的塑性变形。详细讨论了LSIF中金属箔的变形行为。激光功率密度对弯曲的影响",
+    "innovationFormula": "有限元模拟 = 变形行为预测",
     "subCategory": "",
     "citationCount": 27,
     "link": "https://doi.org/10.1016/j.optlastec.2019.105785"
@@ -680,7 +554,7 @@ const PAPERS = [
   {
     "id": "n-221",
     "title": "Effect of Low energy laser shock peening on plastic deformation, wettability and corrosion resistance of aluminum alloy 7075 T651",
-    "titleCn": "",
+    "titleCn": "低能激光冲击喷丸对7075 T651铝合金塑性变形、润湿性及耐蚀性的影响",
     "authors": "M., R., K.",
     "journal": "Optik",
     "sourceType": "SCI",
@@ -689,11 +563,18 @@ const PAPERS = [
     "innovationScore": 8,
     "field": "stress",
     "processType": "general",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "腐蚀性能",
+      "磨损性能",
+      "铝合金",
+      "硬度",
+      "润湿性",
+      "激光冲击"
+    ],
+    "abstract": "Abstract AA 7075 T651 alloys are often used in a variety of applications such as gears, shafts, chassis in automobile industries, missiles and extension tubes of rifles in defense and marine components, where wear and corrosion resistance is indispensable. It entails the enhancement in surface characteristics such as hardness, wear resistance and resistance to the corrosion emanate from high concentration of chlorides. This article is devoted to analyze the corrosion behavior of AA 7075 T651 all",
     "doi": "10.1016/j.ijleo.2020.165045",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "摘要 AA 7075 T651 合金经常用于多种应用，如汽车工业中的齿轮、轴、底盘，国防和船舶部件中的导弹和步枪延长管，其中耐磨性和耐腐蚀性是必不可少的。它需要提高表面特性，例如硬度、耐磨性和对高浓度氯化物产生的腐蚀的抵抗力。本文致力于分析AA 7075 T651所有的腐蚀行为",
+    "innovationFormula": "激光冲击 = 耐磨性提升",
     "subCategory": "",
     "citationCount": 25,
     "link": "https://doi.org/10.1016/j.ijleo.2020.165045"
@@ -701,7 +582,7 @@ const PAPERS = [
   {
     "id": "n-074",
     "title": "Prediction of Residual Stress Random Fields for Selective Laser Melted A357 Aluminum Alloy Subjected to Laser Shock Peening",
-    "titleCn": "",
+    "titleCn": "选区激光熔化A357铝合金激光冲击喷丸残余应力随机场预测",
     "authors": "Hatamleh, Mahadevan, Malik, Qian",
     "journal": "Journal of Manufacturing Science and Engineering",
     "sourceType": "SCI",
@@ -710,11 +591,18 @@ const PAPERS = [
     "innovationScore": 8,
     "field": "stress",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "有限元模拟",
+      "残余应力",
+      "铝合金",
+      "热处理",
+      "X射线衡射",
+      "选择性激光"
+    ],
     "abstract": "<jats:title>Abstract</jats:title><jats:p>Residual stress (RS) is a major processing issue for selective laser melting (SLM) of metal alloys. Postprocessing by way of heat treatment or hot isostatic pressing is usually required for acceptable mechanical properties. In this work, laser shock peening (LSP) treatment on both SLM and cast aluminum A357 alloys are compared with regard to the development of beneficial near-surface compressive RS. Experiments are conducted using high energy nanosecond pulsed laser, together with a fast photodetector connected to a high-resolution oscilloscope and high-speed camera to identify detailed temporal and spatial laser pulse profiles to improve numerical predictions. Constitutive modeling for SLM A357 alloy is performed using finite element simulation and data obtained from X-ray diffraction (XRD) measurements. Since XRD-RS measurements are accompanied with significant machine-reported error, an effective method is introduced to quantify the material constitutive model uncertainty in terms of a joint probability mass function. Conventionally, most constitutive behavior research for LSP involves deterministic material modeling. Predicted RS using deterministic approaches fail to reflect real-world variations in the materials, laser treatment, or RS measurements. A discretized Bayesian inference is used to quantify the rate-dependent plasticity material model parameters as a joint probability function. RS are then characterized as random fields, which provides far greater insight into the practical ability to attain desired residual stresses. Moreover, for identical LSP treatments, it is determined that the material models are significantly different for the SLM and the conventional cast A357 aluminum alloys, resulting in much lower magnitude of compressive RS in the SLM alloy.</jats:p>",
     "doi": "10.1115/1.4044418",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "摘要残余应力 (RS) 是金属合金选择性激光熔化 (SLM) 的主要加工问题。在这项工作中，比较了 SLM 和铸铝 A357 合金的激光冲击喷丸 (LSP) 处理，以开发有益的近表面压缩 RS。 SLM A357 合金的本构建模是使用有限元模拟和 X 射线衍射 (XRD) 测量获得的数据进行的。此外，对于相同的 LSP 处理",
+    "innovationFormula": "有限元模拟 + 激光冲击 + 热处理 = 残余应力调控",
     "subCategory": "",
     "citationCount": 22,
     "link": "https://doi.org/10.1115/1.4044418"
@@ -722,7 +610,7 @@ const PAPERS = [
   {
     "id": "n-067",
     "title": "Investigation on the deformation progress and residual stress of Ti-6Al-4V alloy during laser shock peening",
-    "titleCn": "",
+    "titleCn": "Ti-6Al-4V合金激光冲击喷丸变形过程及残余应力研究",
     "authors": "Zhang, Fu, Cao, Zhou",
     "journal": "Optics &amp; Laser Technology",
     "sourceType": "SCI",
@@ -731,11 +619,14 @@ const PAPERS = [
     "innovationScore": 8,
     "field": "stress",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "残余应力",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1016/j.optlastec.2024.110643",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "Ti-6Al-4V合金激光冲击喷丸变形过程及残余应力研究。本文采用激光冲击的方法，旨在实现残余应力调控。研究聚焦于激光冲击诱导的残余应力分布与塑性变形行为。研究涉及残余应力、激光冲击等关键内容，发表在Optics &amp; Laser Technology上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 21,
     "link": "https://doi.org/10.1016/j.optlastec.2024.110643"
@@ -767,7 +658,7 @@ const PAPERS = [
   {
     "id": "n-065",
     "title": "Effects of power density on residual stress and microstructural behavior of Ti-2.5Cu alloy by laser shock peening without coating",
-    "titleCn": "",
+    "titleCn": "功率密度对Ti-2.5Cu合金无涂层激光冲击喷丸残余应力及显微组织行为的影响",
     "authors": "Nataraj, Swaroop",
     "journal": "Vacuum",
     "sourceType": "SCI",
@@ -776,11 +667,14 @@ const PAPERS = [
     "innovationScore": 7,
     "field": "stress",
     "processType": "coating",
-    "innovationTags": [],
+    "innovationTags": [
+      "残余应力",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1016/j.vacuum.2023.112078",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "功率密度对Ti-2.5Cu合金无涂层激光冲击喷丸残余应力及显微组织行为的影响。本文采用激光冲击的方法，旨在实现残余应力调控。研究聚焦于激光冲击诱导的残余应力分布与塑性变形行为。研究涉及残余应力、激光冲击等关键内容，发表在Vacuum上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 18,
     "link": "https://doi.org/10.1016/j.vacuum.2023.112078"
@@ -788,7 +682,7 @@ const PAPERS = [
   {
     "id": "n-005",
     "title": "Investigation on surface “residual stress hole” of thin plate subjected to two sided laser shock processing",
-    "titleCn": "",
+    "titleCn": "薄板双面激光冲击加工表面“残余应力孔”研究",
     "authors": "Hengji Yang, Yousheng Zhu, Yan Zhang, Xingquan Zhang, Lisheng Zuo et al.",
     "journal": "Optics &amp; Laser Technology",
     "sourceType": "SCI",
@@ -797,11 +691,13 @@ const PAPERS = [
     "innovationScore": 7,
     "field": "stress",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "残余应力"
+    ],
     "abstract": "",
     "doi": "10.1016/j.optlastec.2022.107886",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "薄板双面激光冲击加工表面“残余应力孔”研究。本文采用激光冲击的方法，旨在实现残余应力调控。研究聚焦于激光冲击诱导的残余应力分布与塑性变形行为。研究涉及残余应力等关键内容，发表在Optics &amp; Laser Technology上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 16,
     "link": "https://doi.org/10.1016/j.optlastec.2022.107886"
@@ -809,7 +705,7 @@ const PAPERS = [
   {
     "id": "n-066",
     "title": "Effects of surface curvature on residual stress field of 316L stainless steel subjected to laser shock peening",
-    "titleCn": "",
+    "titleCn": "表面曲率对316L不锈钢激光冲击强化残余应力场的影响",
     "authors": "Xu, Lu, Luo, Dai",
     "journal": "Optics &amp; Laser Technology",
     "sourceType": "SCI",
@@ -818,11 +714,15 @@ const PAPERS = [
     "innovationScore": 7,
     "field": "stress",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "残余应力",
+      "不锈钢",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1016/j.optlastec.2021.107420",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "表面曲率对316L不锈钢激光冲击强化残余应力场的影响。本文采用激光冲击的方法，旨在实现残余应力调控。研究聚焦于激光冲击诱导的残余应力分布与塑性变形行为。研究涉及残余应力、不锈钢、激光冲击等关键内容，发表在Optics &amp; Laser Technology上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 16,
     "link": "https://doi.org/10.1016/j.optlastec.2021.107420"
@@ -830,7 +730,7 @@ const PAPERS = [
   {
     "id": "n-079",
     "title": "Machine learning in prediction of residual stress in laser shock peening for maximizing residual compressive stress formation",
-    "titleCn": "",
+    "titleCn": "机器学习预测激光冲击喷丸中的残余应力，以最大限度地形成残余压应力",
     "authors": "Zhou, Song, Su, Wei",
     "journal": "Materials &amp; Design",
     "sourceType": "SCI",
@@ -839,11 +739,15 @@ const PAPERS = [
     "innovationScore": 7,
     "field": "stress",
     "processType": "general",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "残余应力",
+      "机器学习",
+      "激光冲击"
+    ],
+    "abstract": "Laser Shock Peening (LSP) is an advanced technique for enhancing surface properties, drawing significant interest for its ability to induce beneficial residual stresses in materials. Traditional LSP design processes, reliant on manual parameter selection, often result in imprecise control over the stress distribution, necessitating multiple iterations and high costs. This study introduces a machine learning (ML)-based approach, utilizing the Random Forest (RF) algorithm, to automate and optimize",
     "doi": "10.1016/j.matdes.2024.113079",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "激光冲击喷丸 (LSP) 是一种增强表面性能的先进技术，因其在材料中产生有益残余应力的能力而引起人们极大的兴趣。传统的 LSP 设计过程依赖于手动参数选择，通常会导致对应力分布的控制不精确，需要多次迭代且成本较高。本研究引入了一种基于机器学习 (ML) 的方法，利用随机森林 (RF) 算法来实现自动化和优化",
+    "innovationFormula": "激光冲击 + 机器学习 = 残余应力调控",
     "subCategory": "",
     "citationCount": 16,
     "link": "https://doi.org/10.1016/j.matdes.2024.113079"
@@ -851,7 +755,7 @@ const PAPERS = [
   {
     "id": "n-047",
     "title": "The size effect on deformation behavior in microscale laser shock flexible drawing",
-    "titleCn": "",
+    "titleCn": "微尺度激光冲击柔性拉伸变形行为的尺寸效应",
     "authors": "Huixia Liu, Xianqing Sun, Zongbao Shen, Cong Li, Chaofei Sha et al.",
     "journal": "Optics &amp; Laser Technology",
     "sourceType": "SCI",
@@ -860,11 +764,13 @@ const PAPERS = [
     "innovationScore": 7,
     "field": "stress",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1016/j.optlastec.2016.07.009",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "微尺度激光冲击柔性拉伸变形行为的尺寸效应。本文采用激光冲击的方法，旨在实现变形行为预测。研究聚焦于激光冲击诱导的残余应力分布与塑性变形行为。研究涉及激光冲击等关键内容，发表在Optics &amp; Laser Technology上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 14,
     "link": "https://doi.org/10.1016/j.optlastec.2016.07.009"
@@ -872,7 +778,7 @@ const PAPERS = [
   {
     "id": "n-101",
     "title": "The evolution of strain gradient and surface microstructure of aluminum alloy during multiple laser shock peening cycles",
-    "titleCn": "",
+    "titleCn": "多次激光冲击喷丸循环过程中铝合金应变梯度和表面微观结构的演变",
     "authors": "Zhang, Shang, Ma, Chang",
     "journal": "Applied Surface Science",
     "sourceType": "SCI",
@@ -881,11 +787,15 @@ const PAPERS = [
     "innovationScore": 7,
     "field": "stress",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "微观组织",
+      "铝合金",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1016/j.apsusc.2025.163067",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "多次激光冲击喷丸循环过程中铝合金应变梯度和表面微观结构的演变。本文采用激光冲击的方法，旨在实现微观组织优化。研究聚焦于激光冲击诱导的残余应力分布与塑性变形行为。研究涉及微观组织、铝合金、激光冲击等关键内容，发表在Applied Surface Science上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 = 微观组织优化",
     "subCategory": "",
     "citationCount": 10,
     "link": "https://doi.org/10.1016/j.apsusc.2025.163067"
@@ -893,7 +803,7 @@ const PAPERS = [
   {
     "id": "n-114",
     "title": "Heat treatment and laser shock peening of AlSi10Mg alloy produced by selective laser melting: Microstructure, hardness and residual stress analysis",
-    "titleCn": "",
+    "titleCn": "选区激光熔化AlSi10Mg合金的热处理和激光冲击强化：显微组织、硬度和残余应力分析",
     "authors": "Babalou, Azarbarmas, Prashanth",
     "journal": "Materials Today Communications",
     "sourceType": "SCI",
@@ -902,11 +812,18 @@ const PAPERS = [
     "innovationScore": 7,
     "field": "stress",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "残余应力",
+      "微观组织",
+      "硬度",
+      "热处理",
+      "选择性激光",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1016/j.mtcomm.2025.112408",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "选区激光熔化AlSi10Mg合金的热处理和激光冲击强化：显微组织、硬度和残余应力分析。本文采用激光冲击 + 热处理的方法，旨在实现残余应力调控。研究聚焦于激光冲击诱导的残余应力分布与塑性变形行为。研究涉及残余应力、微观组织、硬度、热处理、选择性激光、激光冲击等关键内容，发表在Materials Today Communications上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 + 热处理 = 残余应力调控",
     "subCategory": "",
     "citationCount": 6,
     "link": "https://doi.org/10.1016/j.mtcomm.2025.112408"
@@ -937,7 +854,7 @@ const PAPERS = [
   {
     "id": "n-140",
     "title": "Finite-element study of residual stress distribution in Ti-6Al-4V alloy treated by laser shock peening with varying parameters",
-    "titleCn": "",
+    "titleCn": "不同参数激光冲击喷丸Ti-6Al-4V合金残余应力分布的有限元研究",
     "authors": "Kostina, Zhelnin, Gachegova, Prokhorov",
     "journal": "Frattura ed Integrità Strutturale",
     "sourceType": "SCI",
@@ -946,11 +863,15 @@ const PAPERS = [
     "innovationScore": 6,
     "field": "stress",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "残余应力",
+      "等离子体",
+      "激光冲击"
+    ],
     "abstract": "<jats:p>Laser shock peening (LSP) is used to enhance surface quality of the metallic structures by the generation of compressive residual stresses on it. This work studies the effect of the main LSP parameters on residual stress fields by the finite-element method. The specimen under investigation is a square plate with a thickness of 3 mm made of Ti-6Al-4V. The performed analysis enhances understanding of LSP application to structures manufactured from this material and this information can be useful for a choice of optimal peening parameters. The effect of the spot size and shape, the pulse energy, the number of peen layers, overlapping of spots and temporal variation of the mechanical pressure induced by plasma is considered and analyzed. A 3D finite-element model based on the Johnson-Cook constitutive relation is developed and verified by the results of residual stress measurements performed for the LSP-treated samples under different conditions. From the obtained results the following main conclusions can be drawn: pulse energy provides the more significant effect although the resulting residual stresses profile tends to some saturation curve; temporal pressure pulse shape and its total duration also substantially alter the residual stress field; the least significant parameter is the spot shape.</jats:p>",
     "doi": "10.3221/igf-esis.61.28",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "激光冲击喷丸 (LSP) 用于通过在金属结构上产生残余压应力来提高金属结构的表面质量。所进行的分析增强了对 LSP 应用到由这种材料制造的结构的理解，并且该信息可用于选择最佳喷丸参数。开发了基于 Johnson-Cook 本构关系的 3D 有限元模型，并通过残余应力测量结果进行了验证",
+    "innovationFormula": "激光冲击 + 等离子体模拟 = 残余应力调控",
     "subCategory": "",
     "citationCount": 10,
     "link": "https://doi.org/10.3221/igf-esis.61.28"
@@ -958,7 +879,7 @@ const PAPERS = [
   {
     "id": "n-226",
     "title": "FEM-ANN coupling dynamic prediction of residual stresses induced by laser shock peening of TC4 titanium alloy",
-    "titleCn": "",
+    "titleCn": "TC4钛合金激光冲击喷丸残余应力的FEM-ANN耦合动态预测",
     "authors": "Wang, Liu, Huang, Wang",
     "journal": "Optics &amp; Laser Technology",
     "sourceType": "SCI",
@@ -967,11 +888,15 @@ const PAPERS = [
     "innovationScore": 6,
     "field": "stress",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "残余应力",
+      "钒合金",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1016/j.optlastec.2024.111395",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "TC4钛合金激光冲击喷丸残余应力的FEM-ANN耦合动态预测。本文采用激光冲击的方法，旨在实现残余应力调控。研究聚焦于激光冲击诱导的残余应力分布与塑性变形行为。研究涉及残余应力、钒合金、激光冲击等关键内容，发表在Optics &amp; Laser Technology上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 8,
     "link": "https://doi.org/10.1016/j.optlastec.2024.111395"
@@ -979,7 +904,7 @@ const PAPERS = [
   {
     "id": "n-026",
     "title": "Plastic deformation behavior of 316 stainless steel subjected to multiple laser shock imprinting impacts",
-    "titleCn": "",
+    "titleCn": "多次激光冲击压印作用下316不锈钢的塑性变形行为",
     "authors": "Wei Cheng, Fengze Dai, Shu Huang, Xizhang Chen",
     "journal": "Optics &amp; Laser Technology",
     "sourceType": "SCI",
@@ -988,11 +913,13 @@ const PAPERS = [
     "innovationScore": 6,
     "field": "stress",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "不锈钢"
+    ],
     "abstract": "",
     "doi": "10.1016/j.optlastec.2022.108201",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "多次激光冲击压印作用下316不锈钢的塑性变形行为。本文采用激光冲击的方法，旨在实现变形行为预测。研究聚焦于激光冲击诱导的残余应力分布与塑性变形行为。研究涉及不锈钢等关键内容，发表在Optics &amp; Laser Technology上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 6,
     "link": "https://doi.org/10.1016/j.optlastec.2022.108201"
@@ -1000,7 +927,7 @@ const PAPERS = [
   {
     "id": "n-056",
     "title": "Evaluation of Residual Stresses Introduced by Laser Shock Peening in Steel using Different Measurement Techniques",
-    "titleCn": "",
+    "titleCn": "使用不同的测量技术评估激光冲击强化钢中产生的残余应力",
     "authors": "Unknown",
     "journal": "Materials Research Proceedings",
     "sourceType": "SCI",
@@ -1009,11 +936,14 @@ const PAPERS = [
     "innovationScore": 6,
     "field": "stress",
     "processType": "general",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "残余应力",
+      "激光冲击"
+    ],
+    "abstract": "Evaluation of Residual Stresses Introduced by Laser Shock Peening in Steel using Different Measurement Techniques D. Glaser, M. Newby, C. Polese, L. Berthe, A.M. Venter, D. Marais, J.P. Nobre, G. Styger, S. Paddea, S.N. van Staden The development of a residual stress engineering technology such as laser shock peening (LSP) requires evaluation of the process […]",
     "doi": "10.21741/9781945291678-7",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "使用不同测量技术评估激光冲击喷丸在钢中引入的残余应力 D. van Staden 激光冲击喷丸 (LSP) 等残余应力工程技术的发展需要对过程进行评估 [...]",
+    "innovationFormula": "激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 5,
     "link": "https://doi.org/10.21741/9781945291678-7"
@@ -1021,7 +951,7 @@ const PAPERS = [
   {
     "id": "n-061",
     "title": "Synchrotron XRD Evaluation of Residual Stresses Introduced by Laser Shock Peening for Steam Turbine Blade Applications",
-    "titleCn": "",
+    "titleCn": "汽轮机叶片激光冲击喷丸残余应力的同步加速器 XRD 评估",
     "authors": "Unknown",
     "journal": "Materials Research Proceedings",
     "sourceType": "SCI",
@@ -1030,11 +960,16 @@ const PAPERS = [
     "innovationScore": 6,
     "field": "stress",
     "processType": "general",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "残余应力",
+      "疲劳性能",
+      "X射线衡射",
+      "激光冲击"
+    ],
+    "abstract": "Synchrotron XRD Evaluation of Residual Stresses Introduced by Laser Shock Peening for Steam Turbine Blade Applications M. Newby, A. Steuwer, D. Glaser, C. Polese, D.G. Hattingh, C. Gorny Steam turbines used in the power generation industry are subject to fatigue during normal operation which includes transient events such as start-ups and steady state operation. Surface […]",
     "doi": "10.21741/9781945291678-15",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "激光冲击喷丸在汽轮机叶片应用中引入的残余应力的同步加速器 XRD 评估 M. Gorny 用于发电行业的汽轮机在正常运行期间会遭受疲劳，其中包括启动和稳态运行等瞬态事件。",
+    "innovationFormula": "激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 5,
     "link": "https://doi.org/10.21741/9781945291678-15"
@@ -1042,7 +977,7 @@ const PAPERS = [
   {
     "id": "n-153",
     "title": "Comparison of surface integrity, microstructure and corrosion resistance of Zr-4 alloy with various laser shock peening treatments",
-    "titleCn": "",
+    "titleCn": "不同激光喷丸处理的Zr-4合金表面完整性、显微组织和耐腐蚀性能比较",
     "authors": "Yu, Ning, Wu, Li",
     "journal": "Surface and Coatings Technology",
     "sourceType": "SCI",
@@ -1051,11 +986,15 @@ const PAPERS = [
     "innovationScore": 10,
     "field": "micro",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "微观组织",
+      "腐蚀性能",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1016/j.surfcoat.2025.131799",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "不同激光喷丸处理的Zr-4合金表面完整性、显微组织和耐腐蚀性能比较。本文采用激光冲击的方法，旨在实现耐腐蚀性提升。研究聚焦于激光冲击下微观组织演变、相变与纳米结构调控。研究涉及微观组织、腐蚀性能、激光冲击等关键内容，发表在Surface and Coatings Technology上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 = 耐腐蚀性提升",
     "subCategory": "",
     "citationCount": 52,
     "link": "https://doi.org/10.1016/j.surfcoat.2025.131799"
@@ -1063,7 +1002,7 @@ const PAPERS = [
   {
     "id": "n-107",
     "title": "Evolution of microstructure and grain refinement mechanism of pure nickel induced by laser shock peening",
-    "titleCn": "",
+    "titleCn": "激光冲击喷丸致纯镍组织演变及晶粒细化机制",
     "authors": "Chen, Ren, Zhou, Tong",
     "journal": "Materials Science and Engineering: A",
     "sourceType": "SCI",
@@ -1072,11 +1011,18 @@ const PAPERS = [
     "innovationScore": 9,
     "field": "micro",
     "processType": "general",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "微观组织",
+      "纳米结构",
+      "硬度",
+      "X射线衡射",
+      "晶粒细化",
+      "激光冲击"
+    ],
+    "abstract": "Abstract This paper investigates microstructure evolution in laser shock peened pure nickel. The microstructure of the deformed layer produced by laser shock peening (LSP) was systematically characterized by X-ray diffraction (XRD), scanning electron microscopy (SEM), electron backscatter diffraction (EBSD) and transmission electron microscopy (TEM). Results indicated that the amplitude and depth of micro-hardness in the surface layer increased with the number of laser impacts. A nanocrystalline",
     "doi": "10.1016/j.msea.2018.04.105",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "摘要 本文研究了激光冲击喷丸纯镍的微观结构演变。采用X射线衍射(XRD)、扫描电子显微镜(SEM)、电子背散射衍射(EBSD)和透射电子显微镜(TEM)系统地表征了激光冲击喷丸(LSP)产生的变形层的微观结构。结果表明，表面层显微硬度的幅度和深度随着激光冲击次数的增加而增加。纳米晶",
+    "innovationFormula": "激光冲击 = 微观组织优化",
     "subCategory": "",
     "citationCount": 87,
     "link": "https://doi.org/10.1016/j.msea.2018.04.105"
@@ -1084,7 +1030,7 @@ const PAPERS = [
   {
     "id": "n-102",
     "title": "Investigation of microstructure and mechanical properties evolution in 7050 aluminum alloy and 316L stainless steel treated by laser shock peening",
-    "titleCn": "",
+    "titleCn": "激光冲击喷丸处理7050铝合金和316L不锈钢显微组织和力学性能演变研究",
     "authors": "Jing, Fang, Xi, Feng",
     "journal": "Materials Characterization",
     "sourceType": "SCI",
@@ -1093,11 +1039,16 @@ const PAPERS = [
     "innovationScore": 9,
     "field": "micro",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "微观组织",
+      "不锈钢",
+      "铝合金",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1016/j.matchar.2021.111571",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "激光冲击喷丸处理7050铝合金和316L不锈钢显微组织和力学性能演变研究。本文采用激光冲击的方法，旨在实现微观组织优化。研究聚焦于激光冲击下微观组织演变、相变与纳米结构调控。研究涉及微观组织、不锈钢、铝合金、激光冲击等关键内容，发表在Materials Characterization上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 = 微观组织优化",
     "subCategory": "",
     "citationCount": 62,
     "link": "https://doi.org/10.1016/j.matchar.2021.111571"
@@ -1105,7 +1056,7 @@ const PAPERS = [
   {
     "id": "n-093",
     "title": "Effect of microstructure evolution and phase precipitations on hot corrosion behavior of IN718 alloy subjected to multiple laser shock peening",
-    "titleCn": "",
+    "titleCn": "多次激光冲击强化IN718合金组织演变和相析出对热腐蚀行为的影响",
     "authors": "Geng, Dong, Wang, Yan",
     "journal": "Surface and Coatings Technology",
     "sourceType": "SCI",
@@ -1114,11 +1065,15 @@ const PAPERS = [
     "innovationScore": 9,
     "field": "micro",
     "processType": "general",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "微观组织",
+      "腐蚀性能",
+      "激光冲击"
+    ],
+    "abstract": "Abstract High-temperature hot corrosion experiments of IN718 alloy subjected to multiple laser shock peening (LSP) were conducted by coating a salt mixture (75 wt% Na2SO4 + 25 wt% NaCl) on its surfaces at 700, 800 and 900 °C for 10 cycles. The effect of microstructure evolution and phase precipitations on high-temperature hot corrosion behavior of the specimens was investigated. Results showed that high-temperature hot corrosion behavior is associated with δ phase precipitations. Excessive δ pha",
     "doi": "10.1016/j.surfcoat.2019.04.060",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "摘要 采用盐混合物（75wt% Na2SO4+25wt% NaCl）涂覆在IN718合金表面，在700、800和900 ℃下进行10个循环的多次激光冲击喷丸（LSP）高温热腐蚀实验。 The effect of microstructure evolution and phase precipitations on high-temperature hot corrosion behavior of the specimens was investigated. Results showed that high-temperature hot corrosion behavior is associated with δ phase precipitations. Excessive δ pha",
+    "innovationFormula": "激光冲击 = 耐腐蚀性提升",
     "subCategory": "",
     "citationCount": 58,
     "link": "https://doi.org/10.1016/j.surfcoat.2019.04.060"
@@ -1150,7 +1105,7 @@ const PAPERS = [
   {
     "id": "n-109",
     "title": "Microstructure evolution and mechanical properties of a lamellar near-α titanium alloy treated by laser shock peening",
-    "titleCn": "",
+    "titleCn": "激光冲击强化层状近α钛合金的组织演变及力学性能",
     "authors": "Jia, Zan, Mao, Li",
     "journal": "Vacuum",
     "sourceType": "SCI",
@@ -1159,11 +1114,16 @@ const PAPERS = [
     "innovationScore": 8,
     "field": "micro",
     "processType": "general",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "微观组织",
+      "钒合金",
+      "硬度",
+      "激光冲击"
+    ],
+    "abstract": "Abstract Laser shock peening (LSP) is a novel surface treatment technique for strengthening metal materials. The microstructural response of lamellar Ti834 alloy was investigated after treated by LSP. Micro-hardness of LSPed specimens on the surface and along the depth direction was measured. Microstructural features of plastic deformation layer induced by LSP were identified by transmission electron microscopy (TEM). Experimental results showed that the surface micro-hardness of Ti834 alloy inc",
     "doi": "10.1016/j.vacuum.2020.109906",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "摘要 激光冲击强化（LSP）是一种新型的金属材料表面强化处理技术。测量了 LSPed 试样表面和深度方向的显微硬度。通过透射电子显微镜 (TEM) 鉴定了 LSP 引起的塑性变形层的微观结构特征。实验结果表明Ti834合金的表面显微硬度",
+    "innovationFormula": "激光冲击 = 微观组织优化",
     "subCategory": "",
     "citationCount": 23,
     "link": "https://doi.org/10.1016/j.vacuum.2020.109906"
@@ -1171,7 +1131,7 @@ const PAPERS = [
   {
     "id": "n-215",
     "title": "Microstructural response and surface mechanical properties of TC6 titanium alloy subjected to laser peening with different laser energy",
-    "titleCn": "",
+    "titleCn": "不同激光能量激光喷丸后TC6钛合金的显微组织响应及表面力学性能",
     "authors": "Li, Chen, Zhu, Zhao",
     "journal": "Optics &amp; Laser Technology",
     "sourceType": "SCI",
@@ -1180,10 +1140,13 @@ const PAPERS = [
     "innovationScore": 8,
     "field": "micro",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "钒合金",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1016/j.optlastec.2022.108836",
-    "innovationCn": "",
+    "innovationCn": "不同激光能量激光喷丸后TC6钛合金的显微组织响应及表面力学性能。本文采用激光冲击的方法，旨在实现性能提升。研究聚焦于激光冲击下微观组织演变、相变与纳米结构调控。研究涉及钒合金、激光冲击等关键内容，发表在Optics &amp; Laser Technology上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
     "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 23,
@@ -1192,7 +1155,7 @@ const PAPERS = [
   {
     "id": "n-112",
     "title": "Effect of multiple laser shock peening on the microstructure and properties of laser cladding nano-WC/Ni60 composite coatings",
-    "titleCn": "",
+    "titleCn": "多次激光冲击喷丸对激光熔覆纳米WC/Ni60复合涂层组织与性能的影响",
     "authors": "Chen, Feng, Wei, Wang",
     "journal": "Optics &amp; Laser Technology",
     "sourceType": "SCI",
@@ -1201,11 +1164,16 @@ const PAPERS = [
     "innovationScore": 8,
     "field": "micro",
     "processType": "hybrid_am",
-    "innovationTags": [],
+    "innovationTags": [
+      "微观组织",
+      "激光熔覆",
+      "复合材料",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1016/j.optlastec.2023.109719",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "多次激光冲击喷丸对激光熔覆纳米WC/Ni60复合涂层组织与性能的影响。本文采用激光冲击 + 激光熔覆的方法，旨在实现微观组织优化。研究聚焦于激光冲击下微观组织演变、相变与纳米结构调控。研究涉及微观组织、激光熔覆、复合材料、激光冲击等关键内容，发表在Optics &amp; Laser Technology上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 + 激光熔覆 = 微观组织优化",
     "subCategory": "",
     "citationCount": 21,
     "link": "https://doi.org/10.1016/j.optlastec.2023.109719"
@@ -1213,7 +1181,7 @@ const PAPERS = [
   {
     "id": "n-147",
     "title": "The effect of laser shock peening with and without coating on microstructure and electrochemical corrosion behavior of AZ31b magnesium alloy",
-    "titleCn": "",
+    "titleCn": "有涂层和无涂层激光冲击喷丸对AZ31b镁合金显微组织和电化学腐蚀行为的影响",
     "authors": "Luo, Sun, Lu, Zhang",
     "journal": "Surface and Coatings Technology",
     "sourceType": "SCI",
@@ -1222,11 +1190,16 @@ const PAPERS = [
     "innovationScore": 8,
     "field": "micro",
     "processType": "coating",
-    "innovationTags": [],
+    "innovationTags": [
+      "微观组织",
+      "腐蚀性能",
+      "电化学性能",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1016/j.surfcoat.2024.131709",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "有涂层和无涂层激光冲击喷丸对AZ31b镁合金显微组织和电化学腐蚀行为的影响。本文采用激光冲击的方法，旨在实现耐腐蚀性提升。研究聚焦于激光冲击下微观组织演变、相变与纳米结构调控。研究涉及微观组织、腐蚀性能、电化学性能、激光冲击等关键内容，发表在Surface and Coatings Technology上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 = 耐腐蚀性提升",
     "subCategory": "",
     "citationCount": 19,
     "link": "https://doi.org/10.1016/j.surfcoat.2024.131709"
@@ -1304,7 +1277,7 @@ const PAPERS = [
   {
     "id": "n-185",
     "title": "Microstructure and performance evolution of Ti-6Al-4 V alloy coating by laser cladding and laser shocking composite remanufacture",
-    "titleCn": "",
+    "titleCn": "激光熔覆和激光冲击复合再制造Ti-6Al-4 V合金涂层的显微组织和性能演变",
     "authors": "Ren, Zhuang, Lei, Cao",
     "journal": "Optics &amp; Laser Technology",
     "sourceType": "SCI",
@@ -1313,11 +1286,15 @@ const PAPERS = [
     "innovationScore": 7,
     "field": "micro",
     "processType": "hybrid_am",
-    "innovationTags": [],
+    "innovationTags": [
+      "微观组织",
+      "激光熔覆",
+      "复合材料"
+    ],
     "abstract": "",
     "doi": "10.1016/j.optlastec.2021.107342",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "激光熔覆和激光冲击复合再制造Ti-6Al-4 V合金涂层的显微组织和性能演变。本文采用激光熔覆的方法，旨在实现微观组织优化。研究聚焦于激光冲击下微观组织演变、相变与纳米结构调控。研究涉及微观组织、激光熔覆、复合材料等关键内容，发表在Optics &amp; Laser Technology上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光熔覆 = 微观组织优化",
     "subCategory": "",
     "citationCount": 16,
     "link": "https://doi.org/10.1016/j.optlastec.2021.107342"
@@ -1325,7 +1302,7 @@ const PAPERS = [
   {
     "id": "n-100",
     "title": "Characteristics of microstructure evolution of surface treated IN718 superalloy by warm laser shock peening during long-term aging at high temperatures",
-    "titleCn": "",
+    "titleCn": "IN718高温合金温激光冲击喷丸表面长期时效组织演变特征",
     "authors": "Liu, Wang, Yang, Song",
     "journal": "Materials Characterization",
     "sourceType": "SCI",
@@ -1334,11 +1311,16 @@ const PAPERS = [
     "innovationScore": 7,
     "field": "micro",
     "processType": "warm",
-    "innovationTags": [],
+    "innovationTags": [
+      "微观组织",
+      "高温合金",
+      "温激光冲击",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1016/j.matchar.2022.112261",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "IN718高温合金温激光冲击喷丸表面长期时效组织演变特征。本文采用激光冲击 + 温冲击的方法，旨在实现微观组织优化。研究聚焦于激光冲击下微观组织演变、相变与纳米结构调控。研究涉及微观组织、高温合金、温激光冲击、激光冲击等关键内容，发表在Materials Characterization上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 + 温冲击 = 微观组织优化",
     "subCategory": "",
     "citationCount": 14,
     "link": "https://doi.org/10.1016/j.matchar.2022.112261"
@@ -1346,7 +1328,7 @@ const PAPERS = [
   {
     "id": "n-085",
     "title": "Effects of laser shock peening on the properties and microstructure evolution of laser-polished surface of Cr12 steel",
-    "titleCn": "",
+    "titleCn": "激光冲击强化对Cr12钢激光抛光表面性能及组织演变的影响",
     "authors": "Chen, Wei, Wang, Jiang",
     "journal": "Journal of Laser Applications",
     "sourceType": "SCI",
@@ -1355,11 +1337,18 @@ const PAPERS = [
     "innovationScore": 7,
     "field": "micro",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "残余应力",
+      "微观组织",
+      "硬度",
+      "裂纹",
+      "形状记忆合金",
+      "激光冲击"
+    ],
     "abstract": "<jats:p>Laser polishing efficiently reduces the surface roughness of die steel, but at the same time, residual tensile stress is induced on the surface, leading to crack initiation and propagation. The present study induces residual compressive stress on the laser-polished surface of Cr12 steel by laser shock peening. The surface residual stress of samples, which underwent different treatments, is measured and compared. The experimental results show that laser shock peening effectively eliminates the residual tensile stress generated by laser polishing. The compressive residual stresses of the laser-polished samples subjected to laser shock peening with 3, 6, and 9 J energies are 114.5, −138.5, and −209.5 MPa, respectively. Moreover, the surface roughness, microhardness, and microstructure evolution of the laser-polished surface with laser shock peening are investigated.</jats:p>",
     "doi": "10.2351/7.0000395",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "激光抛光有效降低了模具钢的表面粗糙度，但同时在表面诱发残余拉应力，导致裂纹萌生和扩展。 The experimental results show that laser shock peening effectively eliminates the residual tensile stress generated by laser polishing.激光抛光样品经 3、6 和 9 J 能量激光冲击喷丸后的残余压缩应力分别为 114.5、-138.5 和 -209.5 MPa，分别为",
+    "innovationFormula": "激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 13,
     "link": "https://doi.org/10.2351/7.0000395"
@@ -1367,7 +1356,7 @@ const PAPERS = [
   {
     "id": "n-013",
     "title": "Microstructural evolution in the cross section of Ni-based superalloy induced by high power laser shock processing",
-    "titleCn": "",
+    "titleCn": "高功率激光冲击加工镍基高温合金截面显微组织演化",
     "authors": "Jiangdong Cao, Xueyu Cao, Bochen Jiang, Fang Yuan, Da Yao et al.",
     "journal": "Optics &amp; Laser Technology",
     "sourceType": "SCI",
@@ -1376,10 +1365,12 @@ const PAPERS = [
     "innovationScore": 7,
     "field": "micro",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "高温合金"
+    ],
     "abstract": "",
     "doi": "10.1016/j.optlastec.2021.107127",
-    "innovationCn": "",
+    "innovationCn": "高功率激光冲击加工镍基高温合金截面显微组织演化。本文采用激光冲击的方法，旨在实现性能提升。研究聚焦于激光冲击下微观组织演变、相变与纳米结构调控。研究涉及高温合金等关键内容，发表在Optics &amp; Laser Technology上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
     "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 12,
@@ -1434,7 +1425,7 @@ const PAPERS = [
   {
     "id": "n-228",
     "title": "Effect of multiple laser peening on surface integrity and microstructure of laser additive manufactured Ti6Al4V titanium alloy",
-    "titleCn": "",
+    "titleCn": "多次激光喷丸对激光增材制造Ti6Al4V钛合金表面完整性和微观结构的影响",
     "authors": "Hu, Lai, Hu, Yao",
     "journal": "Rapid Prototyping Journal",
     "sourceType": "SCI",
@@ -1443,11 +1434,18 @@ const PAPERS = [
     "innovationScore": 6,
     "field": "micro",
     "processType": "hybrid_am",
-    "innovationTags": [],
+    "innovationTags": [
+      "残余应力",
+      "微观组织",
+      "增材制造",
+      "疲劳性能",
+      "钒合金",
+      "硬度"
+    ],
     "abstract": "<jats:sec>\n<jats:title content-type=\"abstract-subheading\">Purpose</jats:title>\n<jats:p>Laser additive manufacturing is widely utilized to fabricate the Ti6Al4V alloy, but it requires post-processing to improve its performance. This paper aims to propose laser peening (LP) as an effective way to improve the surface characteristics of the Ti6Al4V alloy fabricated by direct laser deposition (DLD).</jats:p>\n</jats:sec>\n<jats:sec>\n<jats:title content-type=\"abstract-subheading\">Design/methodology/approach</jats:title>\n<jats:p>Surface integrity including surface roughness, porosity, residual stress and microhardness are investigated in detail before and after LP treatment. Microstructure evolution is characterized by the electron backscatter diffraction (EBSD) to analyze crystal phase, grain boundary misorientation and texture.</jats:p>\n</jats:sec>\n<jats:sec>\n<jats:title content-type=\"abstract-subheading\">Findings</jats:title>\n<jats:p>Multiple overlapping layers of LP treatment result in slight influence on the polished surface of DLD-built samples. Porosity measured by the Archimedes test is found to be greatly decreased after LP treatment. Compressive residual stresses are significantly induced, the magnitude of which is greatly increased by increasing layers of LP treatment. And, local weakening or enhancement of residual stress in depth is observed because of pore and inclusion defects in the DLD-built Ti6Al4V alloy. Favorable hardness property can be obtained after multiple overlapping layers of LP treatment. EBSD analysis shows that LP treatment with multiple layers can introduce a large amount of lower-angle boundaries, indicating that dislocations beneath the top surface could induce a strain-hardened layer. The microtexture of the DLD-built Ti6Al4V alloy cannot be eliminated to decrease the anisotropy of the mechanical property.</jats:p>\n</jats:sec>\n<jats:sec>\n<jats:title content-type=\"abstract-subheading\">Research limitations/implications</jats:title>\n<jats:p>The variation of porosity observed after LP inside the DLD-built Ti-Al-4V is attractive but requires more detailed work to analyze the evolution of pore geometry.</jats:p>\n</jats:sec>\n<jats:sec>\n<jats:title content-type=\"abstract-subheading\">Practical implications</jats:title>\n<jats:p>Surface treatment of an additive manufactured titanium alloy was carried out to improve its fatigue resistance.</jats:p>\n</jats:sec>\n<jats:sec>\n<jats:title content-type=\"abstract-subheading\">Originality/value</jats:title>\n<jats:p>This work is original in proposing LP as an effective post process for the surface treatment of an additive manufactured titanium alloy through analyzing the surface integrity and microstructure evolution.</jats:p>\n</jats:sec>",
     "doi": "10.1108/rpj-09-2018-0250",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "目的 激光增材制造广泛用于制造 Ti6Al4V 合金，但需要进行后处理来提高其性能。本文旨在提出激光喷丸（LP）作为改善直接激光沉积（DLD）制备的Ti6Al4V合金表面特性的有效方法。 </贾茨：秒> 设计/方法/appr",
+    "innovationFormula": "增材制造 = 残余应力调控",
     "subCategory": "",
     "citationCount": 10,
     "link": "https://doi.org/10.1108/rpj-09-2018-0250"
@@ -1478,7 +1476,7 @@ const PAPERS = [
   {
     "id": "n-004",
     "title": "Experimental and numerical investigation of residual stresses in laser shock peened AA2198",
-    "titleCn": "",
+    "titleCn": "激光冲击喷丸 AA2198 残余应力的实验和数值研究",
     "authors": "S. Keller, S. Chupakhin, P. Staron, E. Maawad, N. Kashaev et al.",
     "journal": "Journal of Materials Processing Technology",
     "sourceType": "SCI",
@@ -1487,11 +1485,17 @@ const PAPERS = [
     "innovationScore": 9,
     "field": "fem",
     "processType": "simulation",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "有限元模拟",
+      "残余应力",
+      "疲劳性能",
+      "铝合金",
+      "激光冲击"
+    ],
+    "abstract": "Laser shock peening (LSP) is a surface treatment which improves the fatigue performance of metallic structures by introducing compressive residual stresses. The aim of this paper is the investigation of LSP of the aluminium alloy AA2198. This investigation includes the variation of the laser power density (2.78–25 GW/cm2) and the square laser focus (1 mm × 1 mm and 3 mm × 3 mm). Additionally, two different temper stages (T3 and T8) and thicknesses (3.2 mm and 4.8 mm) of AA2198 are considered. Th",
     "doi": "10.1016/j.jmatprotec.2017.11.023",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "Laser shock peening (LSP) is a surface treatment which improves the fatigue performance of metallic structures by introducing compressive residual stresses.本文的目的是研究铝合金 AA2198 的 LSP。 This investigation includes the variation of the laser power density (2.78–25 GW/cm2) and the square laser focus (1 mm × 1 mm and 3 mm × 3 mm).此外，还考虑了 AA2198 的两个不同回火阶段（T3 和 T8）和厚度（3.2 毫米和 4.8 毫米）。",
+    "innovationFormula": "有限元模拟 + 激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 119,
     "link": "https://doi.org/10.1016/j.jmatprotec.2017.11.023"
@@ -1522,7 +1526,7 @@ const PAPERS = [
   {
     "id": "n-123",
     "title": "A Comprehensive Review on Finite Element Analysis of Laser Shock Peening",
-    "titleCn": "",
+    "titleCn": "激光冲击强化有限元分析综述",
     "authors": "Wakchaure, Misra, Menezes",
     "journal": "Materials",
     "sourceType": "SCI",
@@ -1531,11 +1535,16 @@ const PAPERS = [
     "innovationScore": 7,
     "field": "fem",
     "processType": "simulation",
-    "innovationTags": [],
+    "innovationTags": [
+      "有限元模拟",
+      "残余应力",
+      "晶粒细化",
+      "激光冲击"
+    ],
     "abstract": "<jats:p>Laser shock peening (LSP) is a formidable cold working surface treatment that provides high-energy precision to enhance the mechanical properties of materials. This paper delves into the intricacies of the LSP process, offering insights into its methodology and the simulation thereof through the finite element method. This review critically examines various points, such as laser energy, overlapping of shots, effect of LSP on residual stress, effect of LSP on grain refinement, and algorithms for simulation extrapolated from finite element analyses conducted by researchers, shedding light on the nuanced considerations integral to this technique. As the significance of LSP continues to grow, the collective findings underscore its potential as a transformative technology for fortifying materials against mechanical stress and improving their overall performance and longevity. The discourse encapsulates the evolving landscape of the LSP, emphasizing the pivotal role played by finite element analysis in advancing our understanding and application of this innovative surface treatment.</jats:p>",
     "doi": "10.3390/ma17174174",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "激光冲击喷丸 (LSP) 是一种强大的冷加工表面处理，可提供高能精度以增强材料的机械性能。本文深入研究了 LSP 过程的复杂性，通过有限元方法深入了解其方法和模拟。本综述批判性地研究了各个要点，例如激光能量、射击重叠、LSP 对残余应力的影响、LSP 对晶粒细化的影响以及算法",
+    "innovationFormula": "有限元模拟 + 激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 20,
     "link": "https://doi.org/10.3390/ma17174174"
@@ -1543,7 +1552,7 @@ const PAPERS = [
   {
     "id": "n-083",
     "title": "Numerical modeling of residual stress field for linear polarized laser oblique shock peening",
-    "titleCn": "",
+    "titleCn": "线偏振激光倾斜冲击喷丸残余应力场数值模拟",
     "authors": "Qiao, Sun, Zhao, Lu",
     "journal": "Optik",
     "sourceType": "SCI",
@@ -1552,11 +1561,16 @@ const PAPERS = [
     "innovationScore": 7,
     "field": "fem",
     "processType": "simulation",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "有限元模拟",
+      "残余应力",
+      "冲击波",
+      "激光冲击"
+    ],
+    "abstract": "Abstract To deal with the oblique laser shock situation for some complex structure workpieces, the shock wave pressure model is established for different shock angles and different laser polarization states according to the laser parameters. The laser energy loss when passing through the water layer is calculated in this model. The finite element method is applied to analyze the distribution of residual stress in surface and depth directions after LSP. The surface topography and residual stress ",
     "doi": "10.1016/j.ijleo.2019.04.083",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "摘要 针对一些复杂结构工件的倾斜激光冲击情况，根据激光参数，建立了不同冲击角、不同激光偏振态的冲击波压力模型。该模型计算了激光穿过水层时的能量损失。采用有限元方法分析LSP后残余应力在表面和深度方向的分布。表面形貌和残余应力",
+    "innovationFormula": "有限元模拟 + 激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 18,
     "link": "https://doi.org/10.1016/j.ijleo.2019.04.083"
@@ -1564,7 +1578,7 @@ const PAPERS = [
   {
     "id": "n-133",
     "title": "Numerical Study on Laser Shock Peening of Pure Al Correlating with Laser Shock Wave",
-    "titleCn": "",
+    "titleCn": "与激光冲击波相关的纯铝激光冲击喷丸数值研究",
     "authors": "Wang, Wang, Tao, Zhou",
     "journal": "Materials",
     "sourceType": "SCI",
@@ -1573,11 +1587,18 @@ const PAPERS = [
     "innovationScore": 7,
     "field": "fem",
     "processType": "simulation",
-    "innovationTags": [],
+    "innovationTags": [
+      "有限元模拟",
+      "残余应力",
+      "微观组织",
+      "位错",
+      "等离子体",
+      "冲击波"
+    ],
     "abstract": "<jats:p>Laser shock peening (LSP) is an innovative and promising surface strengthening technique of metallic materials. The LSP-induced plastic deformation, the compressive residual stresses and the microstructure evolution are essentially attributed to the laser plasma-induced shock wave. A three-dimensional finite element model in conjunction with the dislocation density-based constitutive model was developed to simulate the LSP of pure Al correlating with the LSP-induced shock wave, and the predicted in-depth residual stresses are in reasonable agreement with the experiment results. The LSP-induced shock wave associated with the laser spot diameter of 8.0 mm propagates in the form of the plane wave, and attenuates exponentially. At the same time, the propagation and attenuation of the LSP-induced shock wave associated with the laser spot diameter of 0.8 mm are in the form of the spherical wave. The reflection of the LSP-induced shock wave at the bottom surface of the target model increases the plastic deformation of the target bottom, resulting in the increase of dislocation density and the decrease of dislocation cell size accordingly. Reducing the target thickness can significantly increase the reflection times of the LSP-induced shock wave at the bottom and top surfaces of the target model, which is considered to be conductive to the generation of the compressive residual stress field and grain refinement.</jats:p>",
     "doi": "10.3390/ma15207051",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "激光冲击强化（LSP）是一种创新且有前景的金属材料表面强化技术。 LSP 引起的塑性变形、残余压应力和微观结构演化本质上归因于激光等离子体引起的冲击波。开发了一个与基于位错密度的本构模型相结合的三维有限元模型来模拟与 LSP 引起的冲击波相关的纯 Al 的 LSP，并且 p",
+    "innovationFormula": "有限元模拟 + 激光冲击 + 等离子体模拟 = 残余应力调控",
     "subCategory": "",
     "citationCount": 14,
     "link": "https://doi.org/10.3390/ma15207051"
@@ -1585,7 +1606,7 @@ const PAPERS = [
   {
     "id": "n-059",
     "title": "Coupled Modeling Approach for Laser Shock Peening of AA2198-T3: From Plasma and Shock Wave Simulation to Residual Stress Prediction",
-    "titleCn": "",
+    "titleCn": "AA2198-T3 激光冲击强化耦合建模方法：从等离子体和冲击波模拟到残余应力预测",
     "authors": "Pozdnyakov, Keller, Kashaev, Klusemann",
     "journal": "Metals",
     "sourceType": "SCI",
@@ -1594,11 +1615,18 @@ const PAPERS = [
     "innovationScore": 7,
     "field": "fem",
     "processType": "simulation",
-    "innovationTags": [],
+    "innovationTags": [
+      "有限元模拟",
+      "残余应力",
+      "铝合金",
+      "等离子体",
+      "冲击波",
+      "激光冲击"
+    ],
     "abstract": "<jats:p>Laser shock peening (LSP) is a surface modification technique to improve the mechanical properties of metals and alloys, where physical phenomena are difficult to investigate, due to short time scales and extreme physical values. In this regard, simulations can significantly contribute to understand the underlying physics. In this paper, a coupled simulation approach for LSP is presented. A global model of laser–matter–plasma interaction is applied to determine the plasma pressure, which is used as surface loading in finite element (FE) simulations in order to predict residual stress (RS) profiles in the target material. The coupled model is applied to the LSP of AA2198-T3 with water confinement, 3×3mm2 square focus and 20 ns laser pulse duration. This investigation considers the variation in laser pulse energy (3 J and 5 J) and different protective coatings (none, aluminum and steel foil). A sensitivity analysis is conducted to evaluate the impact of parameter inaccuracies of the global model on the resulting RS. Adjustment of the global model to different laser pulse energies and coating materials allows us to compute the temporal pressure distributions to predict RS with FE simulations, which are in good agreement with the measurements.</jats:p>",
     "doi": "10.3390/met12010107",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "激光冲击喷丸 (LSP) 是一种表面改性技术，旨在提高金属和合金的机械性能，而金属和合金的物理现象由于时间尺度短且物理值极端而难以研究。应用激光-物质-等离子体相互作用的全局模型来确定等离子体压力，将其用作有限元 (FE) 模拟中的表面载荷，以预测目标材料中的残余应力 (RS) 分布。敏感性分析是",
+    "innovationFormula": "有限元模拟 + 激光冲击 + 等离子体模拟 = 残余应力调控",
     "subCategory": "",
     "citationCount": 13,
     "link": "https://doi.org/10.3390/met12010107"
@@ -1606,7 +1634,7 @@ const PAPERS = [
   {
     "id": "n-064",
     "title": "Numerical analysis on residual stress hole generation in laser shock peening",
-    "titleCn": "",
+    "titleCn": "激光冲击喷丸残余应力孔洞产生的数值分析",
     "authors": "Abhishek, Panda, Kumar",
     "journal": "The European Physical Journal Plus",
     "sourceType": "SCI",
@@ -1615,11 +1643,15 @@ const PAPERS = [
     "innovationScore": 7,
     "field": "fem",
     "processType": "simulation",
-    "innovationTags": [],
+    "innovationTags": [
+      "有限元模拟",
+      "残余应力",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1140/epjp/s13360-022-02638-2",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "激光冲击喷丸残余应力孔洞产生的数值分析。本文采用有限元模拟 + 激光冲击的方法，旨在实现残余应力调控。研究聚焦于有限元数值模拟与多尺度建模方法。研究涉及有限元模拟、残余应力、激光冲击等关键内容，发表在The European Physical Journal Plus上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "有限元模拟 + 激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 13,
     "link": "https://doi.org/10.1140/epjp/s13360-022-02638-2"
@@ -1627,7 +1659,7 @@ const PAPERS = [
   {
     "id": "n-039",
     "title": "FE simulation for stress distribution and surface deformation in Ti-6Al-4V induced by interaction of multi scale laser shock peening parameters",
-    "titleCn": "",
+    "titleCn": "多尺度激光冲击喷丸参数相互作用引起的 Ti-6Al-4V 应力分布和表面变形的有限元模拟",
     "authors": "Ranjith Kumar G, Rajyalakshmi G",
     "journal": "Optik",
     "sourceType": "SCI",
@@ -1636,11 +1668,15 @@ const PAPERS = [
     "innovationScore": 7,
     "field": "fem",
     "processType": "simulation",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "有限元模拟",
+      "残余应力",
+      "激光冲击"
+    ],
+    "abstract": "Abstract The article investigates the residual stress distribution and surface deformation induced with Laser Shock Peening (LSP) using Finite Element Method (FEM) model.LSP surface treatment is complex phenomenon with huge number of parameters interaction in nanosecond span of time to induce deep residual stress. ABAQUS Explicit Dynamic FEM is used with Johnson-Cook material model for analysing non linear constitutive behaviour of Ti6Al4V and compared with published experimental results. A fine",
     "doi": "10.1016/j.ijleo.2020.164280",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "摘要 本文利用有限元法 (FEM) 模型研究了激光冲击强化 (LSP) 引起的残余应力分布和表面变形。LSP 表面处理是一种复杂的现象，大量参数在纳秒级时间内相互作用，从而引起深层残余应力。 ABAQUS Explicit Dynamic FEM 与 Johnson-Cook 材料模型结合使用，分析 Ti6Al4V 的非线性本构行为，并与已发表的实验结果进行比较。",
+    "innovationFormula": "有限元模拟 + 激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 12,
     "link": "https://doi.org/10.1016/j.ijleo.2020.164280"
@@ -1663,7 +1699,7 @@ const PAPERS = [
     "abstract": "The temperature-assisted laser shock process has shown promising prospects in the fields of forming manufacturing and surface strengthening. However, large-scale application of this process is limited by the instability and failure of confinement medium at high temperatures (&amp;ge;300 ℃). Aiming at this problem, we propose a novel laser shock strategy based on Leidenfrost effect, where the suspended droplets are utilized as the confinement medium. According to the sequence of images acquired b",
     "doi": "10.20944/preprints202204.0018.v1",
     "innovationCn": "温度辅助激光冲击工艺在成形制造和表面强化领域显示出广阔的前景。结合液滴动力学和聚焦增强效应，建立了液滴约束下激光冲击压力的理论模型。结果表明，基于液滴的激光冲击工艺呈现出较好的成形效果。力学性能测试表明，该工艺可以获得力学性能的同步提高。",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationFormula": "激光冲击 = 强度提升",
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.20944/preprints202204.0018.v1"
@@ -1694,7 +1730,7 @@ const PAPERS = [
   {
     "id": "n-142",
     "title": "Finite Element Simulation of Hybrid Additive Technology Using Laser Shock Processing",
-    "titleCn": "",
+    "titleCn": "使用激光冲击加工的混合增材技术的有限元模拟",
     "authors": "Sakhvadze",
     "journal": "Journal of Machinery Manufacture and Reliability",
     "sourceType": "SCI",
@@ -1703,11 +1739,14 @@ const PAPERS = [
     "innovationScore": 6,
     "field": "fem",
     "processType": "hybrid_am",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "有限元模拟",
+      "增材制造"
+    ],
+    "abstract": "Abstract Metal products manufactured by means of additive technologies are usually characterized by unfavorable mechanical properties. Laser shock processing is mechanical processing of surfaces at a high strain rate, which hardens the near-surface layer and creates favorable mechanical properties. This work discusses the development of hybrid additive technology in combination with laser shock processing with additive technologies, and the role of laser shock processing in hybrid additive techn",
     "doi": "10.3103/s1052618823020073",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "摘要 采用增材技术制造的金属产品通常具有不利的机械性能。激光冲击加工是以高应变率对表面进行机械加工，使近表面层硬化并产生良好的机械性能。这项工作讨论了混合增材技术与激光冲击加工与增材技术相结合的发展，以及激光冲击加工在混合增材技术中的作用。",
+    "innovationFormula": "有限元模拟 + 激光冲击 + 增材制造 = 变形行为预测",
     "subCategory": "",
     "citationCount": 8,
     "link": "https://doi.org/10.3103/s1052618823020073"
@@ -1715,7 +1754,7 @@ const PAPERS = [
   {
     "id": "n-139",
     "title": "Multi-Objective Optimization of Residual Stress and Cost in Laser Shock Peening Process Using Finite Element Analysis and PSO Algorithm",
-    "titleCn": "",
+    "titleCn": "使用有限元分析和 PSO 算法对激光冲击强化过程中​​的残余应力和成本进行多目标优化",
     "authors": "Golabi, Vakil, Amirsalari",
     "journal": "Lasers in Manufacturing and Materials Processing",
     "sourceType": "SCI",
@@ -1724,11 +1763,15 @@ const PAPERS = [
     "innovationScore": 6,
     "field": "fem",
     "processType": "simulation",
-    "innovationTags": [],
+    "innovationTags": [
+      "有限元模拟",
+      "残余应力",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1007/s40516-019-00102-1",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "使用有限元分析和 PSO 算法对激光冲击强化过程中​​的残余应力和成本进行多目标优化。本文采用有限元模拟 + 激光冲击的方法，旨在实现残余应力调控。研究聚焦于有限元数值模拟与多尺度建模方法。研究涉及有限元模拟、残余应力、激光冲击等关键内容，发表在Lasers in Manufacturing and Materials Processing上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "有限元模拟 + 激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 7,
     "link": "https://doi.org/10.1007/s40516-019-00102-1"
@@ -1736,7 +1779,7 @@ const PAPERS = [
   {
     "id": "n-058",
     "title": "Numerical Investigation of Residual Stress Field Induced by Array-Type Laser Shock Peening",
-    "titleCn": "",
+    "titleCn": "阵列式激光冲击强化残余应力场的数值研究",
     "authors": "Abhishek, Panda, Kumar",
     "journal": "JOM",
     "sourceType": "SCI",
@@ -1745,11 +1788,15 @@ const PAPERS = [
     "innovationScore": 6,
     "field": "fem",
     "processType": "simulation",
-    "innovationTags": [],
+    "innovationTags": [
+      "有限元模拟",
+      "残余应力",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1007/s11837-023-06315-2",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "阵列式激光冲击强化残余应力场的数值研究。本文采用有限元模拟 + 激光冲击的方法，旨在实现残余应力调控。研究聚焦于有限元数值模拟与多尺度建模方法。研究涉及有限元模拟、残余应力、激光冲击等关键内容，发表在JOM上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "有限元模拟 + 激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 5,
     "link": "https://doi.org/10.1007/s11837-023-06315-2"
@@ -1757,7 +1804,7 @@ const PAPERS = [
   {
     "id": "n-130",
     "title": "Combined Model Based on the Finite Element Method and Artificial Neural Networks for Modeling Laser Shock Peening of Titanium–Niobium Implants",
-    "titleCn": "",
+    "titleCn": "基于有限元法和人工神经网络的组合模型用于钛铌植入物激光冲击喷丸建模",
     "authors": "Sakhvadze, Sakhvadze",
     "journal": "Journal of Machinery Manufacture and Reliability",
     "sourceType": "SCI",
@@ -1766,11 +1813,18 @@ const PAPERS = [
     "innovationScore": 6,
     "field": "fem",
     "processType": "simulation",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "有限元模拟",
+      "残余应力",
+      "疲劳性能",
+      "钒合金",
+      "生物医用",
+      "机器学习"
+    ],
+    "abstract": "Abstract The medical titanium–niobium alloy Ti-6Al-7Nb is investigated. The application of laser shock peening technology to these alloys leads to an increase in the service life of prostheses and implants due to the creation of near-surface compressive residual stresses, which slow down or completely stop the formation and development of fatigue cracks. Residual stress fields generated by laser shock peening are first modeled using the finite element method, then they are used as a training dat",
     "doi": "10.1134/s1052618823070208",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "摘要 对医用钛铌合金Ti-6Al-7Nb进行了研究。将激光冲击喷丸技术应用于这些合金，会产生近表面残余压应力，从而减缓或完全阻止疲劳裂纹的形成和发展，从而延长假体和植入物的使用寿命。首先使用有限元方法对激光冲击喷丸产生的残余应力场进行建模，然后将其用作训练数据",
+    "innovationFormula": "有限元模拟 + 激光冲击 + 机器学习 = 残余应力调控",
     "subCategory": "",
     "citationCount": 5,
     "link": "https://doi.org/10.1134/s1052618823070208"
@@ -1778,7 +1832,7 @@ const PAPERS = [
   {
     "id": "n-137",
     "title": "Finite Element Study of Laser Peening on Selective Laser Melted A357 Aluminum Alloy During Tension Test",
-    "titleCn": "",
+    "titleCn": "选区激光熔化A357铝合金拉伸试验激光喷丸有限元研究",
     "authors": "Hatamleh, Sadeh, Farooq, Malik",
     "journal": "Volume 4: Processes",
     "sourceType": "SCI",
@@ -1787,11 +1841,18 @@ const PAPERS = [
     "innovationScore": 6,
     "field": "fem",
     "processType": "simulation",
-    "innovationTags": [],
+    "innovationTags": [
+      "有限元模拟",
+      "残余应力",
+      "疲劳性能",
+      "铝合金",
+      "形状记忆合金",
+      "选择性激光"
+    ],
     "abstract": "<jats:p>Laser shock peening (LSP) is an advanced surface treatment technique that can extend fatigue life in metallic components by inducing near-surface compressive residual stresses. In this study, LSP was implemented to induce compressive residual stresses and modify material properties of selective laser melted (SLM) aluminum A357 specimens. An initial hypothesis on the effect of LSP during tension testing was formulated and tested using finite element simulation. The hypothesis was that, due to the LSP-induced tensile residual stress field in the middle of the specimen cross sections, yielding was expected to initiate in this region. True stress-strain curves of two as-built (AB) and two laser shock peened samples were obtained through transverse tensile tests. The single explicit analysis using time dependent damping (SEATD) technique was used to simulate LSP process utilizing Johnson-Cook (J-C) constitutive parameters. J-C parameters for the cast A357 alloy were used for preliminary study. This was followed by the simulation of the transverse tensile test. J-C parameters for SLM A357 alloy were then empirically estimated, and simulations were repeated accordingly. It was found that the specific LSP pattern induced tensile residual stresses along the edges as well as the middle of the test specimen’s cross-section. Axial residual stress and yield strength profiles along three different paths on specimen’s cross-section were compared and yield regions were investigated. This supported the initial hypothesis, but also provided for a more detailed understanding of actual tensile test failure in the specific SLM A357 specimens for the given LSP treatment. In addition, the same LSP treatment on SLM A357 alloy resulted in lower magnitude of compressive residual stress than for cast A357 aluminum alloy.</jats:p>",
     "doi": "10.1115/msec2018-6706",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "激光冲击强化 (LSP) 是一种先进的表面处理技术，可以通过诱导近表面压缩残余应力来延长金属部件的疲劳寿命。在本研究中，LSP 用于诱导残余压应力并改变选择性激光熔化 (SLM) 铝 A357 样品的材料性能。通过横向拉伸试验获得了两个竣工（AB）和两个激光冲击喷丸样品的真实应力-应变曲线。轴向残余应力",
+    "innovationFormula": "有限元模拟 + 激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 5,
     "link": "https://doi.org/10.1115/msec2018-6706"
@@ -1799,7 +1860,7 @@ const PAPERS = [
   {
     "id": "n-063",
     "title": "Predictive Modeling of Laser Shock Peening Induced Near-Surface Residual Stress in Alumina",
-    "titleCn": "",
+    "titleCn": "激光冲击强化引起的氧化铝近表面残余应力的预测模型",
     "authors": "Sunny, Gleason, Sitaula, Malik",
     "journal": "Procedia Manufacturing",
     "sourceType": "EI",
@@ -1808,11 +1869,15 @@ const PAPERS = [
     "innovationScore": 6,
     "field": "fem",
     "processType": "simulation",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "残余应力",
+      "硬度",
+      "激光冲击"
+    ],
+    "abstract": "Laser shock peening (LSP) is a non-contact surface treatment method that has been experimentally found to help increase fracture toughness, induce near-surface compressive residual stress and increase hardness in ceramic materials. Numerous experiments, with associated costs and challenges, are needed to identify the application-specific LSP parameters. Physics-based computational models provide a less expensive and more flexible alternative to performing the requisite experiments, yet the trade",
     "doi": "10.1016/j.promfg.2021.06.013",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "激光冲击喷丸 (LSP) 是一种非接触式表面处理方法，经实验发现有助于提高陶瓷材料的断裂韧性、诱导近表面压缩残余应力并增加硬度。需要进行大量具有相关成本和挑战的实验来确定特定于应用的 LSP 参数。基于物理的计算模型为执行必要的实验提供了一种更便宜、更灵活的替代方案，但交易",
+    "innovationFormula": "激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 4,
     "link": "https://doi.org/10.1016/j.promfg.2021.06.013"
@@ -1820,7 +1885,7 @@ const PAPERS = [
   {
     "id": "n-119",
     "title": "Impact of dynamic recrystallization in laser shock peening predicted via a coupled cellular automata finite element model",
-    "titleCn": "",
+    "titleCn": "通过耦合元胞自动机有限元模型预测激光冲击喷丸中动态再结晶的影响",
     "authors": "Bailey, Sunny, Mathews, Malik",
     "journal": "Manufacturing Letters",
     "sourceType": "核心",
@@ -1829,11 +1894,17 @@ const PAPERS = [
     "innovationScore": 6,
     "field": "fem",
     "processType": "simulation",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "有限元模拟",
+      "微观组织",
+      "钒合金",
+      "重结晶",
+      "激光冲击"
+    ],
+    "abstract": "A coupled cellular automata-finite element (CAFE) model has been developed to simulate the phenomenon of dynamic recrystallization (DRX) during the laser shock peening (LSP) process on the titanium alloy, Ti6Al4V. Although microstructure changes resulting from DRX during LSP treatment have been observed and studied experimentally, there is no work to-date on a model that is capable of simulating LSP while also capturing the potential effects of microstructure evolution due to DRX. Creating an LS",
     "doi": "10.1016/j.mfglet.2025.06.044",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "我们开发了耦合元胞自动机有限元 (CAFE) 模型来模拟钛合金 Ti6Al4V 激光冲击强化 (LSP) 过程中的动态再结晶 (DRX) 现象。尽管已经通过实验观察和研究了 LSP 处理期间 DRX 引起的微观结构变化，但迄今为止还没有能够模拟 LSP 同时捕获 DRX 引起的微观结构演变的潜在影响的模型。",
+    "innovationFormula": "有限元模拟 + 激光冲击 = 微观组织优化",
     "subCategory": "",
     "citationCount": 1,
     "link": "https://doi.org/10.1016/j.mfglet.2025.06.044"
@@ -1841,7 +1912,7 @@ const PAPERS = [
   {
     "id": "n-082",
     "title": "Large deformation phase field modeling of spallation in metallic materials induced by laser shock peening",
-    "titleCn": "",
+    "titleCn": "激光冲击喷丸引起金属材料散裂的大变形相场建模",
     "authors": "Lyu, Shen, Naimark",
     "journal": "Unknown",
     "sourceType": "核心",
@@ -1850,11 +1921,14 @@ const PAPERS = [
     "innovationScore": 6,
     "field": "fem",
     "processType": "simulation",
-    "innovationTags": [],
+    "innovationTags": [
+      "层裂",
+      "激光冲击"
+    ],
     "abstract": "<jats:p>Laser shock peening is a surface enhancement technique for metallic materials. However, it can induce large deformation or even spallation in thin-walled structures under high-energy impacts. This study develops a large deformation phase field model to investigate this phenomenon. The model incorporates the Mie--Gruneisen equation of state and a hypoelasto-plastic constitutive relation, implemented via a fully explicit integration scheme with adaptive time stepping. The model is verified by energy analysis and validated with experimental results, then applied to investigate the fracture behavior under multiple LSP impacts and determine the maximum attainable deformation and the permissible load of thin-walled specimens prior to spallation.</jats:p>",
     "doi": "10.2139/ssrn.6429812",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "激光冲击强化是一种金属材料的表面增强技术。然而，在高能冲击下，它会引起薄壁结构的大变形甚至剥落。本研究开发了一个大变形相场模型来研究这种现象。该模型经过能量分析和实验结果验证，然后用于研究多次 LSP 冲击下的断裂行为，并确定可达到的最大变形和",
+    "innovationFormula": "激光冲击 = 变形行为预测",
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.2139/ssrn.6429812"
@@ -1862,7 +1936,7 @@ const PAPERS = [
   {
     "id": "n-118",
     "title": "Finite Element Simulation of the Laser Shock Peening Process on 304L Stainless Steel",
-    "titleCn": "",
+    "titleCn": "304L不锈钢激光冲击强化过程的有限元模拟",
     "authors": "Wakchaure, Misra, Menezes",
     "journal": "Materials",
     "sourceType": "核心",
@@ -1871,11 +1945,16 @@ const PAPERS = [
     "innovationScore": 6,
     "field": "fem",
     "processType": "simulation",
-    "innovationTags": [],
+    "innovationTags": [
+      "有限元模拟",
+      "残余应力",
+      "不锈钢",
+      "激光冲击"
+    ],
     "abstract": "<jats:p>This study investigates the effects of Laser Shock Peening (LSP) on residual stress distribution and surface deformation using a Finite Element Method (FEM) model. LSP is a surface treatment process that generates compressive residual stress by applying high-energy laser pulses over nanosecond timescales. The study aims to analyze the impact of key parameters, specifically laser spot overlap rate and power density, on the induced residual stress and surface deformation. A Design of Experiment (DOE) approach was used to systematically vary these parameters. These simulations were performed using the ANSYS Explicit Dynamics FEM with a Johnson–Cook material model to capture the nonlinear constitutive behavior. The research analyzes the distribution of residual stress and surface deformation caused by LSP. Increasing laser spot overlap and power density leads to higher compressive residual stress and surface deformation, revealing two distinct behavioral outcomes: either deep compressive stress with minimal deformation or a transition from compressive to tensile stress followed by significant surface deformation and a subsequent return to compressive stress. The results demonstrate strong agreement with existing experimental data presented in the literature. This study contributes novel insights into the interaction between LSP parameters and their effects on material properties, with implications for understanding LSP techniques in practical applications. The triangular pulse model and dual-overlap analysis offer a novel simulation strategy for optimizing LSP parameters in stainless steel.</jats:p>",
     "doi": "10.3390/ma18132958",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "本研究使用有限元法 (FEM) 模型研究激光冲击强化 (LSP) 对残余应力分布和表面变形的影响。 LSP 是一种表面处理工艺，通过在纳秒级时间内施加高能激光脉冲来产生压缩残余应力。该研究旨在分析关键参数（特别是激光光斑重叠率和功率密度）对诱发残余应力和表面变形的影响。增加激光",
+    "innovationFormula": "有限元模拟 + 激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.3390/ma18132958"
@@ -1883,7 +1962,7 @@ const PAPERS = [
   {
     "id": "n-120",
     "title": "Investigation on the passivation behavior of 304 austenitic stainless steel treated by laser shock peening based on numerical simulation and experimental verification",
-    "titleCn": "",
+    "titleCn": "基于数值模拟和实验验证的304奥氏体不锈钢激光冲击喷丸钝化行为研究",
     "authors": "Zhang",
     "journal": "Unknown",
     "sourceType": "核心",
@@ -1892,11 +1971,16 @@ const PAPERS = [
     "innovationScore": 6,
     "field": "fem",
     "processType": "simulation",
-    "innovationTags": [],
+    "innovationTags": [
+      "有限元模拟",
+      "不锈钢",
+      "形状记忆合金",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.2139/ssrn.6137904",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "基于数值模拟和实验验证的304奥氏体不锈钢激光冲击喷丸钝化行为研究。本文采用有限元模拟 + 激光冲击的方法，旨在实现性能提升。研究聚焦于有限元数值模拟与多尺度建模方法。研究涉及有限元模拟、不锈钢、形状记忆合金、激光冲击等关键内容，发表在Unknown上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "有限元模拟 + 激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.2139/ssrn.6137904"
@@ -1904,7 +1988,7 @@ const PAPERS = [
   {
     "id": "n-152",
     "title": "Achieving excellent wear and corrosion properties in laser additive manufactured CrMnFeCoNi high-entropy alloy by laser shock peening",
-    "titleCn": "",
+    "titleCn": "通过激光冲击喷丸在激光增材制造的 CrMnFeCoNi 高熵合金中实现优异的磨损和腐蚀性能",
     "authors": "Tong, Pan, Zhou, Yang",
     "journal": "Surface and Coatings Technology",
     "sourceType": "SCI",
@@ -1913,11 +1997,17 @@ const PAPERS = [
     "innovationScore": 9,
     "field": "fatigue",
     "processType": "hybrid_am",
-    "innovationTags": [],
+    "innovationTags": [
+      "增材制造",
+      "腐蚀性能",
+      "磨损性能",
+      "高熵合金",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1016/j.surfcoat.2021.127504",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "通过激光冲击喷丸在激光增材制造的 CrMnFeCoNi 高熵合金中实现优异的磨损和腐蚀性能。本文采用激光冲击 + 增材制造的方法，旨在实现耐磨性提升。研究聚焦于激光冲击对疲劳寿命与磨损性能的改善。研究涉及增材制造、腐蚀性能、磨损性能、高熵合金、激光冲击等关键内容，发表在Surface and Coatings Technology上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 + 增材制造 = 耐磨性提升",
     "subCategory": "",
     "citationCount": 110,
     "link": "https://doi.org/10.1016/j.surfcoat.2021.127504"
@@ -1925,7 +2015,7 @@ const PAPERS = [
   {
     "id": "n-011",
     "title": "Laser shock wave-induced wear property improvement and formation mechanism of laser cladding Ni25 coating on H13 tool steel",
-    "titleCn": "",
+    "titleCn": "H13工具钢激光熔覆Ni25涂层的激光冲击波磨损性能改善及形成机制",
     "authors": "J.Z. Lu, K.N. Xue, H.F. Lu, F. Xing, K.Y. Luo",
     "journal": "Journal of Materials Processing Technology",
     "sourceType": "SCI",
@@ -1934,11 +2024,15 @@ const PAPERS = [
     "innovationScore": 9,
     "field": "fatigue",
     "processType": "hybrid_am",
-    "innovationTags": [],
+    "innovationTags": [
+      "磨损性能",
+      "激光熔覆",
+      "冲击波"
+    ],
     "abstract": "",
     "doi": "10.1016/j.jmatprotec.2021.117202",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "H13工具钢激光熔覆Ni25涂层的激光冲击波磨损性能改善及形成机制。本文采用激光熔覆的方法，旨在实现耐磨性提升。研究聚焦于激光冲击对疲劳寿命与磨损性能的改善。研究涉及磨损性能、激光熔覆、冲击波等关键内容，发表在Journal of Materials Processing Technology上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光熔覆 = 耐磨性提升",
     "subCategory": "",
     "citationCount": 67,
     "link": "https://doi.org/10.1016/j.jmatprotec.2021.117202"
@@ -1946,7 +2040,7 @@ const PAPERS = [
   {
     "id": "n-159",
     "title": "A study on the wear and corrosion resistance of high-entropy alloy treated with laser shock peening and PVD coating",
-    "titleCn": "",
+    "titleCn": "激光冲击喷丸+PVD涂层处理高熵合金耐磨蚀性能研究",
     "authors": "Liao, Gao, Yang, Wu",
     "journal": "Surface and Coatings Technology",
     "sourceType": "SCI",
@@ -1955,11 +2049,17 @@ const PAPERS = [
     "innovationScore": 9,
     "field": "fatigue",
     "processType": "coating",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "腐蚀性能",
+      "磨损性能",
+      "硬度",
+      "高熵合金",
+      "激光冲击"
+    ],
+    "abstract": "A cross-scale study on the effect induced by laser shock peening (LSP) and physical vapor deposition (PVD) coating on the wear and corrosion resistance of FeCoCrNiAl high entropy alloys (HEA) has been made in this work. The nano scale FeCoCrNiAl HEA coating on substrate 304 steel and microscale FeCoCrNiAl HEA has been acquired through PVD nanocoating and LSP, respectively. The micro hardness, friction and corrosion properties have been investigated to evaluate the reliability of the material in ",
     "doi": "10.1016/j.surfcoat.2022.128281",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "本工作对激光冲击喷丸 (LSP) 和物理气相沉积 (PVD) 涂层对 FeCoCrNiAl 高熵合金 (HEA) 耐磨性和耐腐蚀性的影响进行了跨尺度研究。分别通过PVD纳米涂层和LSP在304钢基体上获得纳米级FeCoCrNiAl HEA涂层和微米级FeCoCrNiAl HEA涂层。研究了显微硬度、摩擦和腐蚀特性，以评估材料的可靠性",
+    "innovationFormula": "激光冲击 = 耐磨性提升",
     "subCategory": "",
     "citationCount": 64,
     "link": "https://doi.org/10.1016/j.surfcoat.2022.128281"
@@ -1967,7 +2067,7 @@ const PAPERS = [
   {
     "id": "n-078",
     "title": "Effect of multiple laser shock peening without coating on residual stress distribution and high temperature dry sliding wear behaviour of Ti-6Al-4 V alloy",
-    "titleCn": "",
+    "titleCn": "无涂层多次激光冲击喷丸对Ti-6Al-4V合金残余应力分布及高温干滑动磨损行为的影响",
     "authors": "Praveenkumar, Swaroop, Manivasagam",
     "journal": "Optics &amp; Laser Technology",
     "sourceType": "SCI",
@@ -1976,11 +2076,15 @@ const PAPERS = [
     "innovationScore": 9,
     "field": "fatigue",
     "processType": "warm",
-    "innovationTags": [],
+    "innovationTags": [
+      "残余应力",
+      "磨损性能",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1016/j.optlastec.2023.109398",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "无涂层多次激光冲击喷丸对Ti-6Al-4V合金残余应力分布及高温干滑动磨损行为的影响。本文采用激光冲击的方法，旨在实现残余应力调控。研究聚焦于激光冲击对疲劳寿命与磨损性能的改善。研究涉及残余应力、磨损性能、激光冲击等关键内容，发表在Optics &amp; Laser Technology上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 57,
     "link": "https://doi.org/10.1016/j.optlastec.2023.109398"
@@ -1988,7 +2092,7 @@ const PAPERS = [
   {
     "id": "n-172",
     "title": "Enhancement in fatigue property of Ti-6Al-4V alloy remanufactured by combined laser cladding and laser shock peening processes",
-    "titleCn": "",
+    "titleCn": "激光熔覆与激光冲击喷丸相结合提高Ti-6Al-4V合金再制造的疲劳性能",
     "authors": "Ge, Tang, Zhang, Wang",
     "journal": "Surface and Coatings Technology",
     "sourceType": "SCI",
@@ -1997,11 +2101,15 @@ const PAPERS = [
     "innovationScore": 9,
     "field": "fatigue",
     "processType": "hybrid_am",
-    "innovationTags": [],
+    "innovationTags": [
+      "疲劳性能",
+      "激光熔覆",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1016/j.surfcoat.2022.128671",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "激光熔覆与激光冲击喷丸相结合提高Ti-6Al-4V合金再制造的疲劳性能。本文采用激光冲击 + 激光熔覆的方法，旨在实现疲劳寿命提升。研究聚焦于激光冲击对疲劳寿命与磨损性能的改善。研究涉及疲劳性能、激光熔覆、激光冲击等关键内容，发表在Surface and Coatings Technology上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 + 激光熔覆 = 疲劳寿命提升",
     "subCategory": "",
     "citationCount": 52,
     "link": "https://doi.org/10.1016/j.surfcoat.2022.128671"
@@ -2033,7 +2141,7 @@ const PAPERS = [
   {
     "id": "n-081",
     "title": "Crack closure mechanisms in residual stress fields generated by laser shock peening: A combined experimental-numerical approach",
-    "titleCn": "",
+    "titleCn": "激光冲击喷丸产生的残余应力场中的裂纹闭合机制：实验与数值相结合的方法",
     "authors": "Keller, Horstmann, Kashaev, Klusemann",
     "journal": "Engineering Fracture Mechanics",
     "sourceType": "SCI",
@@ -2042,11 +2150,17 @@ const PAPERS = [
     "innovationScore": 8,
     "field": "fatigue",
     "processType": "simulation",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "有限元模拟",
+      "残余应力",
+      "疲劳性能",
+      "裂纹",
+      "激光冲击"
+    ],
+    "abstract": "Laser shock peening (LSP) is successfully applied to retard fatigue cracks in metallic lightweight structures by introducing specific, in particular compressive, residual stress fields. In this work, experiments and a multi-step simulation strategy are used to explain the fatigue crack retarding and accelerating mechanisms within these LSP-induced residual stress fields. Crack face contact is identified as main mechanism to retard the fatigue crack as the stress distribution changes and the stre",
     "doi": "10.1016/j.engfracmech.2019.106630",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "激光冲击喷丸 (LSP) 通过引入特定的残余应力场（特别是压缩残余应力场），成功应用于延缓金属轻质结构中的疲劳裂纹。在这项工作中，实验和多步模拟策略用于解释这些 LSP 引起的残余应力场内的疲劳裂纹延迟和加速机制。随着应力分布的变化和应力的增加，裂纹面接触被认为是延缓疲劳裂纹产生的主要机制。",
+    "innovationFormula": "有限元模拟 + 激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 50,
     "link": "https://doi.org/10.1016/j.engfracmech.2019.106630"
@@ -2054,7 +2168,7 @@ const PAPERS = [
   {
     "id": "n-177",
     "title": "3D laser shock peening – A new method for improving fatigue properties of selective laser melted parts",
-    "titleCn": "",
+    "titleCn": "3D 激光冲击强化——提高选择性激光熔化零件疲劳性能的新方法",
     "authors": "Kalentics, de Seijas, Griffiths, Leinenbach",
     "journal": "Additive Manufacturing",
     "sourceType": "SCI",
@@ -2063,11 +2177,17 @@ const PAPERS = [
     "innovationScore": 8,
     "field": "fatigue",
     "processType": "general",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "残余应力",
+      "增材制造",
+      "疲劳性能",
+      "选择性激光",
+      "激光冲击"
+    ],
+    "abstract": "Abstract Although Selective Laser Melting (SLM) currently revolutionizes the way parts are being manufactured, certain process inherent limitations such as accumulation of residual stresses and increased porosity content can lead to a decrease in fatigue life of produced parts. 3D Laser Shock Peening is a new hybrid additive manufacturing process whereby a periodic Laser Shock Peening (LSP) treatment is added to the standard SLM process. LSP can be applied selectively in the 3D volume of metalli",
     "doi": "10.1016/j.addma.2020.101112",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "摘要 虽然选择性激光熔化 (SLM) 目前彻底改变了零件的制造方式，但某些工艺固有的限制（例如残余应力的积累和孔隙率增加）可能会导致所生产零件的疲劳寿命缩短。 3D 激光冲击强化是一种新型混合增材制造工艺，在标准 SLM 工艺中添加了定期激光冲击强化 (LSP) 处理。 LSP可以选择性地应用于金属的3D体积",
+    "innovationFormula": "激光冲击 + 增材制造 = 残余应力调控",
     "subCategory": "",
     "citationCount": 47,
     "link": "https://doi.org/10.1016/j.addma.2020.101112"
@@ -2075,7 +2195,7 @@ const PAPERS = [
   {
     "id": "n-015",
     "title": "Effect of laser shock processing on fatigue life of 2205 duplex stainless steel notched specimens",
-    "titleCn": "",
+    "titleCn": "激光冲击加工对2205双相不锈钢缺口试样疲劳寿命的影响",
     "authors": "César A. Vázquez Jiménez, Gilberto Gómez Rosas, Carlos Rubio González, Vignaud Granados Alejo, Silvina Hereñú",
     "journal": "Optics &amp; Laser Technology",
     "sourceType": "SCI",
@@ -2084,11 +2204,14 @@ const PAPERS = [
     "innovationScore": 8,
     "field": "fatigue",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "疲劳性能",
+      "不锈钢"
+    ],
     "abstract": "",
     "doi": "10.1016/j.optlastec.2017.07.020",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "激光冲击加工对2205双相不锈钢缺口试样疲劳寿命的影响。本文采用激光冲击的方法，旨在实现疲劳寿命提升。研究聚焦于激光冲击对疲劳寿命与磨损性能的改善。研究涉及疲劳性能、不锈钢等关键内容，发表在Optics &amp; Laser Technology上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 = 疲劳寿命提升",
     "subCategory": "",
     "citationCount": 36,
     "link": "https://doi.org/10.1016/j.optlastec.2017.07.020"
@@ -2096,7 +2219,7 @@ const PAPERS = [
   {
     "id": "n-155",
     "title": "The influence of laser shock peening on corrosion-fatigue behaviour of wire arc additively manufactured components",
-    "titleCn": "",
+    "titleCn": "激光冲击强化对电弧增材制造部件腐蚀疲劳行为的影响",
     "authors": "Ermakova, Braithwaite, Razavi, Ganguly",
     "journal": "Surface and Coatings Technology",
     "sourceType": "SCI",
@@ -2105,11 +2228,16 @@ const PAPERS = [
     "innovationScore": 8,
     "field": "fatigue",
     "processType": "hybrid_am",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "增材制造",
+      "腐蚀性能",
+      "疲劳性能",
+      "激光冲击"
+    ],
+    "abstract": "The need for increased manufacturing efficiency of large engineering structures has led to development of wire arc additive manufacturing (WAAM), which is also known as direct energy deposition (DED) method. One of the main barriers for rapid adoption of the WAAM technology in wider range of industrial applications is the lack of sufficient performance data on the WAAM components for various materials and operational conditions. The present study addresses this essential need by exploring the ef",
     "doi": "10.1016/j.surfcoat.2023.129262",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "提高大型工程结构制造效率的需求导致了电弧增材制造（WAAM）的发展，也称为直接能量沉积（DED）方法。在更广泛的工业应用中快速采用 WAAM 技术的主要障碍之一是缺乏针对各种材料和操作条件的 WAAM 组件的足够性能数据。本研究通过探索有效的方法来满足这一基本需求",
+    "innovationFormula": "激光冲击 + 增材制造 = 疲劳寿命提升",
     "subCategory": "",
     "citationCount": 31,
     "link": "https://doi.org/10.1016/j.surfcoat.2023.129262"
@@ -2117,7 +2245,7 @@ const PAPERS = [
   {
     "id": "n-186",
     "title": "Mechanism for superior fatigue performance of warm laser shock peened IN718 superalloy after high-temperature ageing",
-    "titleCn": "",
+    "titleCn": "温激光冲击喷丸IN718高温合金高温时效后优异疲劳性能的机制",
     "authors": "Liu, Wang, Yang, Song",
     "journal": "Journal of Alloys and Compounds",
     "sourceType": "SCI",
@@ -2126,11 +2254,15 @@ const PAPERS = [
     "innovationScore": 8,
     "field": "fatigue",
     "processType": "warm",
-    "innovationTags": [],
+    "innovationTags": [
+      "疲劳性能",
+      "高温合金",
+      "温激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1016/j.jallcom.2022.166340",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "温激光冲击喷丸IN718高温合金高温时效后优异疲劳性能的机制。本文采用温冲击的方法，旨在实现疲劳寿命提升。研究聚焦于激光冲击对疲劳寿命与磨损性能的改善。研究涉及疲劳性能、高温合金、温激光冲击等关键内容，发表在Journal of Alloys and Compounds上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "温冲击 = 疲劳寿命提升",
     "subCategory": "",
     "citationCount": 30,
     "link": "https://doi.org/10.1016/j.jallcom.2022.166340"
@@ -2138,7 +2270,7 @@ const PAPERS = [
   {
     "id": "n-002",
     "title": "Laser shock processing on selective laser melted 15-5PH stainless steel: Improving mechanical properties and wear resistance",
-    "titleCn": "",
+    "titleCn": "对选择性激光熔化 15-5PH 不锈钢进行激光冲击加工：提高机械性能和耐磨性",
     "authors": "Jiajun Wu, Wangwang Ding, Yankun Zhai, Hongchao Qiao, Jibin Zhao et al.",
     "journal": "Wear",
     "sourceType": "SCI",
@@ -2147,11 +2279,15 @@ const PAPERS = [
     "innovationScore": 8,
     "field": "fatigue",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "磨损性能",
+      "不锈钢",
+      "选择性激光"
+    ],
     "abstract": "",
     "doi": "10.1016/j.wear.2023.204836",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "对选择性激光熔化 15-5PH 不锈钢进行激光冲击加工：提高机械性能和耐磨性。本文采用激光冲击的方法，旨在实现耐磨性提升。研究聚焦于激光冲击对疲劳寿命与磨损性能的改善。研究涉及磨损性能、不锈钢、选择性激光等关键内容，发表在Wear上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 = 耐磨性提升",
     "subCategory": "",
     "citationCount": 26,
     "link": "https://doi.org/10.1016/j.wear.2023.204836"
@@ -2159,7 +2295,7 @@ const PAPERS = [
   {
     "id": "n-007",
     "title": "Fatigue life and fracture evolution of small-hole specimens by laser shock processing",
-    "titleCn": "",
+    "titleCn": "激光冲击加工小孔试样的疲劳寿命和断裂演化",
     "authors": "Yinfang Jiang, Sili Wang, Wenfan Jiang, Xuedong Gan, Cheng Hua et al.",
     "journal": "Optics &amp; Laser Technology",
     "sourceType": "SCI",
@@ -2168,11 +2304,17 @@ const PAPERS = [
     "innovationScore": 8,
     "field": "fatigue",
     "processType": "general",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "残余应力",
+      "疲劳性能",
+      "铝合金",
+      "裂纹",
+      "形状记忆合金"
+    ],
+    "abstract": "Abstract The fatigue life and fracture characteristics of aluminum alloy small-hole specimens by laser shock processing (LSP) at different external loads were investigated. When the maximum load was 165.8 MPa, 195 MPa and 275.4 MPa, the median fatigue life gain by LSP was 3.77–4.21 times, 2.68–3.02 times and 1.77–2.20 times, respectively. The plastic deformation zone and residual stress distribution produced by LSP can restrain or control the initiation and propagation direction of cracks. It ha",
     "doi": "10.1016/j.optlastec.2020.106423",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "摘要 研究了激光冲击加工（LSP）铝合金小孔试件在不同外载荷下的疲劳寿命和断裂特性。当最大载荷为165.8 MPa、195 MPa和275.4 MPa时，LSP的中位疲劳寿命增益分别为3.77-4.21倍、2.68-3.02倍和1.77-2.20倍。 LSP产生的塑性变形区和残余应力分布可以抑制或控制裂纹的萌生和扩展方向。",
+    "innovationFormula": "激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 24,
     "link": "https://doi.org/10.1016/j.optlastec.2020.106423"
@@ -2254,7 +2396,7 @@ const PAPERS = [
   {
     "id": "n-204",
     "title": "Microhardness and wear behaviour of polycrystalline diamond after warm laser shock processing with and without coating",
-    "titleCn": "",
+    "titleCn": "带涂层和不带涂层的多晶金刚石温激光冲击加工后的显微硬度和磨损行为",
     "authors": "Pacella, St. John, Dolatabadi, Badiee",
     "journal": "International Journal of Refractory Metals and Hard Materials",
     "sourceType": "SCI",
@@ -2263,11 +2405,18 @@ const PAPERS = [
     "innovationScore": 7,
     "field": "fatigue",
     "processType": "warm",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "磨损性能",
+      "铝合金",
+      "温激光冲击",
+      "硬度",
+      "复合材料",
+      "金刚石"
+    ],
+    "abstract": "Cutting tools made of ultra-hard materials such as polycrystalline diamonds offer superior wear resistance in precision machining of Aluminium alloys. However, the wear properties of these materials are dependent on their microstructural characteristics such as grain size and binder percentage. In this context, the present paper evaluates the effects of two low-energy fibre laser processes (nanosecond pulse duration) on microstructural changes of polycrystalline diamond composites and consequent",
     "doi": "10.1016/j.ijrmhm.2019.04.014",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "由多晶金刚石等超硬材料制成的切削刀具在铝合金精密加工中具有卓越的耐磨性。然而，这些材料的磨损性能取决于它们的微观结构特征，例如晶粒尺寸和粘合剂百分比。在此背景下，本文评估了两种低能光纤激光工艺（纳秒脉冲持续时间）对多晶金刚石复合材料微观结构变化的影响以及随之而来的影响。",
+    "innovationFormula": "激光冲击 + 温冲击 = 耐磨性提升",
     "subCategory": "",
     "citationCount": 19,
     "link": "https://doi.org/10.1016/j.ijrmhm.2019.04.014"
@@ -2275,7 +2424,7 @@ const PAPERS = [
   {
     "id": "n-217",
     "title": "The Effect of Laser Peening without Coating on the Fatigue of a 6082-T6 Aluminum Alloy with a Curved Notch",
-    "titleCn": "",
+    "titleCn": "无涂层激光喷丸对弧形缺口6082-T6铝合金疲劳性能的影响",
     "authors": "Troiani, Zavatta",
     "journal": "Metals",
     "sourceType": "SCI",
@@ -2284,11 +2433,18 @@ const PAPERS = [
     "innovationScore": 7,
     "field": "fatigue",
     "processType": "coating",
-    "innovationTags": [],
+    "innovationTags": [
+      "有限元模拟",
+      "残余应力",
+      "疲劳性能",
+      "铝合金",
+      "硬度",
+      "激光冲击"
+    ],
     "abstract": "<jats:p>Laser shock peening has established itself as an effective surface treatment to enhance the fatigue properties of metallic materials. Although a number of works have dealt with the formation of residual stresses, and their consequent effects on the fatigue behavior, the influence of material geometry on the peening process has not been widely addressed. In this paper, Laser Peening without Coating (LPwC) is applied at the surface of a notch in specimens made of a 6082-T6 aluminum alloy. The treated specimens are tested by three-point bending fatigue tests, and their fatigue life is compared to that of untreated samples with an identical geometry. The fatigue life of the treated specimens is found to be 1.7 to 3.3 times longer. Brinell hardness measurements evidence an increase in the surface hardness of about 50%, following the treatment. The material response to peening is modelled by a finite element model, and the compressive residual stresses are computed accordingly. Stresses as high as −210 MPa are present at the notch. The ratio between the notch curvature and the laser spot radius is proposed as a parameter to evaluate the influence of the notch.</jats:p>",
     "doi": "10.3390/met9070728",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "激光冲击喷丸已成为增强金属材料疲劳性能的有效表面处理方法。尽管许多工作已经解决了残余应力的形成及其对疲劳行为的影响，但材料几何形状对喷丸过程的影响尚未得到广泛解决。在本文中，对 6082-T6 铝合金样品的缺口表面进行了无涂层激光喷丸 (LPwC) 处理。",
+    "innovationFormula": "有限元模拟 + 激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 18,
     "link": "https://doi.org/10.3390/met9070728"
@@ -2296,7 +2452,7 @@ const PAPERS = [
   {
     "id": "n-227",
     "title": "Effect of Laser Shock Peening on Fretting Fatigue Life of TC11 Titanium Alloy",
-    "titleCn": "",
+    "titleCn": "激光冲击强化对TC11钛合金微动疲劳寿命的影响",
     "authors": "Yang, Zhang, Cui, Wen",
     "journal": "Materials",
     "sourceType": "SCI",
@@ -2305,11 +2461,18 @@ const PAPERS = [
     "innovationScore": 7,
     "field": "fatigue",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "疲劳性能",
+      "钒合金",
+      "裂纹",
+      "形状记忆合金",
+      "微动磨损",
+      "激光冲击"
+    ],
     "abstract": "<jats:p>The purpose of this paper is to investigate the performance of laser shock peening (LSP) subjected to fretting fatigue with TC11 titanium alloy specimens and pads. Three laser power densities (3.2 GW/cm2, 4.8 GW/cm2 and 6.4 GW/cm2) of LSP were chosen and tested using manufactured fretting fatigue apparatus. The experimental results show that the LSP surface treatment significantly improves the fretting fatigue lives of the fretting specimens, and the fretting fatigue life increases most when the laser power density is 4.8 GW/cm2. It is also found that with the increase of the laser power density, the fatigue crack initiation location tends to move from the surface to the interior of the specimen.</jats:p>",
     "doi": "10.3390/ma13214711",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "本文的目的是研究 TC11 钛合金试件和垫块经微动疲劳后的激光冲击强化 (LSP) 性能。选择三种激光功率密度（3.2 GW/cm2、4.8 GW/cm2 和 6.4 GW/cm2）的 LSP，并使用制造的微动疲劳装置进行测试。实验结果表明，LSP表面处理显着提高了微动试件的微动疲劳寿命，且微动疲劳寿命增加最多。",
+    "innovationFormula": "激光冲击 = 疲劳寿命提升",
     "subCategory": "",
     "citationCount": 18,
     "link": "https://doi.org/10.3390/ma13214711"
@@ -2317,7 +2480,7 @@ const PAPERS = [
   {
     "id": "n-072",
     "title": "Laser shock peening regulating residual stress for fatigue life extension of 30CrMnSiNi2A high-strength steel",
-    "titleCn": "",
+    "titleCn": "激光冲击强化调节残余应力延长30CrMnSiNi2A高强钢疲劳寿命",
     "authors": "Shu, Shen, Cheng, Xiong",
     "journal": "Optics &amp; Laser Technology",
     "sourceType": "SCI",
@@ -2326,11 +2489,15 @@ const PAPERS = [
     "innovationScore": 7,
     "field": "fatigue",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "残余应力",
+      "疲劳性能",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1016/j.optlastec.2023.110094",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "激光冲击强化调节残余应力延长30CrMnSiNi2A高强钢疲劳寿命。本文采用激光冲击的方法，旨在实现残余应力调控。研究聚焦于激光冲击对疲劳寿命与磨损性能的改善。研究涉及残余应力、疲劳性能、激光冲击等关键内容，发表在Optics &amp; Laser Technology上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 17,
     "link": "https://doi.org/10.1016/j.optlastec.2023.110094"
@@ -2338,7 +2505,7 @@ const PAPERS = [
   {
     "id": "n-173",
     "title": "High energy laser shock peening of Ti6Al4V alloy without any protective coating",
-    "titleCn": "",
+    "titleCn": "无保护涂层Ti6Al4V合金高能激光冲击喷丸",
     "authors": "Maharjan, Ramesh, Wang",
     "journal": "Applied Surface Science",
     "sourceType": "SCI",
@@ -2347,10 +2514,12 @@ const PAPERS = [
     "innovationScore": 8,
     "field": "hybrid",
     "processType": "coating",
-    "innovationTags": [],
+    "innovationTags": [
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1016/j.apsusc.2023.158110",
-    "innovationCn": "",
+    "innovationCn": "无保护涂层Ti6Al4V合金高能激光冲击喷丸。本文采用激光冲击的方法，旨在实现性能提升。研究聚焦于复合/特种激光冲击新工艺与多能场耦合。研究涉及激光冲击等关键内容，发表在Applied Surface Science上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
     "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 41,
@@ -2382,7 +2551,7 @@ const PAPERS = [
   {
     "id": "n-012",
     "title": "Delamination in titanium-based carbon-fibre/epoxy laminates under laser shock peening",
-    "titleCn": "",
+    "titleCn": "激光冲击喷丸处理下钛基碳纤维/环氧树脂层压板的分层",
     "authors": "Yu Yang, Wangfan Zhou, Zhaopeng Tong, Lan Chen, Xudong Ren",
     "journal": "Optics &amp; Laser Technology",
     "sourceType": "SCI",
@@ -2391,10 +2560,13 @@ const PAPERS = [
     "innovationScore": 7,
     "field": "hybrid",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "钒合金",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1016/j.optlastec.2021.107282",
-    "innovationCn": "",
+    "innovationCn": "激光冲击喷丸处理下钛基碳纤维/环氧树脂层压板的分层。本文采用激光冲击的方法，旨在实现性能提升。研究聚焦于复合/特种激光冲击新工艺与多能场耦合。研究涉及钒合金、激光冲击等关键内容，发表在Optics &amp; Laser Technology上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
     "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 20,
@@ -2403,7 +2575,7 @@ const PAPERS = [
   {
     "id": "n-183",
     "title": "Improvement of high temperature oxidation resistance of additively manufactured TiC/Inconel 625 nanocomposites by laser shock peening treatment",
-    "titleCn": "",
+    "titleCn": "激光冲击喷丸处理提高增材制造的TiC/Inconel 625纳米复合材料的高温抗氧化性能",
     "authors": "Chen, Sun, Li, Ren",
     "journal": "Additive Manufacturing",
     "sourceType": "SCI",
@@ -2412,11 +2584,18 @@ const PAPERS = [
     "innovationScore": 7,
     "field": "hybrid",
     "processType": "warm",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "增材制造",
+      "抗氧化性能",
+      "复合材料",
+      "裂纹",
+      "选择性激光",
+      "激光冲击"
+    ],
+    "abstract": "Abstract Additive manufacturing has seen large growth due to its numerous process advantages, yet some undesirable defects in additive manufactured (AM) products include pores and micro-cracks. These defects weaken the high temperature oxidation resistance of the final parts. In this work, laser shock peening (LSP) is used as a post-treatment method to change the surface characteristics of selective laser melted (SLM) nano-TiC particle-reinforced Inconel 625 nanocomposites (TiC/IN625). The effec",
     "doi": "10.1016/j.addma.2020.101276",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "摘要 增材制造因其众多的工艺优势而得到了巨大的发展，但增材制造（AM）产品中存在一些不良缺陷，包括孔隙和微裂纹。这些缺陷削弱了最终零件的高温抗氧化能力。在这项工作中，激光冲击喷丸（LSP）被用作后处理方法来改变选择性激光熔化（SLM）纳米TiC颗粒增强Inconel 625纳米复合材料（TiC/IN625）的表面特性。",
+    "innovationFormula": "激光冲击 + 增材制造 = 抗氧化性提升",
     "subCategory": "",
     "citationCount": 20,
     "link": "https://doi.org/10.1016/j.addma.2020.101276"
@@ -2424,7 +2603,7 @@ const PAPERS = [
   {
     "id": "n-189",
     "title": "Laser shock processing improving the high temperature oxidation resistance of the aluminized coating on GH202 by pack cementation",
-    "titleCn": "",
+    "titleCn": "激光冲击加工提高GH202镀铝层高温抗氧化性能",
     "authors": "Cao",
     "journal": "Applied Surface Science",
     "sourceType": "SCI",
@@ -2433,11 +2612,14 @@ const PAPERS = [
     "innovationScore": 7,
     "field": "hybrid",
     "processType": "warm",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "微观组织",
+      "抗氧化性能"
+    ],
+    "abstract": "Abstract The effects of laser shock processing (LSP) on the microstructures and high-temperature-oxidation resistance of the specimens with the aluminized coatings were investigated. Electron backscattered diffraction, transmission electron microscopy, and scanning electron microscopy were used to characterize the microstructures of the specimens before and after LSP. The results show that the aluminized coating is mainly composed of nanoscale NiAl, Ni 2 Al 3 , and a small concentration of Al 86",
     "doi": "10.1016/j.apsusc.2019.07.028",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "摘要 研究了激光冲击加工(LSP)对镀铝层试样显微组织和高温氧化性能的影响。采用电子背散射衍射、透射电子显微镜和扫描电子显微镜对LSP前后样品的微观结构进行表征。结果表明，镀铝层主要由纳米级NiAl、Ni 2 Al 3 和少量Al 86 组成。",
+    "innovationFormula": "激光冲击 = 抗氧化性提升",
     "subCategory": "",
     "citationCount": 20,
     "link": "https://doi.org/10.1016/j.apsusc.2019.07.028"
@@ -2445,7 +2627,7 @@ const PAPERS = [
   {
     "id": "n-168",
     "title": "The Improvement of Surface Properties for Laser Cladding Inconel 625 Coating with Laser Shock Peening",
-    "titleCn": "",
+    "titleCn": "激光冲击强化激光熔覆Inconel 625涂层的表面性能",
     "authors": "Liang, Wang, Wang, Wang",
     "journal": "Journal of Materials Engineering and Performance",
     "sourceType": "SCI",
@@ -2454,11 +2636,14 @@ const PAPERS = [
     "innovationScore": 7,
     "field": "hybrid",
     "processType": "hybrid_am",
-    "innovationTags": [],
+    "innovationTags": [
+      "激光熔覆",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1007/s11665-025-11046-3",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "激光冲击强化激光熔覆Inconel 625涂层的表面性能。本文采用激光冲击 + 激光熔覆的方法，旨在实现性能提升。研究聚焦于复合/特种激光冲击新工艺与多能场耦合。研究涉及激光熔覆、激光冲击等关键内容，发表在Journal of Materials Engineering and Performance上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 + 激光熔覆 = 性能提升",
     "subCategory": "",
     "citationCount": 4,
     "link": "https://doi.org/10.1007/s11665-025-11046-3"
@@ -2489,7 +2674,7 @@ const PAPERS = [
   {
     "id": "n-201",
     "title": "Hybrid Nanostructures and Stabilized Mechanical Properties of High‐Entropy Alloy Induced by Warm Laser Shock Peening",
-    "titleCn": "",
+    "titleCn": "温激光冲击强化高熵合金的混合纳米结构和稳定的机械性能",
     "authors": "Shu, Hu, Yuan, Liu",
     "journal": "Advanced Engineering Materials",
     "sourceType": "SCI",
@@ -2498,11 +2683,18 @@ const PAPERS = [
     "innovationScore": 6,
     "field": "hybrid",
     "processType": "warm",
-    "innovationTags": [],
+    "innovationTags": [
+      "有限元模拟",
+      "残余应力",
+      "微观组织",
+      "纳米结构",
+      "疲劳性能",
+      "温激光冲击"
+    ],
     "abstract": "<jats:sec><jats:label/><jats:p>Recently, the manufacture of high‐entropy‐alloy (HEA) parts by selective laser melting (SLM) has been extensively studied. However, the problems of high tensile residual stress, undesirable microstructure, and unstable mechanical properties in HEA parts caused by SLM process are difficult to be solved simultaneously. Herein, a warm laser shock peening (WLSP) process is used to obtain high strength, stable mechanical property, and favorable residual stress in SLMed FeNiCrCo HEA by regulating the microstructure in material. Experimental and simulation results show that WLSP treatment can induce high‐density dislocations and nanotwins in the HEA, resulting in a 39.4% increase in the surface strength of the HEA. Moreover, because of the high atomic kinetic energy brought by high temperature in WLSP processing, WLSP‐treated sample has higher density of dislocations and nanotwins than the sample treated by the LSP process at room temperature (RLSP), resulting in higher surface strength and better mechanical stability of the WLSP‐treated HEA. Meanwhile, the WLSP treatment enables the tensile residual stress generated in the SLM process to be transformed into compressive residual stress, which can enhance the fatigue performance of the HEA. Therefore, WLSP has great potential in obtaining SLMed HEAs with excellent mechanical properties.</jats:p></jats:sec>",
     "doi": "10.1002/adem.202201066",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "最近，通过选择性激光熔化 (SLM) 制造高熵合金 (HEA) 零件已得到广泛研究。在此，采用温激光冲击喷丸（WLSP）工艺，通过调节材料的微观结构，在 SLMed FeNiCrCo HEA 中获得高强度、稳定的机械性能和良好的残余应力。实验和模拟结果表明，WLSP 处理可以在 HEA 中诱导高密度位错和纳米孪晶，从而产生",
+    "innovationFormula": "有限元模拟 + 激光冲击 + 温冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 6,
     "link": "https://doi.org/10.1002/adem.202201066"
@@ -2510,7 +2702,7 @@ const PAPERS = [
   {
     "id": "n-169",
     "title": "Parameters Optimization for Laser Shock Peening Without Coating Based on Ssa-Svr and Ga",
-    "titleCn": "",
+    "titleCn": "基于Ssa-Svr和Ga的无涂层激光冲击喷丸参数优化",
     "authors": "Luo, Li, Chen, Cui",
     "journal": "Unknown",
     "sourceType": "核心",
@@ -2519,10 +2711,12 @@ const PAPERS = [
     "innovationScore": 6,
     "field": "hybrid",
     "processType": "coating",
-    "innovationTags": [],
+    "innovationTags": [
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.2139/ssrn.5208435",
-    "innovationCn": "",
+    "innovationCn": "基于Ssa-Svr和Ga的无涂层激光冲击喷丸参数优化。本文采用激光冲击的方法，旨在实现性能提升。研究聚焦于复合/特种激光冲击新工艺与多能场耦合。研究涉及激光冲击等关键内容，发表在Unknown上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
     "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 0,
@@ -2531,7 +2725,7 @@ const PAPERS = [
   {
     "id": "n-171",
     "title": "Effect of Laser Shock Peening on the Thermal Cycling Behavior of Β-(Ni, Pt)Al Coating",
-    "titleCn": "",
+    "titleCn": "激光冲击强化对β-(Ni,Pt)Al涂层热循环行为的影响",
     "authors": "Yu, qian, Li, Hua",
     "journal": "Unknown",
     "sourceType": "SCI",
@@ -2540,11 +2734,13 @@ const PAPERS = [
     "innovationScore": 5,
     "field": "hybrid",
     "processType": "coating",
-    "innovationTags": [],
+    "innovationTags": [
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.2139/ssrn.4973091",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "激光冲击强化对β-(Ni,Pt)Al涂层热循环行为的影响。本文采用激光冲击 + 热力耦合的方法，旨在实现性能提升。研究聚焦于复合/特种激光冲击新工艺与多能场耦合。研究涉及激光冲击等关键内容，发表在Unknown上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 + 热力耦合 = 性能提升",
     "subCategory": "",
     "citationCount": 2,
     "link": "https://doi.org/10.2139/ssrn.4973091"
@@ -2552,7 +2748,7 @@ const PAPERS = [
   {
     "id": "n-182",
     "title": "A study on single-crystal alloy surface’s structure and performance of laser shock peening without absorbent coating",
-    "titleCn": "",
+    "titleCn": "无吸收涂层激光冲击喷丸单晶合金表面结构与性能研究",
     "authors": "Xin, Zhihui, Chenguang, ChunZhi",
     "journal": "AIP Conference Proceedings",
     "sourceType": "EI",
@@ -2561,11 +2757,16 @@ const PAPERS = [
     "innovationScore": 5,
     "field": "hybrid",
     "processType": "coating",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "高温合金",
+      "硬度",
+      "单晶",
+      "激光冲击"
+    ],
+    "abstract": "in order to determine how the laser shock peening without absorbent coating (LSPwC) affects Ni-base single-crystal superalloy, DD11, the surface structure and hardness gradient of single-crystal alloy after LSPwC of two pulse energies. The result shows that the width of linear structure is in direct proportion to the laser impact energy by observing the “linear” deformed structure through the scanning electron microscope, and the linear structure’s length increases when the pulse energy increase",
     "doi": "10.1063/1.4966525",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "为了确定无吸收涂层激光冲击喷丸(LSPwC)对镍基单晶高温合金DD11的影响，以及两种脉冲能量的LSPwC后单晶合金的表面结构和硬度梯度。通过扫描电镜观察“线状”变形结构，结果表明，线状结构的宽度与激光冲击能量成正比，并且线状结构的长度随着脉冲能量的增加而增加",
+    "innovationFormula": "激光冲击 = 硬度提升",
     "subCategory": "",
     "citationCount": 1,
     "link": "https://doi.org/10.1063/1.4966525"
@@ -2573,7 +2774,7 @@ const PAPERS = [
   {
     "id": "n-184",
     "title": "A review of the effects of laser shock peening on properties of additively manufactured Ti6Al4V",
-    "titleCn": "",
+    "titleCn": "激光冲击强化对增材制造Ti6Al4V性能影响的综述",
     "authors": "Kanganga, du Plessis, Muvunzi, Khodja",
     "journal": "Fatigue in Additive Manufactured Metals",
     "sourceType": "核心",
@@ -2582,11 +2783,14 @@ const PAPERS = [
     "innovationScore": 5,
     "field": "hybrid",
     "processType": "hybrid_am",
-    "innovationTags": [],
+    "innovationTags": [
+      "增材制造",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1016/b978-0-323-91204-4.00011-3",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "激光冲击强化对增材制造Ti6Al4V性能影响的综述。本文采用激光冲击 + 增材制造的方法，旨在实现性能提升。研究聚焦于复合/特种激光冲击新工艺与多能场耦合。研究涉及增材制造、激光冲击等关键内容，发表在Fatigue in Additive Manufactured Metals上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 + 增材制造 = 性能提升",
     "subCategory": "",
     "citationCount": 1,
     "link": "https://doi.org/10.1016/b978-0-323-91204-4.00011-3"
@@ -2594,7 +2798,7 @@ const PAPERS = [
   {
     "id": "n-010",
     "title": "Laser shock processing of titanium assisted with laser-induced graphene",
-    "titleCn": "",
+    "titleCn": "激光诱导石墨烯辅助钛的激光冲击加工",
     "authors": "Xenia Egorova, Fedor Gorensky, Konstantin Rozanov, Aleksandra Sidorova, Dmitry Sinev et al.",
     "journal": "SSRN Electronic Journal",
     "sourceType": "核心",
@@ -2603,10 +2807,12 @@ const PAPERS = [
     "innovationScore": 5,
     "field": "hybrid",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "钒合金"
+    ],
     "abstract": "",
     "doi": "10.2139/ssrn.4840562",
-    "innovationCn": "",
+    "innovationCn": "激光诱导石墨烯辅助钛的激光冲击加工。本文采用激光冲击的方法，旨在实现性能提升。研究聚焦于复合/特种激光冲击新工艺与多能场耦合。研究涉及钒合金等关键内容，发表在SSRN Electronic Journal上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
     "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 0,
@@ -2615,7 +2821,7 @@ const PAPERS = [
   {
     "id": "n-019",
     "title": "Microhardness and microabrasion behaviour of NiTi shape memory alloy after femtosecond laser shock peening without coating in air",
-    "titleCn": "",
+    "titleCn": "NiTi形状记忆合金空气中无涂层飞秒激光冲击喷丸后的显微硬度和微磨损行为",
     "authors": "Hao Wang, Evgeny Gurevich, Andreas Ostendorf",
     "journal": "High-Power Laser Materials Processing: Applications, Diagnostics, and Systems IX",
     "sourceType": "SCI",
@@ -2624,11 +2830,17 @@ const PAPERS = [
     "innovationScore": 5,
     "field": "hybrid",
     "processType": "coating",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "超快激光",
+      "硬度",
+      "冲击波",
+      "形状记忆合金",
+      "激光冲击"
+    ],
+    "abstract": "The experiment study presents the influence of femtosecond laser shock peening (FsLSP) without a protective layer in the air on the surface hardness and surface mechanical property of NiTi shape memory alloy. Femtosecond laser shock peening is a new possibility of direct laser ablation without any protective layer under atmospheric conditions, which can produce intense shock waves with low pulse energy in the air. The average surface roughness values of the NiTi alloy samples were measured, beca",
     "doi": "10.1117/12.2543550",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "实验研究了空气中无保护层的飞秒激光冲击喷丸（FsLSP）对NiTi形状记忆合金表面硬度和表面力学性能的影响。飞秒激光冲击喷丸是大气条件下无任何保护层的直接激光烧蚀的新可能性，它可以在空气中产生低脉冲能量的强烈冲击波。测量 NiTi 合金样品的平均表面粗糙度值，因为",
+    "innovationFormula": "激光冲击 + 超快激光 = 硬度提升",
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.1117/12.2543550"
@@ -2636,7 +2848,7 @@ const PAPERS = [
   {
     "id": "n-175",
     "title": "Rapid Surface Modification of Slm-Fabricated Gh3625 Ni-Based Superalloy by Micro-Scale Laser Shock Peening Without Coating",
-    "titleCn": "",
+    "titleCn": "无涂层微尺度激光冲击喷丸快速表面改性 SLM 制造的 Gh3625 镍基高温合金",
     "authors": "XV, Nie, Li, Li",
     "journal": "Unknown",
     "sourceType": "核心",
@@ -2645,10 +2857,13 @@ const PAPERS = [
     "innovationScore": 5,
     "field": "hybrid",
     "processType": "coating",
-    "innovationTags": [],
+    "innovationTags": [
+      "高温合金",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.2139/ssrn.5007529",
-    "innovationCn": "",
+    "innovationCn": "无涂层微尺度激光冲击喷丸快速表面改性 SLM 制造的 Gh3625 镍基高温合金。本文采用激光冲击的方法，旨在实现性能提升。研究聚焦于复合/特种激光冲击新工艺与多能场耦合。研究涉及高温合金、激光冲击等关键内容，发表在Unknown上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
     "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 0,
@@ -2657,7 +2872,7 @@ const PAPERS = [
   {
     "id": "n-179",
     "title": "Microhardness and microabrasion behaviour of NiTi shape memory alloy after femtosecond laser shock peening without coating in air",
-    "titleCn": "",
+    "titleCn": "NiTi形状记忆合金空气中无涂层飞秒激光冲击喷丸后的显微硬度和微磨损行为",
     "authors": "Wang, Gurevich, Ostendorf",
     "journal": "High-Power Laser Materials Processing: Applications, Diagnostics, and Systems IX",
     "sourceType": "SCI",
@@ -2666,11 +2881,17 @@ const PAPERS = [
     "innovationScore": 5,
     "field": "hybrid",
     "processType": "coating",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "超快激光",
+      "硬度",
+      "冲击波",
+      "形状记忆合金",
+      "激光冲击"
+    ],
+    "abstract": "The experiment study presents the influence of femtosecond laser shock peening (FsLSP) without a protective layer in the air on the surface hardness and surface mechanical property of NiTi shape memory alloy. Femtosecond laser shock peening is a new possibility of direct laser ablation without any protective layer under atmospheric conditions, which can produce intense shock waves with low pulse energy in the air. The average surface roughness values of the NiTi alloy samples were measured, beca",
     "doi": "10.1117/12.2543550",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "实验研究了空气中无保护层的飞秒激光冲击喷丸（FsLSP）对NiTi形状记忆合金表面硬度和表面力学性能的影响。飞秒激光冲击喷丸是大气条件下无任何保护层的直接激光烧蚀的新可能性，它可以在空气中产生低脉冲能量的强烈冲击波。测量 NiTi 合金样品的平均表面粗糙度值，因为",
+    "innovationFormula": "激光冲击 + 超快激光 = 硬度提升",
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.1117/12.2543550"
@@ -2678,7 +2899,7 @@ const PAPERS = [
   {
     "id": "n-181",
     "title": "Formation Mechanism of Surface Morphology In Fgh97 Powder Metallurgy Superalloy by Micro-Scale Laser Shock Peening Without Coating",
-    "titleCn": "",
+    "titleCn": "Fgh97粉末冶金高温合金微尺度无涂层激光冲击喷丸表面形貌形成机制",
     "authors": "Fayong, Nie, Nan, Yazhou",
     "journal": "Unknown",
     "sourceType": "核心",
@@ -2687,10 +2908,13 @@ const PAPERS = [
     "innovationScore": 5,
     "field": "hybrid",
     "processType": "coating",
-    "innovationTags": [],
+    "innovationTags": [
+      "高温合金",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.2139/ssrn.4961002",
-    "innovationCn": "",
+    "innovationCn": "Fgh97粉末冶金高温合金微尺度无涂层激光冲击喷丸表面形貌形成机制。本文采用激光冲击的方法，旨在实现性能提升。研究聚焦于复合/特种激光冲击新工艺与多能场耦合。研究涉及高温合金、激光冲击等关键内容，发表在Unknown上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
     "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 0,
@@ -2699,7 +2923,7 @@ const PAPERS = [
   {
     "id": "n-210",
     "title": "The effect of laser shock peening with different absorbing coatings on the hardness of aluminum alloy",
-    "titleCn": "",
+    "titleCn": "不同吸收涂层激光冲击喷丸对铝合金硬度的影响",
     "authors": "Wang, Lu, Ma",
     "journal": "Nineteenth National Conference on Laser Technology and Optoelectronics",
     "sourceType": "EI",
@@ -2708,11 +2932,18 @@ const PAPERS = [
     "innovationScore": 5,
     "field": "hybrid",
     "processType": "coating",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "残余应力",
+      "铝合金",
+      "硬度",
+      "等离子体",
+      "冲击波",
+      "激光冲击"
+    ],
+    "abstract": "During laser shock peening, the pulsed laser with high energy is irradiated on the surface of the absorbing coating, after which the laser induces a plasma explosion. The plasma explosion could induce a shock wave with high peak pressure much higher than the yield strength of metal samples so that the plastic deformation can be formed after laser shock peening. After laser shock peening on metal materials, the shock wave could form compressive residual stress near the surface of the sample, whic",
     "doi": "10.1117/12.3038667",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "在激光冲击强化过程中​​，高能量的脉冲激光照射在吸收涂层的表面，然后激光诱发等离子体爆炸。等离子爆炸可诱发远高于金属样品屈服强度的高峰值压力冲击波，从而使激光冲击喷丸后形成塑性变形。金属材料经过激光冲击喷丸处理后，冲击波会在样品表面附近形成残余压应力，从而",
+    "innovationFormula": "激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.1117/12.3038667"
@@ -2830,7 +3061,7 @@ const PAPERS = [
     "abstract": "Abstract Laser-matter interaction and plasma dynamic during laser shock processing determine the key parameters such as laser shock wave pressure and evolution during laser shock processing (LSP) process. A first-principle based model is critically important for elucidating the underlying mechanism and process optimization of the LSP process. The current study focuses on developing a theoretical model for the fundamental understanding of laser-matter interaction and plasma dynamics. The key phys",
     "doi": "10.1115/msec2019-2848",
     "innovationCn": "摘要 激光冲击加工过程中激光与物质的相互作用和等离子体动力学决定了激光冲击加工（LSP）过程中激光冲击波压力和演化等关键参数。基于第一性原理的模型对于阐明 LSP 过程的基本机制和过程优化至关重要。目前的研究重点是开发一个理论模型，以从根本上理解激光与物质相互作用和等离子体动力学。关键物理",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationFormula": "激光冲击 + 等离子体模拟 = 性能提升",
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.1115/msec2019-2848"
@@ -2838,7 +3069,7 @@ const PAPERS = [
   {
     "id": "n-037",
     "title": "Measurement of plasma electron density generated in an experiment of Laser Shock Processing, utilizing the Hα-line",
-    "titleCn": "",
+    "titleCn": "利用 Hα 线测量激光冲击加工实验中产生的等离子体电子密度",
     "authors": "C. Moreno-Díaz, A. Alonso-Medina, C. Colón, J.A. Porro, J.L. Ocaña",
     "journal": "Journal of Materials Processing Technology",
     "sourceType": "SCI",
@@ -2847,10 +3078,12 @@ const PAPERS = [
     "innovationScore": 7,
     "field": "nano",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "等离子体"
+    ],
     "abstract": "",
     "doi": "10.1016/j.jmatprotec.2016.01.026",
-    "innovationCn": "",
+    "innovationCn": "利用 Hα 线测量激光冲击加工实验中产生的等离子体电子密度。本文采用激光冲击的方法，旨在实现性能提升。研究聚焦于纳米尺度激光冲击变形与超快激光加工。研究涉及等离子体等关键内容，发表在Journal of Materials Processing Technology上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
     "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 19,
@@ -2929,7 +3162,7 @@ const PAPERS = [
   {
     "id": "n-216",
     "title": "High energy femtosecond laser peening of 2024 aluminum alloy",
-    "titleCn": "",
+    "titleCn": "2024铝合金高能飞秒激光喷丸",
     "authors": "Lei, Yang, Wang, Chen",
     "journal": "Procedia CIRP",
     "sourceType": "EI",
@@ -2938,11 +3171,16 @@ const PAPERS = [
     "innovationScore": 6,
     "field": "nano",
     "processType": "nano_lsp",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "铝合金",
+      "超快激光",
+      "等离子体",
+      "激光冲击"
+    ],
+    "abstract": "A femtosecond laser with a pulse energy of up to 100 mJ is used to investigate the feasibility of laser peening of a 2024 aluminum alloy that is widely used in aerospace industry. Laser beam directly irradiates the as-received aluminum sample surface in air without any protective coating for laser absorption and transparent overlay for plasma confinement. The effects of pulse energy, pulse duration and beam spot size on peening performance are studied. Optical microscope and SEM are used to exam",
     "doi": "10.1016/j.procir.2018.08.141",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "采用脉冲能量高达 100 mJ 的飞秒激光来研究对航空航天工业中广泛使用的 2024 铝合金进行激光喷丸的可行性。激光束直接照射空气中的铝样品表面，无需任何用于激光吸收的保护涂层和用于等离子体限制的透明覆盖层。研究了脉冲能量、脉冲持续时间和束斑尺寸对喷丸性能的影响。使用光学显微镜和SEM进行检查",
+    "innovationFormula": "超快激光 = 性能提升",
     "subCategory": "",
     "citationCount": 9,
     "link": "https://doi.org/10.1016/j.procir.2018.08.141"
@@ -2950,7 +3188,7 @@ const PAPERS = [
   {
     "id": "n-021",
     "title": "Nanosecond pulse shaping allowing 500 mJ injection in a single core multimode fiber for laser shock peening applications (Conference Presentation)",
-    "titleCn": "",
+    "titleCn": "纳秒脉冲整形允许在单芯多模光纤中注入 500 mJ，用于激光冲击强化应用（会议演示）",
     "authors": "Guillaume Gorju, Nadezda Varkentina, Adam Ayeb, Xavier Levecq",
     "journal": "High-Power Laser Materials Processing: Applications, Diagnostics, and Systems IX",
     "sourceType": "SCI",
@@ -2959,10 +3197,13 @@ const PAPERS = [
     "innovationScore": 5,
     "field": "nano",
     "processType": "nano_lsp",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "等离子体",
+      "激光冲击"
+    ],
+    "abstract": "Laser shock surface treatment applications, ie with plasma formation, require pulses of very high peak power and duration of the order of a few tens of nanoseconds. This processing technique are generally performed in free space due to the difficulties to inject such peak power in a single core fiber. We present a innovative method allowing to inject 500 mJ pulses at 1064 nm in a single core multimode fiber. This subsystem allows at once to secure the input interface of the fiber and to reduce t",
     "doi": "10.1117/12.2546091",
-    "innovationCn": "",
+    "innovationCn": "激光冲击表面处理应用，即等离子体形成，需要非常高峰值功率和几十纳秒量级的持续时间的脉冲。由于在单芯光纤中注入这样的峰值功率很困难，因此这种处理技术通常在自由空间中执行。我们提出了一种创新方法，允许在单芯多模光纤中注入 1064 nm 的 500 mJ 脉冲。该子系统可以立即保护光纤的输入接口并减少t",
     "innovationFormula": "激光冲击 = 性能提升",
     "subCategory": "",
     "citationCount": 0,
@@ -2971,7 +3212,7 @@ const PAPERS = [
   {
     "id": "n-208",
     "title": "Improvement of Plasma Nitriding Efficacy of Alloy Steel by Laser Peening",
-    "titleCn": "",
+    "titleCn": "激光喷丸提高合金钢等离子渗氮效果",
     "authors": "Unknown",
     "journal": "NanoWorld Journal",
     "sourceType": "SCI",
@@ -2980,11 +3221,16 @@ const PAPERS = [
     "innovationScore": 5,
     "field": "nano",
     "processType": "general",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "残余应力",
+      "等离子体",
+      "渮氮",
+      "激光冲击"
+    ],
+    "abstract": "Avinash S, Vineet Kumar Yadav, Tony M Shaju, Vijayan K and Pradeep K Laser peening is an advanced technology used for improving metallic material properties. These improved properties are achieved through induced compressive residual stresses. This will enhance the useful service life of products in the intended applications.",
     "doi": "10.17756/nwj.2023-s1-018",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "Avinash S、Vineet Kumar Yadav、Tony M Shaju、Vijayan K 和 Pradeep K 激光喷丸是一种用于改善金属材料性能的先进技术。这些改进的性能是通过诱导残余压应力实现的。这将延长产品在预期应用中的使用寿命。",
+    "innovationFormula": "渮氮处理 = 残余应力调控",
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.17756/nwj.2023-s1-018"
@@ -2992,7 +3238,7 @@ const PAPERS = [
   {
     "id": "n-143",
     "title": "Laser shock peening (LSP): Electrochemical and hydrodynamic investigation of corrosion protection pre-treatment for a copper surface in 3.5 % NaCl medium",
-    "titleCn": "",
+    "titleCn": "激光冲击喷丸 (LSP)：3.5% NaCl 介质中铜表面腐蚀防护预处理的电化学和流体动力学研究",
     "authors": "Chukwuike, Echem, Prabhakaran, AnandKumar",
     "journal": "Corrosion Science",
     "sourceType": "SCI",
@@ -3001,11 +3247,15 @@ const PAPERS = [
     "innovationScore": 9,
     "field": "surface",
     "processType": "general",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "腐蚀性能",
+      "电化学性能",
+      "激光冲击"
+    ],
+    "abstract": "HAL is a multi-disciplinary open access archive for the deposit and dissemination of scientific research documents, whether they are published or not. The documents may come from teaching and research institutions in France or abroad, or from public or private research centers. L'archive ouverte pluridisciplinaire HAL, est destine au dpt et la diffusion de documents scientifiques de niveau recherche, publis ou non, manant des tablissements d'enseignement et de recherche franais ou trangers, des ",
     "doi": "10.1016/j.corsci.2020.109156",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "HAL 是一个多学科的开放获取档案馆，用于存放和传播科学研究文件，无论它们是否已出版。这些文件可能来自法国或国外的教学和研究机构，或者来自公共或私人研究中心。 L'Archive ouverte pluridisciplinaire HAL, est destin au dpt et laifiques de Documents de niveau recherche, publis ou non, manant des tablissements d'enseignement et de recherche franais or trangers, des",
+    "innovationFormula": "激光冲击 = 耐腐蚀性提升",
     "subCategory": "",
     "citationCount": 76,
     "link": "https://doi.org/10.1016/j.corsci.2020.109156"
@@ -3013,7 +3263,7 @@ const PAPERS = [
   {
     "id": "n-146",
     "title": "Obvious improvement in electrochemical and long-term immersion corrosion resistance of AISI 420 martensitic stainless steel using laser shock peening",
-    "titleCn": "",
+    "titleCn": "激光冲击喷丸显着改善 AISI 420 马氏体不锈钢的电化学和长期浸没腐蚀性能",
     "authors": "Wang, Luo, Cai, Lu",
     "journal": "Corrosion Science",
     "sourceType": "SCI",
@@ -3022,11 +3272,16 @@ const PAPERS = [
     "innovationScore": 9,
     "field": "surface",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "腐蚀性能",
+      "不锈钢",
+      "电化学性能",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1016/j.corsci.2022.110688",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "激光冲击喷丸显着改善 AISI 420 马氏体不锈钢的电化学和长期浸没腐蚀性能。本文采用激光冲击的方法，旨在实现耐腐蚀性提升。研究聚焦于表面改性工程与腐蚀抗力提升。研究涉及腐蚀性能、不锈钢、电化学性能、激光冲击等关键内容，发表在Corrosion Science上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 = 耐腐蚀性提升",
     "subCategory": "",
     "citationCount": 66,
     "link": "https://doi.org/10.1016/j.corsci.2022.110688"
@@ -3034,7 +3289,7 @@ const PAPERS = [
   {
     "id": "n-163",
     "title": "Effect of laser shock peening without coating on fretting corrosion of copper contacts",
-    "titleCn": "",
+    "titleCn": "无涂层激光冲击喷丸对铜触点微动腐蚀的影响",
     "authors": "Park, Jung, Chun, Ahn",
     "journal": "Applied Surface Science",
     "sourceType": "SCI",
@@ -3043,11 +3298,17 @@ const PAPERS = [
     "innovationScore": 9,
     "field": "surface",
     "processType": "coating",
-    "innovationTags": [],
-    "abstract": "",
+    "innovationTags": [
+      "残余应力",
+      "腐蚀性能",
+      "硬度",
+      "微动磨损",
+      "激光冲击"
+    ],
+    "abstract": "Abstract The effects of laser shock peening without coating (LSPwC) on the degradation of copper electrical contact was investigated. A Nd:YAG laser with laser energy densities of 5.3 and 10.6 GW/cm2 was used for the LSPwC process. Surface hardness was enhanced from 55 HV to 110 and 120 HV for the laser shock-peened copper at 5.3 GW/cm2 and 10.6 GW/cm2, respectively. Moreover, near the copper surface, LSPwC introduced the max. compressive residual stress of 387.5 and 385.5 MPa for laser energy d",
     "doi": "10.1016/j.apsusc.2020.145917",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "摘要 研究了无涂层激光冲击喷丸 (LSPwC) 对铜电接触退化的影响。 LSPwC 工艺使用激光能量密度为 5.3 和 10.6 GW/cm2 的 Nd:YAG 激光器。激光冲击喷丸铜的表面硬度从 55 HV 分别提高到 5.3 GW/cm2 和 10.6 GW/cm2。激光能量 d 的残余压缩应力为 387.5 和 385.5 MPa",
+    "innovationFormula": "激光冲击 = 残余应力调控",
     "subCategory": "",
     "citationCount": 57,
     "link": "https://doi.org/10.1016/j.apsusc.2020.145917"
@@ -3055,7 +3316,7 @@ const PAPERS = [
   {
     "id": "n-223",
     "title": "Comparison of mechanical and corrosion properties of 7050 aluminum alloy after different laser shock peening",
-    "titleCn": "",
+    "titleCn": "7050铝合金不同激光冲击喷丸后力学性能和腐蚀性能比较",
     "authors": "Guo, Wang, He, Peng",
     "journal": "Optics &amp; Laser Technology",
     "sourceType": "SCI",
@@ -3064,11 +3325,15 @@ const PAPERS = [
     "innovationScore": 9,
     "field": "surface",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "腐蚀性能",
+      "铝合金",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1016/j.optlastec.2022.108061",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "7050铝合金不同激光冲击喷丸后力学性能和腐蚀性能比较。本文采用激光冲击的方法，旨在实现耐腐蚀性提升。研究聚焦于表面改性工程与腐蚀抗力提升。研究涉及腐蚀性能、铝合金、激光冲击等关键内容，发表在Optics &amp; Laser Technology上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 = 耐腐蚀性提升",
     "subCategory": "",
     "citationCount": 56,
     "link": "https://doi.org/10.1016/j.optlastec.2022.108061"
@@ -3076,7 +3341,7 @@ const PAPERS = [
   {
     "id": "n-222",
     "title": "Effect of laser peening on electrochemical properties of titanium stabilized 321 steel",
-    "titleCn": "",
+    "titleCn": "激光喷丸对钛稳定321钢电化学性能的影响",
     "authors": "Karthik, Swaroop",
     "journal": "Materials Chemistry and Physics",
     "sourceType": "SCI",
@@ -3085,11 +3350,15 @@ const PAPERS = [
     "innovationScore": 8,
     "field": "surface",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "钒合金",
+      "电化学性能",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1016/j.matchemphys.2017.02.022",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "激光喷丸对钛稳定321钢电化学性能的影响。本文采用激光冲击的方法，旨在实现电化学性能提升。研究聚焦于表面改性工程与腐蚀抗力提升。研究涉及钒合金、电化学性能、激光冲击等关键内容，发表在Materials Chemistry and Physics上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 = 电化学性能提升",
     "subCategory": "",
     "citationCount": 25,
     "link": "https://doi.org/10.1016/j.matchemphys.2017.02.022"
@@ -3097,7 +3366,7 @@ const PAPERS = [
   {
     "id": "n-166",
     "title": "Effects of Laser Shock Peening on Corrosion Resistance of Additive Manufactured AlSi10Mg",
-    "titleCn": "",
+    "titleCn": "激光冲击强化对增材制造 AlSi10Mg 耐蚀性的影响",
     "authors": "Maleki, Unal, Shao, Shamsaei",
     "journal": "Coatings",
     "sourceType": "SCI",
@@ -3106,11 +3375,18 @@ const PAPERS = [
     "innovationScore": 8,
     "field": "surface",
     "processType": "hybrid_am",
-    "innovationTags": [],
+    "innovationTags": [
+      "残余应力",
+      "微观组织",
+      "增材制造",
+      "腐蚀性能",
+      "硬度",
+      "织构"
+    ],
     "abstract": "<jats:p>Mechanical properties of Al alloys make them an ideal candidate for different sections of marine, aerospace, automotive, etc. industries. Recently taking the advantages of additive manufacturing (AM), many complex infrastructures/components can be fabricated with very high design freedom via Al alloys. Although Al alloys have good natural corrosion resistance, however improving this property attracts lots of attention in the past few years. Post-processing methods can play a key role for addressing the issues related to internal and surface anomalies associated with as-built AM parts. Generally, these anomalies have detrimental effects on mechanical properties. In the present study, the effect of laser shock peening (LSP) treatment with different laser pulse overlaps and energies was investigated comprehensively on microstructure, surface texture, porosity, hardness, residual stresses as well as corrosion resistance of laser powder bed fused (L-PBF) AlSi10Mg samples. LSP provides strain deformation on the surface, and the deformation enhances by laser beam energy. LSP1 (laser energy of 1.5 J and 50% overlap) and LSP3 (laser energy of 4.5 J and 50% overlap) introduce maximum local strain of 7.5 and 10.7, respectively. The surface roughness of as-built state µm in terms of Rv was effectively diminished to 16.33 after LSP6 (laser energy of 4.5 J and 75% overlap). The results indicated that due to the modified surface texture, improved hardness and induced high compressive residual stresses in the surface layer. (surface hardness improvement and inducing high surface compressive residual stresses were obtained after LSP6 up to 26% and −289 MPa, respectively); the LSP treated samples exhibited higher corrosion resistance with the corrosion rate decreasing down to 50% as compared to the as-built state.</jats:p>",
     "doi": "10.3390/coatings13050874",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "铝合金的机械性能使其成为船舶、航空航天、汽车等不同领域的理想选择。在本研究中，综合研究了不同激光脉冲重叠和能量的激光冲击喷丸（LSP）处理对激光粉末床熔融（L-PBF）AlSi10Mg样品的显微组织、表面织构、孔隙率、硬度、残余应力以及耐腐蚀性能的影响。结果表明，由于表面改性",
+    "innovationFormula": "激光冲击 + 增材制造 = 残余应力调控",
     "subCategory": "",
     "citationCount": 24,
     "link": "https://doi.org/10.3390/coatings13050874"
@@ -3118,7 +3394,7 @@ const PAPERS = [
   {
     "id": "n-164",
     "title": "Influence of laser shock peening on surface characteristics and corrosion behavior of zirconium alloy",
-    "titleCn": "",
+    "titleCn": "激光冲击强化对锆合金表面特性及腐蚀行为的影响",
     "authors": "Li, Guo, Yu, Ning",
     "journal": "Materials Characterization",
     "sourceType": "SCI",
@@ -3127,11 +3403,14 @@ const PAPERS = [
     "innovationScore": 7,
     "field": "surface",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "腐蚀性能",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1016/j.matchar.2023.113387",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "激光冲击强化对锆合金表面特性及腐蚀行为的影响。本文采用激光冲击的方法，旨在实现耐腐蚀性提升。研究聚焦于表面改性工程与腐蚀抗力提升。研究涉及腐蚀性能、激光冲击等关键内容，发表在Materials Characterization上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 = 耐腐蚀性提升",
     "subCategory": "",
     "citationCount": 19,
     "link": "https://doi.org/10.1016/j.matchar.2023.113387"
@@ -3139,7 +3418,7 @@ const PAPERS = [
   {
     "id": "n-145",
     "title": "Role of heat treatment and laser shock peening on the electrochemical corrosion properties of 15–5 precipitation hardening stainless steel manufactured by laser powder bed fusion process",
-    "titleCn": "",
+    "titleCn": "热处理和激光冲击强化对激光粉末床熔合工艺制造的15-5沉淀硬化不锈钢电化学腐蚀性能的影响",
     "authors": "Ramadas, Kumar Nath, Madapana, Dutta Majumdar",
     "journal": "Applied Surface Science",
     "sourceType": "SCI",
@@ -3148,11 +3427,17 @@ const PAPERS = [
     "innovationScore": 7,
     "field": "surface",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "腐蚀性能",
+      "不锈钢",
+      "热处理",
+      "电化学性能",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1016/j.apsusc.2024.160969",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "热处理和激光冲击强化对激光粉末床熔合工艺制造的15-5沉淀硬化不锈钢电化学腐蚀性能的影响。本文采用激光冲击 + 热处理的方法，旨在实现耐腐蚀性提升。研究聚焦于表面改性工程与腐蚀抗力提升。研究涉及腐蚀性能、不锈钢、热处理、电化学性能、激光冲击等关键内容，发表在Applied Surface Science上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 + 热处理 = 耐腐蚀性提升",
     "subCategory": "",
     "citationCount": 14,
     "link": "https://doi.org/10.1016/j.apsusc.2024.160969"
@@ -3160,7 +3445,7 @@ const PAPERS = [
   {
     "id": "n-154",
     "title": "Recrystallization suppression and electrochemical corrosion behavior enhancement in DD6 superalloy via warm laser shock peening",
-    "titleCn": "",
+    "titleCn": "通过温激光冲击喷丸抑制 DD6 高温合金的再结晶并增强电化学腐蚀行为",
     "authors": "Tang, Dong, Wang, Li",
     "journal": "Corrosion Science",
     "sourceType": "SCI",
@@ -3169,11 +3454,18 @@ const PAPERS = [
     "innovationScore": 7,
     "field": "surface",
     "processType": "warm",
-    "innovationTags": [],
+    "innovationTags": [
+      "腐蚀性能",
+      "高温合金",
+      "温激光冲击",
+      "电化学性能",
+      "重结晶",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1016/j.corsci.2025.113198",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "通过温激光冲击喷丸抑制 DD6 高温合金的再结晶并增强电化学腐蚀行为。本文采用激光冲击 + 温冲击的方法，旨在实现耐腐蚀性提升。研究聚焦于表面改性工程与腐蚀抗力提升。研究涉及腐蚀性能、高温合金、温激光冲击、电化学性能、重结晶、激光冲击等关键内容，发表在Corrosion Science上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 + 温冲击 = 耐腐蚀性提升",
     "subCategory": "",
     "citationCount": 7,
     "link": "https://doi.org/10.1016/j.corsci.2025.113198"
@@ -3181,7 +3473,7 @@ const PAPERS = [
   {
     "id": "n-214",
     "title": "Laser peening induced mitigation of severe pitting corrosion in titanium stabilized 321 steel",
-    "titleCn": "",
+    "titleCn": "激光喷丸可减轻钛稳定 321 钢中的严重点蚀",
     "authors": "Karthik, Deshmukh, Praveenkumar, Swaroop",
     "journal": "Optics &amp; Laser Technology",
     "sourceType": "SCI",
@@ -3190,11 +3482,15 @@ const PAPERS = [
     "innovationScore": 6,
     "field": "surface",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "腐蚀性能",
+      "钒合金",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1016/j.optlastec.2023.110537",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "激光喷丸可减轻钛稳定 321 钢中的严重点蚀。本文采用激光冲击的方法，旨在实现耐腐蚀性提升。研究聚焦于表面改性工程与腐蚀抗力提升。研究涉及腐蚀性能、钒合金、激光冲击等关键内容，发表在Optics &amp; Laser Technology上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 = 耐腐蚀性提升",
     "subCategory": "",
     "citationCount": 9,
     "link": "https://doi.org/10.1016/j.optlastec.2023.110537"
@@ -3202,7 +3498,7 @@ const PAPERS = [
   {
     "id": "n-156",
     "title": "Corrosion evolution of 316L stainless steel after ultrasonic severe surface rolling and laser shock peening processing",
-    "titleCn": "",
+    "titleCn": "316L不锈钢经超声波严酷表面滚压和激光冲击喷丸处理后的腐蚀演化",
     "authors": "Jinlong, Maolei, Xiong, Zhiping",
     "journal": "Vacuum",
     "sourceType": "SCI",
@@ -3211,11 +3507,15 @@ const PAPERS = [
     "innovationScore": 6,
     "field": "surface",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "腐蚀性能",
+      "不锈钢",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1016/j.vacuum.2024.113398",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "316L不锈钢经超声波严酷表面滚压和激光冲击喷丸处理后的腐蚀演化。本文采用激光冲击的方法，旨在实现耐腐蚀性提升。研究聚焦于表面改性工程与腐蚀抗力提升。研究涉及腐蚀性能、不锈钢、激光冲击等关键内容，发表在Vacuum上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 = 耐腐蚀性提升",
     "subCategory": "",
     "citationCount": 5,
     "link": "https://doi.org/10.1016/j.vacuum.2024.113398"
@@ -3223,7 +3523,7 @@ const PAPERS = [
   {
     "id": "n-161",
     "title": "Improvement in electrochemical and long-term immersion corrosion resistance of AH32 marine steel using laser shock peening",
-    "titleCn": "",
+    "titleCn": "利用激光冲击强化提高 AH32 船用钢的电化学和长期浸没腐蚀性能",
     "authors": "Li, Shen, Hua, Liu",
     "journal": "Surfaces and Interfaces",
     "sourceType": "SCI",
@@ -3232,11 +3532,15 @@ const PAPERS = [
     "innovationScore": 6,
     "field": "surface",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "腐蚀性能",
+      "电化学性能",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.1016/j.surfin.2025.107183",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "利用激光冲击强化提高 AH32 船用钢的电化学和长期浸没腐蚀性能。本文采用激光冲击的方法，旨在实现耐腐蚀性提升。研究聚焦于表面改性工程与腐蚀抗力提升。研究涉及腐蚀性能、电化学性能、激光冲击等关键内容，发表在Surfaces and Interfaces上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 = 耐腐蚀性提升",
     "subCategory": "",
     "citationCount": 2,
     "link": "https://doi.org/10.1016/j.surfin.2025.107183"
@@ -3338,7 +3642,7 @@ const PAPERS = [
   {
     "id": "n-158",
     "title": "Effect of Laser Shock Peening on Corrosion Resistance Of Ansi 304 Stainless Steel Bent Tubes",
-    "titleCn": "",
+    "titleCn": "激光冲击强化对 Ansi 304 不锈钢弯管耐腐蚀性能的影响",
     "authors": "Zhang, Zhang, Zhang, Zuo",
     "journal": "Unknown",
     "sourceType": "核心",
@@ -3347,11 +3651,15 @@ const PAPERS = [
     "innovationScore": 6,
     "field": "surface",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "腐蚀性能",
+      "不锈钢",
+      "激光冲击"
+    ],
     "abstract": "",
     "doi": "10.2139/ssrn.5208436",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "激光冲击强化对 Ansi 304 不锈钢弯管耐腐蚀性能的影响。本文采用激光冲击的方法，旨在实现耐腐蚀性提升。研究聚焦于表面改性工程与腐蚀抗力提升。研究涉及腐蚀性能、不锈钢、激光冲击等关键内容，发表在Unknown上，为激光冲击强化领域的工艺优化和性能提升提供了重要参考。",
+    "innovationFormula": "激光冲击 = 耐腐蚀性提升",
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.2139/ssrn.5208436"
@@ -3359,7 +3667,7 @@ const PAPERS = [
   {
     "id": "n-165",
     "title": "Effects of Laser Shock Peening With and Without Coating on the Corrosion Resistance of Sensitized 304L Stainless Steel",
-    "titleCn": "",
+    "titleCn": "有涂层和无涂层激光冲击喷丸对敏化304L不锈钢耐蚀性的影响",
     "authors": "Chiang, Vasudevan",
     "journal": "Unknown",
     "sourceType": "核心",
@@ -3368,11 +3676,18 @@ const PAPERS = [
     "innovationScore": 6,
     "field": "surface",
     "processType": "coating",
-    "innovationTags": [],
+    "innovationTags": [
+      "微观组织",
+      "腐蚀性能",
+      "不锈钢",
+      "抗氧化性能",
+      "位错",
+      "X射线衡射"
+    ],
     "abstract": "<jats:p>This study examined the effects of laser shock peening (LSP) and LSP without protective coating (LSPwC) on the microstructure and corrosion behavior of 304L stainless steel using cyclic polarization testing. LSP enhanced corrosion resistance under mild sensitization (650°C; 5hrs) by inducing compressive stress and increasing dislocation density, stabilizing the passive film. Limited improvement was observed under severe sensitization (650°C; 24 hrs). Deformation-induced martensite detected by XRD was attributed to mechanical polishing, not LSP. In contrast, LSPwC reduced corrosion resistance across all conditions due to Fe-rich surface oxides that impaired passivation.</jats:p>",
     "doi": "10.20944/preprints202512.0640.v1",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "这项研究使用循环偏振测试研究了激光冲击喷丸 (LSP) 和无保护涂层的 LSP (LSPwC) 对 304L 不锈钢微观结构和腐蚀行为的影响。 LSP 通过诱导压应力和增加位错密度，稳定钝化膜，增强了轻度敏化（650°C；5 小时）下的耐腐蚀性。在严重致敏（650°C；24 小时）下观察到有限的改善。相比之下，LSPwC 减少了腐蚀",
+    "innovationFormula": "激光冲击 = 耐腐蚀性提升",
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.20944/preprints202512.0640.v1"
@@ -3380,7 +3695,7 @@ const PAPERS = [
   {
     "id": "n-009",
     "title": "Effect of Laser Shock Peening on Electrochemical Corrosion Resistance of 2024 Aluminum Alloy",
-    "titleCn": "",
+    "titleCn": "激光冲击强化对2024铝合金电化学腐蚀性能的影响",
     "authors": "Hao Wang, Yihui Huang, Zhenying Du, Wenwu Zhang, Mengxue Bi",
     "journal": "Volume 1: Processing",
     "sourceType": "SCI",
@@ -3389,11 +3704,16 @@ const PAPERS = [
     "innovationScore": 5,
     "field": "surface",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "腐蚀性能",
+      "铝合金",
+      "电化学性能",
+      "激光冲击"
+    ],
     "abstract": "Laser shock peening is an innovation technique due to its significant improvement on the corrosion resistance of metallic materials. The study describes the effect of laser shock peening with multiple LSP impacts on the corrosion resistance of 2024 aluminum alloy in NaCl water solution with a mass fraction of 3.5% by using electrochemical technique. The experimental results reveal that LSP significantly reduces the corrosion rate of 2024 aluminum alloy, and as the number of impacts increases the corrosion rate decreases. The study demonstrates that LSP is an effective method to improve the electrochemical corrosion resistance of 2024 aluminum alloy.",
     "doi": "10.1115/msec2016-8549",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "激光冲击强化是一项创新技术，可显着提高金属材料的耐腐蚀性能。研究采用电化学技术，描述了多次LSP冲击的激光冲击喷丸对2024铝合金在质量分数为3.5%的NaCl水溶液中耐腐蚀性能的影响。实验结果表明，LSP显着降低了2024铝合金的腐蚀速率，并且随着冲击次数的增加，",
+    "innovationFormula": "激光冲击 = 耐腐蚀性提升",
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.1115/msec2016-8549"
@@ -3401,7 +3721,7 @@ const PAPERS = [
   {
     "id": "n-144",
     "title": "Effect of Laser Shock Peening on Electrochemical Corrosion Resistance of 2024 Aluminum Alloy",
-    "titleCn": "",
+    "titleCn": "激光冲击强化对2024铝合金电化学腐蚀性能的影响",
     "authors": "Wang, Huang, Du, Zhang",
     "journal": "Volume 1: Processing",
     "sourceType": "SCI",
@@ -3410,11 +3730,16 @@ const PAPERS = [
     "innovationScore": 5,
     "field": "surface",
     "processType": "general",
-    "innovationTags": [],
+    "innovationTags": [
+      "腐蚀性能",
+      "铝合金",
+      "电化学性能",
+      "激光冲击"
+    ],
     "abstract": "<jats:p>Laser shock peening is an innovation technique due to its significant improvement on the corrosion resistance of metallic materials. The study describes the effect of laser shock peening with multiple LSP impacts on the corrosion resistance of 2024 aluminum alloy in NaCl water solution with a mass fraction of 3.5% by using electrochemical technique. The experimental results reveal that LSP significantly reduces the corrosion rate of 2024 aluminum alloy, and as the number of impacts increases the corrosion rate decreases. The study demonstrates that LSP is an effective method to improve the electrochemical corrosion resistance of 2024 aluminum alloy.</jats:p>",
     "doi": "10.1115/msec2016-8549",
-    "innovationCn": "",
-    "innovationFormula": "激光冲击 = 性能提升",
+    "innovationCn": "激光冲击喷丸是一项创新技术，可显着提高金属材料的耐腐蚀性能。研究采用电化学技术，描述了多次LSP冲击的激光冲击喷丸对2024铝合金在质量分数为3.5%的NaCl水溶液中耐腐蚀性能的影响。实验结果表明，LSP显着降低了2024铝合金的腐蚀速率，并且随着冲击次数的增加",
+    "innovationFormula": "激光冲击 = 耐腐蚀性提升",
     "subCategory": "",
     "citationCount": 0,
     "link": "https://doi.org/10.1115/msec2016-8549"
